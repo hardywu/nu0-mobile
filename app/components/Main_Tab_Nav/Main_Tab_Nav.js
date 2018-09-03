@@ -7,6 +7,7 @@ import Quotation from '../../pages/Quotation/Quotation'
 import Pricing from '../../pages/Pricing/Pricing'
 import French from '../../pages/French/French'
 import Contract from '../../pages/Contract/Contract'
+//
 
 export const MainTabNav = createBottomTabNavigator(
     {
