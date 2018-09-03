@@ -1,0 +1,3 @@
+rootProject.name = 'digital_cash'
+
+include ':app'
