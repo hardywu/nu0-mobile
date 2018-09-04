@@ -9,28 +9,45 @@ import {
     ScrollView,
     Image
 } from 'react-native';
-import styles from './Home_Style'
+import mStyles from '../../public/common_style'; 
+import styles from './Home_Style';
 
 export default class Home extends Component {
     render() {
         return (
-            <View style={{flex: 1}}>
-                <StatusBar backgroundColor='#fff' animated={true} barStyle='dark-content'/>
-                <View style={styles.userContainer}>
-                    <View style={[styles.userContainerCenter, styles.plr10]}>
-                        <Image 
-                            style={{width: 50, height: 50}}
-                            source={require('../../static/imgs/user_default.png')}
+            <View style={ mStyles.mFlex1 }>
+                <StatusBar backgroundColor='#333' animated={ true } barStyle='dark-content'/>
+                <View style={ styles.userContainer }>
+                    {/* 登录的状态开始 */}
+                    <View style={ [styles.userContainerCenter, styles.plr10, {display: 'none'}] }>
+                        <Image
+                            style={ styles.userImg }
+                            source={ require('../../static/imgs/user_default.png') }
                         />
-                        <Text>17922764886</Text>
+                        <Text style={ styles.tel }>17922764886</Text>
                     </View>
+                    {/* 登录的状态结束 */}
+                    {/* 未登录的状态开始 */}
+                    <View style={ [styles.loginContainerCenter, styles.plr10] }>
+                        <Image
+                            style={ styles.logoImg }
+                            source={ require('../../static/imgs/logo.png') }
+                        />
+                        <View style={ styles.loginRBox }>
+                            <Text style={ styles.login }>登录/注册</Text>
+                            <Image
+                                style={ styles.settingImg }
+                                source={ require('../../static/imgs/setting.png') }
+                            />
+                        </View>
+                    </View>
+                    {/* 未登录的状态结束 */}
                 </View>
                 <ScrollView
-                    style={styles.mainContainer}
-                    showsVerticalScrollIndicator={false}
+                    style={ styles.mainContainer }
+                    showsVerticalScrollIndicator={ false }
                 >
-                    <Text style={{height: 1000}}>这是中间的滚动页面   (flex: 1)</Text>
-                    <Text>页面展示在这个组件中</Text>
+                    
                 </ScrollView>
             </View>
         );
