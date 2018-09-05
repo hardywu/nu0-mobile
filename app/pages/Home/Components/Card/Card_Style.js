@@ -1,63 +1,52 @@
-import Contract from '../../public/constant'
+import Contract from '../../../../public/constant'
 import { StyleSheet } from 'react-native'
 
 export default styles = StyleSheet.create({
-    plr10: {
-        paddingLeft: 10,
-        paddingRight: 10
+    bgBule: {
+        backgroundColor: '#5291f2'
     },
 
-    userContainer: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        height: 70,
+    bgPurple: {
+        backgroundColor: '#8476f1'
+    },
+
+    bgGreen: {
+        backgroundColor: '#57b370'
+    },
+
+    cardContainer: {
+        height: 108,
+        // paddingTop: 12,
+        // paddingBottom: 12,
+        // paddingLeft: 10,
+        // paddingRight: 10,
+        padding: 10,
         backgroundColor: '#fff'
     },
 
-    userContainerCenter: {
-        flexDirection: 'row',
-        alignItems: 'center'
+    cardScroll: {
+
     },
 
-    loginContainerCenter: {
-        flex: 1,
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center'
+    cardItem: {
+        flexDirection: 'column',
+        justifyContent: 'center',
+        width: 140,
+        height: '100%',
+        paddingLeft: 16,
+        paddingRight: 16,
+        borderRadius: 10,
+        marginRight: 14
     },
 
-    loginRBox: {
-        flexDirection: 'row',
-        alignItems: 'center'
+    cardItemB: {
+        marginBottom: 6,
+        fontSize: 15.4,
+        color: '#fff'
     },
 
-    login: {
-        fontSize: 16,
-        color: Contract.BLUE_COLOR
-    },
-
-    userImg: {
-        width: 50,
-        height: 50
-    },
-
-    logoImg: {
-        width: 120,
-        height: 50
-    },
-
-    settingImg: {
-        width: 22,
-        height: 22,
-        marginLeft: 20
-    },
-
-    tel: {
-        fontSize: 26,
-    },
-
-    mainContainer: {
-        flex: 1,
-        backgroundColor: 'pink'
+    cardItemS: {
+        fontSize: 11,
+        color: '#fff'
     }
 });
