@@ -58,6 +58,28 @@ export default styles = StyleSheet.create({
 
     mainContainer: {
         flex: 1,
-        backgroundColor: 'pink'
+        backgroundColor: '#fff'
+    },
+
+    quoTitleBox: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        paddingTop: 12,
+        paddingBottom: 12,
+        borderBottomWidth: 1,
+        borderBottomColor: '#d9d9d9',
+        marginTop: 4,
+        marginLeft: 10,
+        marginRight: 10
+    },
+
+    quoTitle: {
+        color: Contract.GRAY_COLOR
+    },
+
+    bottomCont: {
+        marginTop: 24,
+        marginBottom: 10,
+        textAlign: 'center'
     }
 });

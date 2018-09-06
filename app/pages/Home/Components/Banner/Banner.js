@@ -21,7 +21,7 @@ export default class Banner extends Component {
                     style={styles.bannerBox}
                     showsPagination={false}
                     loop={true}
-                // autoplay={ true }
+                    autoplay={true}
                 >
                     <View style={styles.bannerItem}>
                         <Image
