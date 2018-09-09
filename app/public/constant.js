@@ -4,5 +4,5 @@ export default Contract = {
     GRAY_COLOR: '#b5b5b7', //常用灰色
     BLUE_COLOR: '#3075ef', //常用蓝色
     RED_COLOR: '#ef5f53', //常用红色
-    GREEN_COLOR: '#5eca91', //常用绿色
+    GREEN_COLOR: '#4db872', //常用绿色
 }

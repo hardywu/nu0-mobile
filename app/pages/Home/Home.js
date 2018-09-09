@@ -26,6 +26,7 @@ export default class Home extends Component {
             <View style={mStyles.mFlex1}>
                 <StatusBar
                     backgroundColor='#fff'
+                    hidden={true}
                     animated={true}
                     barStyle='dark-content'
                 />

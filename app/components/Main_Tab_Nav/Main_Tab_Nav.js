@@ -87,6 +87,7 @@ export const MainTabNav = createBottomTabNavigator(
         },
     },
     {
+        initialRouteName: 'Quotation',
         tabBarOptions: {
             //当前选中的tab bar的文本颜色和图标颜色
             activeTintColor: Constant.ACTIVE_COLOR,
@@ -120,9 +121,9 @@ export const MainTabNav = createBottomTabNavigator(
             indicatorStyle: { height: 0 },
         },
         //是否允许滑动切换tab页
-        swipeEnabled: true,
+        swipeEnabled: false,
         //是否在切换tab页时使用动画
-        animationEnabled: true,
+        animationEnabled: false,
         //是否懒加载
         lazy: true,
         //返回按钮是否会导致tab切换到初始tab页？ 如果是，则设置为initialRoute，否则为none。 缺省为initialRoute。
