@@ -7,6 +7,7 @@ import {
     View,
     StatusBar,
     ScrollView,
+    FlatList,
     Image
 } from 'react-native';
 import mStyles from '../../../../public/common_style';
