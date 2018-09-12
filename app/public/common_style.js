@@ -8,6 +8,14 @@ export default mStyles = StyleSheet.create({
         flex: 1
     },
 
+    mFontColor999: {
+        color: '#999'
+    },
+
+    mBlackColor: {
+        color: '#333'
+    },
+
     mGrayColor: {
         color: Contract.GRAY_COLOR
     },
@@ -44,6 +52,10 @@ export default mStyles = StyleSheet.create({
 
     mGreenColor: {
         color: Contract.GREEN_COLOR
+    },
+
+    mGreenBorderLeft: {
+        borderLeftColor: Contract.GREEN_COLOR
     },
 
     mGreenBorderBottom: {

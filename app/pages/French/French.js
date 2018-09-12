@@ -16,6 +16,15 @@ import {
 import Anim from '../../public/animation'
 import mStyles from '../../public/common_style';
 import styles from './French_Style';
+import zfbDisableIcon from '../../static/imgs/zfb_disable.png';
+import zfbNormalIcon from '../../static/imgs/zfb_normal.png'
+import wzfDisableIcon from '../../static/imgs/wzf_disable.png';
+import wzfNormalIcon from '../../static/imgs/wzf_normal.png'
+import bankDisableIcon from '../../static/imgs/bank_disable.png';
+import bankNormalIcon from '../../static/imgs/bank_normal.png';
+import grayArrowIcon from '../../static/imgs/arrow_gray.png'; //灰色箭头icon
+import unselectedIcon from '../../static/imgs/unselected.png'; //位选中icon
+import selectedIcon from '../../static/imgs/selected.png'; //选中icon
 
 //一级导航显示和隐藏的动画
 const mainNavAnim = {
@@ -96,6 +105,30 @@ export default class French extends Component {
                     }
                 ]
             }, //一级导航
+
+            subNav: {
+                data: [
+                    {
+                        type: 0,
+                        name: '购买',
+                        isActive: true,
+                    }, {
+                        type: 1,
+                        name: '出售',
+                        isActive: false,
+                    }, {
+                        type: 2,
+                        name: '委托单',
+                        isActive: false,
+                    }, {
+                        type: 3,
+                        name: '订单',
+                        isActive: false,
+                    }
+                ]
+            }, //二级导航
+
+            isCertification: true, //用户是否已经认证
         }
     }
 
@@ -137,28 +170,59 @@ export default class French extends Component {
         this.setState({ mainNav: mainNav });
     }
 
+    //处理
+    handleSubNavItemRelease = (evt, index) => {
+        let { subNav } = this.state;
+
+        let data = subNav.data;
+        for(let i = 0; i < data.length; i++) {
+            if(i === index) {
+                data[i].isActive = true;
+            } else {
+                data[i].isActive = false;
+            }
+        }
+        this.setState({ subNav: subNav });
+    }
+
+    //列表循环元素
     renderListItem = (item) => {
+        let { isCertification } = this.state;
+
         return (
             <View style={styles.listItem}>
-                <View style={styles.listItemHead}>
+                <View style={[styles.listItemHead, isCertification ? mStyles.mGreenBorderLeft : '']}>
                     <View style={styles.listItemHeadInfo}>
-                        <Text style={styles.listItemHeadInfoUser}>图弹幕比付款</Text>
-                        <Text style={styles.listItemHeadDeal}>已交易12334</Text>
-                        <Text style={styles.listItemHeadDealRate}>成交率20%</Text>
+                        <Text style={[styles.listItemHeadInfoUser, isCertification ? mStyles.mFontColor999 : '']}>图弹幕比付款</Text>
+                        <Text style={[styles.listItemHeadDeal, isCertification ? mStyles.mFontColor999 : '']}>已交易12334</Text>
+                        <Text style={[styles.listItemHeadDealRate, isCertification ? mStyles.mFontColor999 : '']}>成交率20%</Text>
                     </View>
-                    <View style={styles.listItemHeadPayFunc}></View>
+                    <View style={styles.listItemHeadPayFunc}>
+                        <Image
+                            style={styles.listItemHeadPayFuncIcon}
+                            source={bankNormalIcon}
+                        />
+                        <Image
+                            style={styles.listItemHeadPayFuncIcon}
+                            source={wzfNormalIcon}
+                        />
+                        <Image
+                            style={styles.listItemHeadPayFuncIcon}
+                            source={zfbNormalIcon}
+                        />
+                    </View>
                 </View>
                 <View style={styles.listItemBody}>
                     <View style={styles.listItemBodyItem}>
-                        <Text style={styles.listItemBodyItemValBig}>1,234,23.00</Text>
+                        <Text style={[styles.listItemBodyItemValBig, isCertification ? mStyles.mBlackColor : '']}>1,234,23.00</Text>
                         <Text style={styles.listItemBodyItemKey}>价格CNY</Text>
                     </View>
                     <View style={styles.listItemBodyItem}>
-                        <Text style={styles.listItemBodyItemValSmall}>1234-23321</Text>
+                        <Text style={[styles.listItemBodyItemValSmall, isCertification ? mStyles.mBlackColor : '']}>1234-23321</Text>
                         <Text style={styles.listItemBodyItemKey}>限额</Text>
                     </View>
                     <View style={[styles.listItemBodyItem, {borderRightWidth: 0}]}>
-                        <Text style={styles.listItemBodyItemValSmall}>10,000</Text>
+                        <Text style={[styles.listItemBodyItemValSmall, isCertification ? mStyles.mBlackColor : '']}>10,000</Text>
                         <Text style={styles.listItemBodyItemKey}>数量</Text>
                     </View>
                 </View>
@@ -169,8 +233,14 @@ export default class French extends Component {
     render() {
         const _this = this;
         let {
-            mainNav
+            mainNav,
+            subNav
         } = this.state;
+
+
+        let listData=[[{}],[{},{}],[{},{},{},{},{},{},{},{},{},{},{}]];
+
+        let listIndex = 0;
 
         //遍历一级导航的选项
         let mainNavItemsDOM = mainNav.data.map((items, index) => {
@@ -193,42 +263,50 @@ export default class French extends Component {
             )
         });
 
-        let listData = [
-            {
-                
-            }, {
-                
-            }, {
-                
-            }, {
-                
-            }, {
-                
-            }, {
-                
-            }, {
-                
-            }, {
-                
-            }, {
-                
-            }, {
-                
-            }, {
-                
-            }, {
-                
-            }, {
-                
-            }, {
-                
-            }, {
-                
-            }, {
-                
-            },
+        //遍历二级导航的选项
+        let subNavItemsDOM = subNav.data.map((item, index) => {
+            let brderBottomColor = null;
+            let color = null;
 
-        ]
+            if(item.isActive) {
+                listIndex = index; //找到当前list应该显示的索引
+            }
+
+            if(item.type === 0) {
+                if(item.isActive) {
+                    brderBottomColor = mStyles.mGreenBorderBottom;
+                    color = mStyles.mGreenColor;
+                }
+            } else if(item.type === 1) {
+                if(item.isActive) {
+                    brderBottomColor = mStyles.mRedBorderBottom;
+                    color = mStyles.mRedColor;
+                }
+            } else if(item.type === 2) {
+                if(item.isActive) {
+                    brderBottomColor = mStyles.mBlueBorderBottom;
+                    color = mStyles.mBlueColor;
+                }
+            } else if(item.type === 3) {
+                if(item.isActive) {
+                    brderBottomColor = mStyles.mGreenBorderBottom;
+                    color = mStyles.mGreenColor;
+                }
+            }
+
+            return(
+                <View
+                    style={styles.subNavItemWrap}
+                    onStartShouldSetResponder={() => true}
+                    onResponderRelease={evt => this.handleSubNavItemRelease(evt, index)}
+                    key={index}
+                >
+                    <View style={[styles.subNavItem, brderBottomColor]}>
+                        <Text style={[styles.subNavItemText, color]}>{item.name}</Text>
+                    </View>
+                </View>
+            );
+        });
 
         return (
             <View style={mStyles.mFlex1}>
@@ -255,7 +333,7 @@ export default class French extends Component {
                                     height: 14,
                                     marginLeft: 8
                                 }}
-                                source={require('../../static/imgs/arrow.png')}
+                                source={require('../../static/imgs/arrow_black.png')}
                             />
                         </View>
                         <View style={styles.mainNavRight}>
@@ -265,7 +343,7 @@ export default class French extends Component {
                 </View>
                 {/* 购买，出售，委托，订单 选择开始 */}
                 <View style={styles.subNav}>
-                    <View style={styles.subNavItemWrap}>
+                    {/* <View style={styles.subNavItemWrap}>
                         <View style={[styles.subNavItem, mStyles.mGreenBorderBottom]}>
                             <Text style={[styles.subNavItemText, mStyles.mGreenColor]}>购买</Text>
                         </View>
@@ -284,16 +362,55 @@ export default class French extends Component {
                         <View style={styles.subNavItem}>
                             <Text style={styles.subNavItemText}>订单</Text>
                         </View>
-                    </View>
+                    </View> */}
+                    {subNavItemsDOM}
                 </View>
                 {/* 购买，出售，委托，订单 选择结束 */}
-                {/* 搜索栏开始 */}
-                <View style={styles.searchBar}></View>
-                {/* 搜索栏结束 */}
+                {/* 资产开始 */}
+                <View style={[styles.assets, subNav.data[1].isActive ? '' : styles.searchBarHide]}>
+                    <View style={[mStyles.mCenterContent, mStyles.mFlex1]}>
+                        <View style={styles.assetsCenterContent}>
+                            <Text style={styles.assetsText}>可用: 0.0000{mainNav.title}</Text>
+                            <Text style={styles.assetsText}>冻结: 0.0000{mainNav.title}</Text>
+                            <Image
+                                style={styles.assetsArrow}
+                                source={grayArrowIcon}
+                            />
+                        </View>
+                    </View>
+                </View>
+                {/* 资产结束 */}
+                {/* 条件筛选开始 */}
+                <View style={styles.searchBar}>
+                    <View style={[mStyles.mCenterContent, mStyles.mFlex1, styles.searchBarCenterContent]}>
+                        <View style={styles.searchBarItem}>
+                            <Image
+                                style={styles.searchBarItemSelectIcon}
+                                source={unselectedIcon}
+                            />
+                            <Text style={styles.searchBarItemText}>认证商家</Text>
+                        </View>
+                        <View style={styles.searchBarItem}>
+                            <Text style={styles.searchBarItemText}>所有金额</Text>
+                            <Image
+                                style={styles.searchBarItemArrowIcon}
+                                source={grayArrowIcon}
+                            />
+                        </View>
+                        <View style={styles.searchBarItem}>
+                            <Text style={styles.searchBarItemText}>所有方式</Text>
+                            <Image
+                                style={styles.searchBarItemArrowIcon}
+                                source={grayArrowIcon}
+                            />
+                        </View>
+                    </View>
+                </View>
+                {/* 条件筛选结束 */}
                 {/* 列表开始 */}
                 <View style={styles.list}>
                     <FlatList
-                        data={listData}
+                        data={listData[listIndex]}
                         renderItem={this.renderListItem}
                         showsVerticalScrollIndicator={false}
                     />

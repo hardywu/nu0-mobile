@@ -55,6 +55,7 @@ export default styles = StyleSheet.create({
         top: 51,
         left: 0,
         zIndex: 9999,
+        overflow: 'hidden',
         width: '100%',
         flexDirection: 'row',
         flexWrap: 'wrap',
@@ -110,14 +111,82 @@ export default styles = StyleSheet.create({
         color: '#666'
     },
 
-    //TODO: 这里写搜索栏
+    //资产开始
+    assets: {
+        width: '100%',
+        flexDirection: 'row',
+        height: 36,
+        borderBottomWidth: 1,
+        borderBottomColor: '#e6e6e6',
+        backgroundColor: '#fff'
+    },
+
+    assetsCenterContent: {
+        flex: 1,
+        flexDirection: 'row',
+        alignItems: 'center',
+        paddingRight: 16
+    },
+
+    assetsText: {
+        flex: 1,
+        fontSize: 12,
+        color: '#b5b5b7'
+    },
+
+    assetsArrow: {
+        position: 'absolute',
+        right: 0,
+        width: 16,
+        height: 16,
+        transform: [
+            { rotate: '-90deg' }
+        ]
+    },
+    //资产结束
+
+    //条件筛选栏开始
     searchBar: {
         height: 36,
         borderBottomWidth: 1,
         borderBottomColor: '#e6e6e6',
-        backgroundColor: 'pink'
+        backgroundColor: '#fff'
     },
-    //TODO: 这里写搜索栏
+
+    searchBarHide: {
+        overflow: 'hidden',
+        height: 0,
+    },
+
+    searchBarCenterContent: {
+        flexDirection: 'row',
+        justifyContent: 'space-between'
+    },
+
+    searchBarItem: {
+        flex: .2,
+        flexDirection: 'row',
+        // justifyContent: 'center',
+        alignItems: 'center'
+    },
+
+    searchBarItemText: {
+        fontSize: 13,
+        color: '#b5b5b7'
+    },
+
+    searchBarItemSelectIcon: {
+        width: 13,
+        height: 13,
+        marginRight: 4
+    },
+
+    searchBarItemArrowIcon: {
+        width: 13,
+        height: 13,
+        marginLeft: 4
+    },
+    //条件筛选栏结束
 
     list: {
         flex: 1,
@@ -153,6 +222,13 @@ export default styles = StyleSheet.create({
 
     listItemHeadPayFunc: {
         flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'space-between'
+    },
+
+    listItemHeadPayFuncIcon: {
+        width: 15,
+        height: 15
     },
 
     listItemHeadInfoUser: {
