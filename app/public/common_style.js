@@ -4,6 +4,14 @@ import {
 import Contract from './constant'
 
 export default mStyles = StyleSheet.create({
+    mHide: {
+        display: 'none'
+    },
+
+    mFlex: {
+        display: 'flex'
+    },
+
     mFlex1: {
         flex: 1
     },
@@ -24,13 +32,16 @@ export default mStyles = StyleSheet.create({
         borderBottomColor: Contract.GRAY_COLOR
     },
 
-
     mBlueColor: {
         color: Contract.BLUE_COLOR
     },
 
     mBlueBg: {
         backgroundColor: Contract.BLUE_COLOR
+    },
+
+    mBlueBorder: {
+        borderColor: Contract.BLUE_COLOR
     },
 
     mBlueBorderBottom: {
