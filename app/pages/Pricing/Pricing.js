@@ -19,7 +19,6 @@ import styles from './Pricing_Style';
 export default class Pricing extends Component {
     constructor(props) {
         super(props);
-        
         this.state = {
             activeMainNavIndex: 0, //被激活的一级nav的索引
         }
