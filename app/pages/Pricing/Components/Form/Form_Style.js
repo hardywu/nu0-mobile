@@ -1,5 +1,16 @@
-import Contract from '../../../../public/constant'
-import { StyleSheet } from 'react-native'
+import Contract from '../../../../public/constant';
+import {
+    StyleSheet,
+    Platform
+} from 'react-native';
+
+let formSelectStyle = (() => {
+    if(Platform.OS === "ios") {
+        return { zIndex: 9 }
+    } else {
+        return {}
+    }
+})()
 
 export default styles = StyleSheet.create({
     mt12: {
@@ -29,8 +40,7 @@ export default styles = StyleSheet.create({
     //买入/卖出按钮结束
 
     //下拉框开始
-    formSelect: {
-    },
+    formSelect: formSelectStyle,
 
     formSelectMain: {
         flexDirection: 'row',
@@ -52,6 +62,34 @@ export default styles = StyleSheet.create({
         width: 14,
         height: 14,
         resizeMode: 'contain'
+    },
+
+    formSelectOptions: {
+        position: 'absolute',
+        top: 43,
+        width: '100%',
+        paddingTop: 8,
+        paddingBottom: 8,
+        borderRadius: 4,
+        backgroundColor: '#fff',
+        zIndex: 9,
+        elevation: 6,
+        shadowColor:'#000',
+        shadowOffset:{
+            height: 0,
+            width: 0
+        },
+        shadowRadius: 2,
+        shadowOpacity: 0.3,
+    },
+
+    formSelectOptionsItem: {
+        paddingLeft: 10,
+        paddingRight: 10,
+        fontSize: 14,
+        lineHeight: 30,
+        textAlign: 'center',
+        color: Contract.DEFAULT_FONT_COLOR
     },
     //下拉框结束
 

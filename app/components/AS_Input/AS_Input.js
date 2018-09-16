@@ -35,6 +35,14 @@ export default class ASInput extends Component {
     }
 
     render() {
+        const {
+            placeholder,
+            value,
+            onAddRelease,
+            onSubRelease,
+            onValChange
+        } = this.props;
+
         let {
             isFocus
         } = this.state;
@@ -46,18 +54,30 @@ export default class ASInput extends Component {
                     isFocus ? mStyles.mBlueBorder : ''
                 ]}>
                     <View style={styles.ASInputOperationLeft}>
-                        <Text style={[styles.ASInputOperation, mStyles.mBlueColor]}>-</Text>
+                        <Text
+                            style={[styles.ASInputOperation, mStyles.mBlueColor]}
+                            onStartShouldSetResponder={() => true}
+                            onResponderRelease={evt => onSubRelease(evt)}
+                        >-</Text>
                     </View>
                     <TextInput
                         style={styles.ASInput}
                         underlineColorAndroid='transparent'
                         keyboardType='numeric'
-                        placeholder='测试以西'
+                        placeholder={placeholder}
+                        value={value}
                         onFocus={() => this.handleFocus()}
                         onBlur={() => this.handleBlur()}
+                        onChangeText={val => onValChange(val)}
                     />
                     <View style={styles.ASInputOperationRight}>
-                        <Text style={[styles.ASInputOperation, mStyles.mBlueColor]}>+</Text>
+                        <Text
+                            style={[styles.ASInputOperation, mStyles.mBlueColor]}
+                            onStartShouldSetResponder={() => true}
+                            onResponderRelease={evt => onAddRelease(evt)}
+                        >
+                            +
+                        </Text>
                     </View>
                 </View>
             </View>

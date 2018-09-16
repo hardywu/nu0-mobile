@@ -14,8 +14,10 @@ import {
     LayoutAnimation
 } from 'react-native';
 import Anim from '../../public/animation'
+
 import mStyles from '../../public/common_style';
 import styles from './French_Style';
+
 import zfbDisableIcon from '../../static/imgs/zfb_disable.png';
 import zfbNormalIcon from '../../static/imgs/zfb_normal.png'
 import wzfDisableIcon from '../../static/imgs/wzf_disable.png';

@@ -29,10 +29,62 @@ export default class Pricing extends Component {
         this.state = {
             activeMainNavIndex: 0, //被激活的一级nav的索引 0:币币; 1:杠杆
             bb: {
-
+                tradeType: 0, //交易类型 0:买入; 1:卖出
+                buy: {
+                    name: 'USDT', //买入的对象
+                    select: {
+                        isShow: false,
+                        value: {
+                            code: 0,
+                            name: 'bb买入选项1'
+                        },
+                        options: [
+                            {
+                                code: 0,
+                                name: 'bb买入选项1'
+                            }, {
+                                code: 1,
+                                name: 'bb买入选项2'
+                            }, {
+                                code: 2,
+                                name: 'bb买入选项3'
+                            }
+                        ]
+                    }, //下拉框
+                    priceInput: {
+                        placeholder: '价格',
+                        value: 0.0002
+                    },
+                    numberInput: {
+                        placeholder: '数量',
+                        value: 0.000003
+                    },
+                }, //买入
+                sell: {
+                    name: 'LTC', //卖出的对象
+                    select: {
+                        isShow: false,
+                        value: {
+                            code: 0,
+                            name: 'bb卖出选项1'
+                        },
+                        options: [
+                            {
+                                code: 0,
+                                name: 'bb卖出选项1'
+                            }, {
+                                code: 1,
+                                name: 'bb卖出选项2'
+                            }, {
+                                code: 2,
+                                name: 'bb卖出选项3'
+                            }
+                        ]
+                    }, //下拉框
+                } //卖出
             }, //币币的数据
             lever: {
-
+                tradeType: 0
             } //杠杆的数据
         }
     }
@@ -42,9 +94,22 @@ export default class Pricing extends Component {
         this.setState({ activeMainNavIndex: index });
     }
 
+    //设置bb的值
+    setBb = (bb, callback) => {
+        this.setState({ bb: bb }, () => {
+            if(callback) {
+                callback();
+            } else {
+                return false;
+            }
+        });
+    }
+
     render() {
         let {
-            activeMainNavIndex
+            activeMainNavIndex,
+            bb,
+            lever
         } = this.state;
 
         return (
@@ -69,18 +134,13 @@ export default class Pricing extends Component {
                                 <View style={[
                                         styles.headerMainNavItem,
                                         activeMainNavIndex === 0 ? styles.headerMainNavItemActive : ''
-                                    ]}
-                                >
+                                ]}>
                                     <Text 
                                         style={[
                                             styles.headerMainNavItemName,
                                             activeMainNavIndex === 0 ? styles.headerMainNavItemNameActive : ''
                                         ]}
-                                        onPress={
-                                            event => {
-                                                this.mainNavItemPress(event, 0);
-                                            }
-                                        }
+                                        onPress={event => this.mainNavItemPress(event, 0)}
                                     >
                                         币币
                                     </Text>
@@ -95,11 +155,7 @@ export default class Pricing extends Component {
                                             styles.headerMainNavItemName,
                                             activeMainNavIndex === 1 ? styles.headerMainNavItemNameActive : ''
                                         ]}
-                                        onPress={
-                                            event => {
-                                                this.mainNavItemPress(event, 1);
-                                            }
-                                        }
+                                        onPress={event => this.mainNavItemPress(event, 1)}
                                     >
                                         杠杆
                                     </Text>
@@ -139,7 +195,10 @@ export default class Pricing extends Component {
                                 </View>
                                 <View style={styles.tradeBody}>
                                     <View style={styles.tradeBodyForm}>
-                                        <Form />
+                                        <Form
+                                            data={bb}
+                                            setData={this.setBb}
+                                        />
                                     </View>
                                     <View style={styles.tradeBodyQuo}>
                                         <List />
@@ -182,7 +241,7 @@ export default class Pricing extends Component {
                                 {/* TODO: 这里写杠杆中多出来的一行 */}
                                 <View style={styles.tradeBody}>
                                     <View style={styles.tradeBodyForm}>
-                                        <Form />
+                                        {/* <Form /> */}
                                     </View>
                                     <View style={styles.tradeBodyQuo}>
                                         <List />

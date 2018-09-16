@@ -3,8 +3,7 @@ import {
     NativeModules
 } from 'react-native';
 const { UIManager } = NativeModules;
-UIManager.setLayoutAnimationEnabledExperimental &&
-  UIManager.setLayoutAnimationEnabledExperimental(true);
+UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true);
 export default Anim = {
 
     /** timing动画函数
