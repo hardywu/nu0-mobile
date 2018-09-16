@@ -19,10 +19,20 @@ import styles from './Arc_Btn_Style';
 
 export default class ArcBtn extends Component {
     render() {
+        const {
+            text,
+            color,
+            backgroundColor,
+            onRelease
+        } = this.props;
+
         return (
-            <View>
-               <View style={styles.ArcBtnWrap}>
-                    <Text style={styles.ArcBtnText}>买入B21</Text>
+            <View
+                onStartShouldSetResponder={() => true}
+                onResponderRelease={evt => onRelease(evt)}
+            >
+               <View style={[styles.ArcBtnWrap, {backgroundColor: backgroundColor}]}>
+                    <Text style={[styles.ArcBtnText, {color: color}]}>{text}</Text>
                </View>
             </View>
         );

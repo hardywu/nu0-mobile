@@ -1,5 +1,16 @@
 import Contract from '../../../../public/constant'
-import { StyleSheet } from 'react-native'
+import { 
+    Platform,
+    StyleSheet
+} from 'react-native'
+
+let listFilterStyle = (() => {
+    if(Platform.OS === "ios") {
+        return { zIndex: 9 }
+    } else {
+        return {}
+    }
+})()
 
 export default styles = StyleSheet.create({
     mt8: {
@@ -20,7 +31,37 @@ export default styles = StyleSheet.create({
         alignItems: 'center'
     },
 
-    listFilter: {
+    listFilter: listFilterStyle,
+
+    listFilterOptions: {
+        position: 'absolute',
+        top: 24,
+        width: '100%',
+        paddingTop: 8,
+        paddingBottom: 8,
+        borderRadius: 4,
+        backgroundColor: '#fff',
+        zIndex: 9,
+        elevation: 6,
+        shadowColor:'#000',
+        shadowOffset:{
+            height: 0,
+            width: 0
+        },
+        shadowRadius: 2,
+        shadowOpacity: 0.3,
+    },
+
+    listFilterOptionsItem: {
+        paddingLeft: 10,
+        paddingRight: 10,
+        fontSize: 14,
+        lineHeight: 30,
+        textAlign: 'center',
+        color: Contract.DEFAULT_FONT_COLOR
+    },
+
+    listFilterVal: {
         flexDirection: 'row',
         alignItems: 'center',
         paddingBottom: 4,
@@ -30,6 +71,7 @@ export default styles = StyleSheet.create({
 
     listFilterText: {
         fontSize: 12,
+        lineHeight: 12,
         color: '#767678'
     },
 

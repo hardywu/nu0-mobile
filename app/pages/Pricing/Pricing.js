@@ -31,7 +31,7 @@ export default class Pricing extends Component {
             bb: {
                 tradeType: 0, //交易类型 0:买入; 1:卖出
                 buy: {
-                    name: 'USDT', //买入的对象
+                    name: 'BTC', //买入的对象
                     select: {
                         isShow: false,
                         value: {
@@ -53,15 +53,15 @@ export default class Pricing extends Component {
                     }, //下拉框
                     priceInput: {
                         placeholder: '价格',
-                        value: 0.0002
+                        value: 0
                     },
                     numberInput: {
                         placeholder: '数量',
-                        value: 0.000003
+                        value: 0
                     },
                 }, //买入
                 sell: {
-                    name: 'LTC', //卖出的对象
+                    name: 'USDT', //卖出的对象
                     select: {
                         isShow: false,
                         value: {
@@ -81,11 +81,100 @@ export default class Pricing extends Component {
                             }
                         ]
                     }, //下拉框
+                    priceInput: {
+                        placeholder: '价格',
+                        value: 0
+                    },
+                    numberInput: {
+                        placeholder: '数量',
+                        value: 0
+                    },
                 } //卖出
             }, //币币的数据
             lever: {
-                tradeType: 0
-            } //杠杆的数据
+                tradeType: 0, //交易类型 0:买入; 1:卖出
+                buy: {
+                    name: '杠杆BTC', //买入的对象
+                    select: {
+                        isShow: false,
+                        value: {
+                            code: 0,
+                            name: 'gg买入选项1'
+                        },
+                        options: [
+                            {
+                                code: 0,
+                                name: 'gg买入选项1'
+                            }, {
+                                code: 1,
+                                name: 'gg买入选项2'
+                            }, {
+                                code: 2,
+                                name: 'gg买入选项3'
+                            }
+                        ]
+                    }, //下拉框
+                    priceInput: {
+                        placeholder: '价格',
+                        value: 0
+                    },
+                    numberInput: {
+                        placeholder: '数量',
+                        value: 0
+                    },
+                }, //买入
+                sell: {
+                    name: '杠杆USDT', //卖出的对象
+                    select: {
+                        isShow: false,
+                        value: {
+                            code: 0,
+                            name: 'gg卖出选项1'
+                        },
+                        options: [
+                            {
+                                code: 0,
+                                name: 'gg卖出选项1'
+                            }, {
+                                code: 1,
+                                name: 'gg卖出选项2'
+                            }, {
+                                code: 2,
+                                name: 'gg卖出选项3'
+                            }
+                        ]
+                    }, //下拉框
+                    priceInput: {
+                        placeholder: '价格',
+                        value: 0
+                    },
+                    numberInput: {
+                        placeholder: '数量',
+                        value: 0
+                    },
+                } //卖出
+            }, //杠杆的数据
+            list: {
+                select: {
+                    isShow: false,
+                    value: {
+                        code: 0,
+                        name: '4位小数'
+                    },
+                    options: [
+                        {
+                            code: 0,
+                            name: '4位小数'
+                        }, {
+                            code: 1,
+                            name: '1位小数'
+                        }, {
+                            code: 2,
+                            name: '百位小数'
+                        }
+                    ]
+                } //下拉框
+            } //右侧列表栏
         }
     }
 
@@ -105,11 +194,34 @@ export default class Pricing extends Component {
         });
     }
 
+    //设置杠杆的值
+    setLever = (lever, callback) => {
+        this.setState({ lever: lever }, () => {
+            if(callback) {
+                callback();
+            } else {
+                return false;
+            }
+        });
+    }
+
+    //设置list的值
+    setList = (list, callback) => {
+        this.setState({ list: list }, () => {
+            if(callback) {
+                callback();
+            } else {
+                return false;
+            }
+        });
+    }
+
     render() {
         let {
             activeMainNavIndex,
             bb,
-            lever
+            lever,
+            list
         } = this.state;
 
         return (
@@ -201,7 +313,10 @@ export default class Pricing extends Component {
                                         />
                                     </View>
                                     <View style={styles.tradeBodyQuo}>
-                                        <List />
+                                        <List
+                                            data={list}
+                                            setData={this.setList}
+                                        />
                                     </View>
                                 </View>
                             </View>
@@ -241,10 +356,16 @@ export default class Pricing extends Component {
                                 {/* TODO: 这里写杠杆中多出来的一行 */}
                                 <View style={styles.tradeBody}>
                                     <View style={styles.tradeBodyForm}>
-                                        {/* <Form /> */}
+                                        <Form
+                                            data={lever}
+                                            setData={this.setLever}
+                                        />
                                     </View>
                                     <View style={styles.tradeBodyQuo}>
-                                        <List />
+                                        <List
+                                            data={list}
+                                            setData={this.setList}
+                                        />
                                     </View>
                                 </View>
                             </View>

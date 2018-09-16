@@ -20,13 +20,13 @@ import ASInput from '../../../../components/AS_Input/AS_Input';
 import PercentBar from '../../../../components/Percent_Bar/Percent_Bar';
 import ArcBtn from '../../../../components/Arc_Btn/Arc_Btn';
 
+import Contract from '../../../../public/constant';
 import mStyles from '../../../../public/common_style';
 import styles from './Form_Style';
 
 import arrowIcon from '../../../../static/imgs/arrow_gray.png'; //菜单按钮
 
 //select显示和隐藏的动画
-console.log(new Animated.Value(0.92))
 const selectAnim = {
     style: {
         opacity: new Animated.Value(0.6),
@@ -224,6 +224,11 @@ export default class Form extends Component {
         setData(data);
     }
 
+    //处理买入卖出提交按钮释放事件
+    handleArcBtnRelease = (evt) => {
+        alert('提交');
+    }
+
     render() {
         const {
             data
@@ -249,6 +254,32 @@ export default class Form extends Component {
                 </Text>
             );
         });
+
+        let submitBtnStyle = (() => {
+            let tmp = {};
+            //如果是买入
+            if(tradeType === 0) {
+                tmp.text = `买入${data.buy.name}`;
+                if(price > 0) {
+                    tmp.color = '#fff';
+                    tmp.backgroundColor = Contract.GREEN_COLOR;
+                } else {
+                    tmp.color = '#fff';
+                    tmp.backgroundColor = '#ccc';
+                }
+            } else {
+                //如果是卖出
+                tmp.text = `卖出${data.buy.name}`;
+                if(price > 0) {
+                    tmp.color = '#fff';
+                    tmp.backgroundColor = Contract.RED_COLOR;
+                } else {
+                    tmp.color = '#fff';
+                    tmp.backgroundColor = '#ccc';
+                }
+            }
+            return tmp;
+        })()
         
         console.log(priceInput.value)
         return (
@@ -271,7 +302,7 @@ export default class Form extends Component {
                         onStartShouldSetResponder={() => true}
                         onResponderRelease={evt => this.handleFormTypeBtnRelease(evt, 1)}
                     >
-                        买出
+                        卖出
                     </Text>
                 </View>
                 {/* 买入/卖出按钮结束 */}
@@ -358,7 +389,10 @@ export default class Form extends Component {
                 ]}>
                     <View style={styles.formAbleWrap}>
                         <Text style={styles.formAbleName}>可用</Text>
-                        <Text style={styles.formAbleVal}></Text>
+                        <Text style={styles.formAbleVal}>
+                            {tradeType === 0 ? `0.00${data.sell.name}` : `0.00000000${data.buy.name}`}
+                        
+                        </Text>
                     </View>
                 </View>
                 {/* 可用结束 */}
@@ -370,14 +404,19 @@ export default class Form extends Component {
                     }
                 ]}>
                     <View style={styles.formAbleWrap}>
-                        <Text style={styles.formAbleName}>可买</Text>
-                        <Text style={styles.formAbleVal}>123123213</Text>
+                        <Text style={styles.formAbleName}>{tradeType === 0 ? '可买' : '可卖'}</Text>
+                        <Text style={styles.formAbleVal}>{tradeType === 1 ? `0.00${data.sell.name}` : `0.00000000${data.buy.name}`}</Text>
                     </View>
                 </View>
                 {/* 可买/卖结束 */}
                 {/* 按钮开始 */}
                 <View style={styles.mt12}>
-                    <ArcBtn />
+                    <ArcBtn
+                        text={submitBtnStyle.text}
+                        color={submitBtnStyle.color}
+                        backgroundColor={submitBtnStyle.backgroundColor}
+                        onRelease={this.handleArcBtnRelease}
+                    />
                 </View>
                 {/* 百分比bar结束 */}
             </View>
