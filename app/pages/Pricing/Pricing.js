@@ -13,8 +13,9 @@ import {
     FlatList,
     LayoutAnimation
 } from 'react-native';
-import Form from './Components/Form/Form';
-import List from './Components/List/List';
+import SideMenu from './Components/Side_Menu/Side_Menu'; //侧边菜单栏组件
+import Form from './Components/Form/Form'; //左边表单组件
+import List from './Components/List/List'; //右边列表组件
 
 import mStyles from '../../public/common_style';
 import styles from './Pricing_Style';
@@ -174,7 +175,10 @@ export default class Pricing extends Component {
                         }
                     ]
                 } //下拉框
-            } //右侧列表栏
+            }, //右侧列表栏
+            sideMenu: {
+                isShow: false
+            }, //侧边菜单栏
         }
     }
 
@@ -216,28 +220,50 @@ export default class Pricing extends Component {
         });
     }
 
+    //设置菜单的值
+    setMenu = (menu, callback) => {
+        this.setState({ menu: menu }, () => {
+            if(callback) {
+                callback();
+            } else {
+                return false;
+            }
+        });
+    }
+
+    //处理菜单图标点击事件
+    handleMenuPress = evt => {
+        let { sideMenu } = this.state;
+        sideMenu.isShow = true;
+        this.setState({ sideMenu: sideMenu });
+    }
+
     render() {
         let {
             activeMainNavIndex,
             bb,
             lever,
-            list
+            list,
+            sideMenu
         } = this.state;
 
         return (
             <View style={mStyles.mFlex1}>
                 <StatusBar
-                    backgroundColor='#fff'
-                    hidden={true}
                     animated={true}
-                    barStyle='dark-content'
+                    barStyle={'dark-content'}
                 />
                 {/* 头部开始 */}
                 <View style={styles.header}>
                     <View style={[mStyles.mCenterContent, styles.headerCenterContent]}>
                         {/* 菜单按钮开始 */}
                         <View style={styles.headerMenu}>
-                            <Image style={styles.headerMenuIcon} source={menuIcon}></Image>
+                            <Image
+                                style={styles.headerMenuIcon}
+                                source={menuIcon}
+                                onStartShouldSetResponder={() => true}
+                                onResponderRelease={evt => this.handleMenuPress(evt)}
+                            />
                         </View>
                         {/* 菜单按钮结束 */}
                         {/* 一级导航开始 */}
@@ -384,6 +410,7 @@ export default class Pricing extends Component {
                     {/* 杠杆内容结束 */}
                 </View>
                 {/* 主体内容结束 */}
+                <SideMenu data={sideMenu} setData={this.setMenu}/>
             </View>
         );
     }

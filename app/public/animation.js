@@ -22,7 +22,7 @@ export default Anim = {
             })
         );
     },
-
+    
     /** 组合动画函数
      * @param animArr 动画数组
      */
