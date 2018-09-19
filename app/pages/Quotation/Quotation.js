@@ -13,6 +13,7 @@ import SelfSelectionist from './Components/Self_Selection_List/Self_Selection_Li
 import ContractList from './Components/Contract_List/Contract_List';
 import CurrencyList from './Components/Currency_List/Currency_List';
 import GlobalCurrencyList from './Components/Global_Currency_List/Global_Currency_List';
+
 import mStyles from '../../public/common_style';
 import styles from './Quotation_Style';
 
@@ -167,12 +168,6 @@ export default class Quotation extends Component {
 
         return (
             <View style={mStyles.mFlex1}>
-                <StatusBar
-                    backgroundColor='#fff'
-                    hidden={true}
-                    animated={true}
-                    barStyle='dark-content'
-                />
                 {/* 头部开始 */}
                 <View style={styles.header}>
                     {/* 一级导航开始 */}

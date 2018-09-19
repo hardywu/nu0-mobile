@@ -24,12 +24,6 @@ export default class Home extends Component {
     render() {
         return (
             <View style={mStyles.mFlex1}>
-                <StatusBar
-                    backgroundColor='#fff'
-                    hidden={true}
-                    animated={true}
-                    barStyle='dark-content'
-                />
                 <View style={styles.userContainer}>
                     {/* 登录的状态开始 */}
                     <View style={[styles.userContainerCenter, styles.plr10, { display: 'none' }]}>

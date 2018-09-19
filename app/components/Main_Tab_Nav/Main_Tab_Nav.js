@@ -1,3 +1,6 @@
+/**
+ * 公用组件 底部导航栏
+ */
 import React from 'react';
 import { Image } from 'react-native';
 import { createBottomTabNavigator } from 'react-navigation';
@@ -87,7 +90,7 @@ export const MainTabNav = createBottomTabNavigator(
         },
     },
     {
-        initialRouteName: 'Pricing',
+        initialRouteName: 'Contract',
         tabBarOptions: {
             //当前选中的tab bar的文本颜色和图标颜色
             activeTintColor: Constant.ACTIVE_COLOR,

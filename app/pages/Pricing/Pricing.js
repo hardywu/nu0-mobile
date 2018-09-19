@@ -249,10 +249,6 @@ export default class Pricing extends Component {
 
         return (
             <View style={mStyles.mFlex1}>
-                <StatusBar
-                    animated={true}
-                    barStyle={'dark-content'}
-                />
                 {/* 头部开始 */}
                 <View style={styles.header}>
                     <View style={[mStyles.mCenterContent, styles.headerCenterContent]}>

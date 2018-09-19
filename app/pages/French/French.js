@@ -312,12 +312,6 @@ export default class French extends Component {
 
         return (
             <View style={mStyles.mFlex1}>
-                <StatusBar
-                    backgroundColor='#fff'
-                    hidden={true}
-                    animated={true}
-                    barStyle='dark-content'
-                />
                 <View style={styles.header}>
                     <View style={[mStyles.mCenterContent, styles.headerCenter]}>
                         <View style={styles.mainNavLeft}>
