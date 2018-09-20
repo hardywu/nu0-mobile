@@ -13,9 +13,11 @@ let formSelectStyle = (() => {
 })()
 
 export default styles = StyleSheet.create({
-    formSelect: {
-        
+    mt12: {
+        marginTop: 12
     },
+
+    formSelect: formSelectStyle,
 
     formSelectMain: {
         flexDirection: 'row',

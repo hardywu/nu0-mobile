@@ -10,6 +10,7 @@ import {
     Image
 } from 'react-native';
 import Form from './Components/Form/Form'; //交易左边表单组件
+import PriceList from './Components/Price_List/Price_List'; //交易右边价格表格组件
 
 import mStyles from '../../public/common_style';
 import styles from './Contract_Style';
@@ -20,7 +21,46 @@ import arrowIcon from '../../static/imgs/arrow_gray.png' //箭头图标
 import trendActiveIcon from '../../static/imgs/trend_active.png' //箭头图标
 
 export default class Contract extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            priceList: {
+                select: {
+                    isShow: false,
+                    value: {
+                        code: 0,
+                        name: '0.001'
+                    },
+                    options: [
+                        {
+                            code: 0,
+                            name: '0.001'
+                        }, {
+                            code: 1,
+                            name: '0.01'
+                        }
+                    ]
+                } //下拉框
+            }, //右侧价格列表栏
+        }
+    }
+
+     //设置priceList的值
+     setPriceList = (priceList, callback) => {
+        this.setState({ priceList: priceList }, () => {
+            if(callback) {
+                callback();
+            } else {
+                return false;
+            }
+        });
+    }
+
     render() {
+        let {
+            priceList
+        } = this.state;
+
         return (
             <View style={mStyles.mFlex1}>
                 {/* 头部开始 */}
@@ -64,11 +104,17 @@ export default class Contract extends Component {
                                     </View>
                                 </View>
                             </View>
-                            <View style={[mStyles.mCenterContent, styles.tradeBody]}>
-                                <View style={styles.tradeForm}>
-                                    <Form />
-                                </View>
-                                <View style={styles.tradeList}>
+                            <View style={styles.tradeBody}>
+                                <View style={[mStyles.mCenterContent, styles.tradeCenterContent]}>
+                                    <View style={styles.tradeForm}>
+                                        <Form />
+                                    </View>
+                                    <View style={styles.tradeList}>
+                                        <PriceList 
+                                            data={priceList}
+                                            setData={this.setPriceList}
+                                        />
+                                    </View>
                                 </View>
                             </View>
                         </View>

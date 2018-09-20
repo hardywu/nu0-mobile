@@ -1,5 +1,5 @@
 /**
- * 公用 带加减功能的input
+ * 公用 带单位的input
  */
 import React, { Component } from 'react';
 import {
@@ -25,10 +25,10 @@ export default class ASInput extends Component {
     render() {
         return (
             <View>
-                <View style={styles.UnitInputWrap}>
-                    <Text style={styles.UnitInputGrayText}>数量</Text>
-                    <TextInput style={styles.UnitInput}/>
-                    <Text style={styles.UnitInputGrayText}>XPR</Text>
+                <View style={styles.unitInputWrap}>
+                    <Text style={styles.unitInputGrayText}>数量</Text>
+                    <TextInput style={styles.unitInput}/>
+                    <Text style={styles.unitInputGrayText}>XPR</Text>
                 </View>
             </View>
         );

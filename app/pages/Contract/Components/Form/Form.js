@@ -19,6 +19,9 @@ import Anim from '../../../../public/animation';
 import UnitInput from '../../../../components/Unit_Input/Unit_Input';
 import PercentBar from '../../../../components/Percent_Bar/Percent_Bar';
 import ArcBtn from '../../../../components/Arc_Btn/Arc_Btn';
+import { selectAnim, DcSelect } from '../../../../components/Dc_Select/Dc_Select'
+import Check from './Check/Check';
+import SelectBox from './Select_Box/Select_Box';
 
 import Contract from '../../../../public/constant';
 import mStyles from '../../../../public/common_style';
@@ -26,47 +29,85 @@ import styles from './Form_Style';
 
 import arrowIcon from '../../../../static/imgs/arrow_gray.png'; //菜单按钮
 
-//select显示和隐藏的动画
-const selectAnim = {
-    style: {
-        opacity: new Animated.Value(0.6),
-        scale: new Animated.Value(0.92)
-    },
-
-    //显示
-    scaleFadeIn: function() {
-        return (
-            Anim.parallel([
-                Anim.timing(this.style.opacity, 1, 100, Easing.ease),
-                Anim.timing(this.style.scale, 1, 100, Easing.ease),
-            ])
-        )
-    },
-
-    //隐藏
-    scaleFadeOut: function() {
-        return (
-            Anim.parallel([
-                Anim.timing(this.style.opacity, 0, 100, Easing.ease),
-                Anim.timing(this.style.scale, .92, 100, Easing.ease),
-            ])
-        );
-    }
-}
-
 export default class Form extends Component {
     constructor(props) {
         super(props);
+
+        this.state = {
+            typeSelect: {
+                isShow: false,
+                value: {
+                    code: 0,
+                    name: '4位小数'
+                },
+                selectOptions: [
+                    {
+                        code: 0,
+                        name: '4位小数'
+                    }, {
+                        code: 1,
+                        name: '1位小数'
+                    }, {
+                        code: 2,
+                        name: '百位小数'
+                    }
+                ]
+            }
+        }
     }
+
+    setTypeSelect = (setTypeSelect, callback) => {
+        this.setState({ typeSelect: typeSelect }, () => {
+            if(callback) {
+                callback();
+            } else {
+                return false;
+            }
+        });
+    }
+
+    handleTypeSelectRelease = (evt) => {
+        const { typeSelect } = this.state;
+
+        if(typeSelect.isShow) {
+            selectAnim.scaleFadeOut().start(() => {
+                typeSelect.isShow = false;
+                this.setState({ typeSelect: typeSelect });
+            });
+        } else {
+            typeSelect.isShow = true;
+            this.setState({ typeSelect: typeSelect }, () => {
+                selectAnim.scaleFadeIn().start();
+            });
+        }
+    }
+
     render() {
+        let {
+            typeSelect
+        } = this.state;
+
         return (
             <View style={styles.form}>
                 <View style={styles.formSelect}>
-                    <View style={styles.formSelectMain}>
+                    <View
+                        style={styles.formSelectMain}
+                        onStartShouldSetResponder={() => true}
+                        onResponderRelease={evt => this.handleTypeSelectRelease(evt)}
+                    >
                         <Text style={styles.formSelectResult}>限价单</Text>
                         <Image style={styles.formSelectResultArrow} source={arrowIcon}></Image>
                     </View>
+                    <DcSelect options={typeSelect} setOptions={this.setTypeSelect}/>
+                </View>
+                <View style={styles.mt12}>
                     <UnitInput />
+                </View>
+                <View style={styles.mt12}>
+                    <Check />
+                </View>
+                <View style={styles.mt12}>
+                    <SelectBox />
                 </View>
             </View>
         )

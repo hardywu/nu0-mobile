@@ -132,17 +132,22 @@ export default styles = StyleSheet.create({
     },
 
     tradeBody: {
-        flexDirection: 'row'
+        paddingTop: 12,
+        paddingBottom: 12,
+        backgroundColor: '#fff'
+    },
+
+    tradeCenterContent: {
+        flexDirection: 'row',
     },
 
     tradeForm: {
-        flex: 0.55,
-        backgroundColor: 'pink'
+        flex: 0.55
     },
 
     tradeList: {
         flex: 0.45,
-        backgroundColor: 'red'
+        paddingLeft: 10
     }
     // 交易页结束
 });
