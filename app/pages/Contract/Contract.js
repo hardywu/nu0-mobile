@@ -39,7 +39,7 @@ export default class Contract extends Component {
                     name: '持仓',
                     isActive: false,
                 }
-            ], //一级导航
+            ], // 一级导航
             trade: {
                 contractType: {
                     isShow: false,
