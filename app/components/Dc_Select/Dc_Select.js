@@ -50,12 +50,23 @@ export const selectAnim = {
 export class DcSelect extends Component {
     render() {
         const {
-            options
+            options,
+            onOptionsRelease
         } = this.props
 
         let selectOptionsDom = options.selectOptions.map((item, index) => {
             return (
-                <Text style={styles.dcSelectOptionsItem} key={index}>{item.name}</Text>
+                <Text
+                    style={[
+                        styles.dcSelectOptionsItem,
+                        options.value.code === item.code ? mStyles.mBlueColor : ''
+                    ]}
+                    key={index}
+                    onStartShouldSetResponder={() => true}
+                    onResponderRelease={() => onOptionsRelease(item)}
+                >
+                    {item.name}
+                </Text>
             )
         })
         

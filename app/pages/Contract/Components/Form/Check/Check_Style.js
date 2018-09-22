@@ -23,6 +23,7 @@ export default styles = StyleSheet.create({
         marginLeft: 4,
         marginRight: 4,
         fontSize: 14,
+        textAlign: 'center',
         color: '#ccc'
     }
 });

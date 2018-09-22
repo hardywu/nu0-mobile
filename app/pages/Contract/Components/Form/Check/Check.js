@@ -24,17 +24,25 @@ export default class Check extends Component {
     }
 
     render() {
+        const {
+            text, //文本内容
+            isActive, //是否处于激活状态
+            onRelease //释放事件
+        } = this.props;
+
         return (
-            <View>
-                <View style={styles.checkWrap}>
-                    <Text
-                        style={styles.checkText}
-                        ellipsizeMode={'tail'}
-                        numberOfLines={1}
-                    >
-                        12321312321312312131232131232开仓
-                    </Text>
-                </View>
+            <View
+                style={[styles.checkWrap, isActive ? mStyles.mBlueBorder : '']}
+                onStartShouldSetResponder={() => true}
+                onResponderRelease={() => onRelease()}
+            >
+                <Text
+                    style={[styles.checkText, isActive ? mStyles.mBlueColor : '']}
+                    ellipsizeMode={'tail'}
+                    numberOfLines={1}
+                >
+                    {text}
+                </Text>
             </View>
         );
     }

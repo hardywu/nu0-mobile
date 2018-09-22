@@ -17,6 +17,45 @@ export default styles = StyleSheet.create({
         marginTop: 12
     },
 
+    fromItem: {
+        width: '100%',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        flexWrap: 'wrap'
+    },
+
+    fromItemNotice: {
+        width: '100%',
+        flexDirection: 'row',
+        alignItems: 'center',
+        flexWrap: 'wrap'
+    },
+
+    fromItemNoticeText: {
+        fontSize: 13
+    },
+
+    fromItemNoticeName: {
+        color: '#999'
+    },
+
+    fromItemNoticeVal: {
+        color: Contract.DEFAULT_FONT_COLOR
+    },
+
+    inputInline1: {
+        width: '100%'
+    },
+
+    inputInline2: {
+        width: '48%'
+    },
+
+    inputInline3: {
+        width: '30%'
+    },
+
     formSelect: formSelectStyle,
 
     formSelectMain: {

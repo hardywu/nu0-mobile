@@ -20,10 +20,10 @@ import styles from './Arc_Btn_Style';
 export default class ArcBtn extends Component {
     render() {
         const {
-            text,
-            color,
-            backgroundColor,
-            onRelease
+            text, //文本内容
+            color, //文本内容颜色
+            backgroundColor, //按钮背景色
+            onRelease //按钮释放事件
         } = this.props;
 
         return (

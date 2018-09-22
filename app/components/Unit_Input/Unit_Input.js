@@ -23,12 +23,24 @@ export default class ASInput extends Component {
     }
 
     render() {
+        const {
+            name, //名字
+            value, //值
+            unit, //单位
+            onChange
+        } = this.props;
+
         return (
             <View>
                 <View style={styles.unitInputWrap}>
-                    <Text style={styles.unitInputGrayText}>数量</Text>
-                    <TextInput style={styles.unitInput}/>
-                    <Text style={styles.unitInputGrayText}>XPR</Text>
+                    <Text style={styles.unitInputGrayText}>{name}</Text>
+                    <TextInput
+                        style={styles.unitInput}
+                        underlineColorAndroid="transparent"
+                        value={value}
+                        onChangeText={val => onChange(val)}
+                    />
+                    <Text style={styles.unitInputGrayText}>{unit}</Text>
                 </View>
             </View>
         );

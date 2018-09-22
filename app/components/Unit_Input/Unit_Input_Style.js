@@ -7,7 +7,6 @@ export default styles = StyleSheet.create({
         justifyContent: 'space-between',
         alignItems: 'center',
         width: '100%',
-        height: 24,
         borderWidth: 1,
         borderColor: '#becfd2',
         borderRadius: 4
@@ -22,6 +21,8 @@ export default styles = StyleSheet.create({
 
     unitInput: {
         flex: 1,
+        height: 24,
+        padding: 0,
         fontSize: 14,
         textAlign: 'right',
         color: Contract.DEFAULT_FONT_COLOR

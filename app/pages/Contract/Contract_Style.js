@@ -83,8 +83,55 @@ export default styles = StyleSheet.create({
     },
 
     // 交易页开始
+    trade: {
+    },
+
     tradeHeader: {
         height: 40,
+        backgroundColor: '#fff',
+    },
+
+    tradeContractOptionsWrap: {
+        position: 'absolute',
+        top: 41,
+        width: '100%',
+        height: 240,
+        backgroundColor: '#fff'
+    },
+
+    tradeContractOptionsCenterContent: {
+        flex: 1
+    },
+
+    tradeContractOptionsItem: {
+        marginBottom: 10
+    },
+
+    tradeContractTypeText: {
+        fontSize: 14,
+        lineHeight: 28,
+        color: '#666'
+    },
+
+    tradeContractTypeChild: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center'
+    },
+
+    tradeContractTypeChildItem: {
+        justifyContent: 'center',
+        overflow: 'hidden',
+        width: '31%',
+        borderWidth: 1,
+        borderColor: '#e6e6e6',
+        borderRadius: 4
+    },
+
+    tradeContractTypeChildItemText: {
+        color: Contract.DEFAULT_FONT_COLOR,
+        textAlign: 'center',
+        lineHeight: 30,
         backgroundColor: '#fff'
     },
 
