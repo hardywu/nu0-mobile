@@ -56,5 +56,5 @@ buck-out/
 *.jsbundle
 
 .vscode
-./android
-./ios
+/android
+/ios
