@@ -13,10 +13,6 @@ import mStyles from '../../public/common_style';
 import styles from './Login_Style';
 
 export default class Login extends Component {
-    static navigationOptions = {
-        header: null
-    };
-
     render() {
         return (
             <View style={mStyles.mFlex1}>

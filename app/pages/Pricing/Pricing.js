@@ -238,6 +238,12 @@ export default class Pricing extends Component {
         this.setState({ sideMenu: sideMenu });
     }
 
+    //处理搜索按钮释放事件
+    handleGoSearchRelease = evt => {
+        const { navigate } = this.props.navigation;
+        navigate('Search');
+    }
+
     render() {
         let {
             activeMainNavIndex,
@@ -299,7 +305,12 @@ export default class Pricing extends Component {
                         {/* 一级导航结束 */}
                         {/* 搜索按钮开始 */}
                         <View style={styles.headerSearch}>
-                            <Image style={styles.headerSearchIcon} source={searchIcon}></Image>
+                            <Image
+                                style={styles.headerSearchIcon}
+                                source={searchIcon}
+                                onStartShouldSetResponder={() => true}
+                                onResponderRelease={evt => this.handleGoSearchRelease(evt)}
+                            />
                         </View>
                         {/* 搜索按钮结束 */}
                     </View>

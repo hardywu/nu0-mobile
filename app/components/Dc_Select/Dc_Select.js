@@ -20,24 +20,26 @@ import mStyles from '../../public/common_style';
 import styles from './Dc_Select_Style';
 
 //select显示和隐藏的动画
-export const selectAnim = {
-    style: {
-        opacity: new Animated.Value(0.6),
-        scale: new Animated.Value(0.92)
-    },
+export class SelectAnim {
+    constructor() {
+        this.style = {
+            opacity: new Animated.Value(0.6),
+            scale: new Animated.Value(0.92)
+        }
+    }
 
     //显示
-    scaleFadeIn: function() {
+    scaleFadeIn = () => {
         return (
             Anim.parallel([
                 Anim.timing(this.style.opacity, 1, 100, Easing.ease),
                 Anim.timing(this.style.scale, 1, 100, Easing.ease),
             ])
         )
-    },
+    }
 
     //隐藏
-    scaleFadeOut: function() {
+    scaleFadeOut = () => {
         return (
             Anim.parallel([
                 Anim.timing(this.style.opacity, 0, 100, Easing.ease),
@@ -48,10 +50,15 @@ export const selectAnim = {
 }
 
 export class DcSelect extends Component {
+    constructor(props) {
+        super(props);
+    }
+
     render() {
         const {
             options,
-            onOptionsRelease
+            onOptionsRelease,
+            dcStyle
         } = this.props
 
         let selectOptionsDom = options.selectOptions.map((item, index) => {
@@ -77,9 +84,9 @@ export class DcSelect extends Component {
                     height: options.isShow ? 'auto' : 0,
                     paddingTop: options.isShow ? 8 : 0,
                     paddingBottom: options.isShow ? 8 : 0,
-                    opacity: selectAnim.style.opacity, 
+                    opacity: dcStyle.opacity, 
                     transform: [
-                        {scale: selectAnim.style.scale}
+                        {scale: dcStyle.scale}
                     ]
                 }
             ]}>

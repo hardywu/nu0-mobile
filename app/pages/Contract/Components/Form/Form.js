@@ -19,7 +19,7 @@ import Anim from '../../../../public/animation';
 import UnitInput from '../../../../components/Unit_Input/Unit_Input';
 import PercentBar from '../../../../components/Percent_Bar/Percent_Bar';
 import ArcBtn from '../../../../components/Arc_Btn/Arc_Btn';
-import { selectAnim, DcSelect } from '../../../../components/Dc_Select/Dc_Select'
+import { SelectAnim, DcSelect } from '../../../../components/Dc_Select/Dc_Select'
 import Check from './Check/Check';
 import SelectBox from './Select_Box/Select_Box';
 
@@ -28,6 +28,8 @@ import mStyles from '../../../../public/common_style';
 import styles from './Form_Style';
 
 import arrowIcon from '../../../../static/imgs/arrow_gray.png'; //菜单按钮
+
+let selectAnim = new SelectAnim();
 
 export default class Form extends Component {
     constructor(props) {
@@ -372,6 +374,7 @@ export default class Form extends Component {
                         <Image style={styles.formSelectResultArrow} source={arrowIcon}></Image>
                     </View>
                     <DcSelect
+                        dcStyle={selectAnim.style}
                         options={tradeTypeSelect}
                         setOptions={this.setTradeTypeSelect}
                         onOptionsRelease={obj => this.handleTradeTypeSelectOptionsRelease(obj)}
