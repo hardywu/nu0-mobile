@@ -276,5 +276,32 @@ export default styles = StyleSheet.create({
         marginTop: 3,
         fontSize: 13,
         color: '#ccc'
+    },
+
+    //发布按钮开始
+    releaseBtn: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        position: 'absolute',
+        bottom: 20,
+        right: 20,
+        width: 42,
+        height: 42,
+        borderRadius: 50,
+        backgroundColor: '#fff',
+        elevation: 6,
+        shadowColor:'#000',
+        shadowOffset:{
+            height: 0,
+            width: 0
+        },
+        shadowRadius: 2,
+        shadowOpacity: 0.1,
+    },
+
+    releaseBtnIcon: {
+        width: 17,
+        height: 17
     }
+    //发布按钮结束
 });

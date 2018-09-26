@@ -373,12 +373,14 @@ export default class Form extends Component {
                         <Text style={styles.formSelectResult}>{tradeTypeSelect.value.name}</Text>
                         <Image style={styles.formSelectResultArrow} source={arrowIcon}></Image>
                     </View>
-                    <DcSelect
-                        dcStyle={selectAnim.style}
-                        options={tradeTypeSelect}
-                        setOptions={this.setTradeTypeSelect}
-                        onOptionsRelease={obj => this.handleTradeTypeSelectOptionsRelease(obj)}
-                    />
+                    <View style={styles.formSelectOptions}>
+                        <DcSelect
+                            dcStyle={selectAnim.style}
+                            options={tradeTypeSelect}
+                            setOptions={this.setTradeTypeSelect}
+                            onOptionsRelease={obj => this.handleTradeTypeSelectOptionsRelease(obj)}
+                        />
+                    </View>
                 </View>
                 <View style={[styles.fromItem, styles.mt12]}>
                     <View style={styles.inputInline2}>

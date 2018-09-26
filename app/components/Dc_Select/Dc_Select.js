@@ -1,5 +1,5 @@
 /**
- * 公用 带单位的input
+ * 公用 下拉框
  */
 import React, { Component } from 'react';
 import {

@@ -161,8 +161,6 @@ export default class Quotation extends Component {
                 } else if(type === 3) {
                     listComponent = <GlobalCurrencyList />
                 }
-                        
-                break;
             }
         }
 

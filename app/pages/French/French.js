@@ -27,6 +27,7 @@ import bankNormalIcon from '../../static/imgs/bank_normal.png';
 import grayArrowIcon from '../../static/imgs/arrow_gray.png'; //灰色箭头icon
 import unselectedIcon from '../../static/imgs/unselected.png'; //位选中icon
 import selectedIcon from '../../static/imgs/selected.png'; //选中icon
+import releaseIcon from '../../static/imgs/release.png'; //发布按钮icon
 
 //一级导航显示和隐藏的动画
 const mainNavAnim = {
@@ -185,6 +186,12 @@ export default class French extends Component {
             }
         }
         this.setState({ subNav: subNav });
+    }
+
+    //处理发布委托单按钮释放事件
+    handleReleaseBtnRelease = evt => {
+        const { navigate } = this.props.navigation;
+        navigate('ReleaseEnt'); //跳转到发布委托单页
     }
 
     //列表循环元素
@@ -414,27 +421,36 @@ export default class French extends Component {
                 {/* 列表结束 */}
                 {/* 货币选择开始 */}
                 <Animated.View 
-                        style={[
-                            styles.mainNavCur,
-                            {
-                                height: mainNav.isShow ? 'auto' : 0,
-                                opacity: mainNavAnim.style.opacity, 
-                                transform: [
-                                    {scale: mainNavAnim.style.scale}
-                                ]
-                            }
-                        ]}
-                    >
-                        {/* <View style={styles.mainNavCurItem}>
-                            <Image 
-                                style={styles.mainNavCurItemIcon}
-                                source={require('../../static/imgs/BCN.png')}
-                            />
-                            <Text style={styles.mainNavCurItemName}>BCN</Text>
-                        </View> */}
-                        {mainNavItemsDOM}
-                    </Animated.View>
-                    {/* 货币选择结束 */}
+                    style={[
+                        styles.mainNavCur,
+                        {
+                            height: mainNav.isShow ? 'auto' : 0,
+                            opacity: mainNavAnim.style.opacity, 
+                            transform: [
+                                {scale: mainNavAnim.style.scale}
+                            ]
+                        }
+                    ]}
+                >
+                    {/* <View style={styles.mainNavCurItem}>
+                        <Image 
+                            style={styles.mainNavCurItemIcon}
+                            source={require('../../static/imgs/BCN.png')}
+                        />
+                        <Text style={styles.mainNavCurItemName}>BCN</Text>
+                    </View> */}
+                    {mainNavItemsDOM}
+                </Animated.View>
+                {/* 货币选择结束 */}
+                {/* 发布按钮开始 */}
+                <View
+                    style={styles.releaseBtn}
+                    onStartShouldSetResponder={() => true}
+                    onResponderRelease={evt => this.handleReleaseBtnRelease(evt)}
+                >
+                    <Image style={styles.releaseBtnIcon} source={releaseIcon}/>
+                </View>
+                {/* 发布按钮结束 */}
             </View>
         );
     }

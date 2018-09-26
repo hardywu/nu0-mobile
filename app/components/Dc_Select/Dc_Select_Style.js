@@ -3,8 +3,8 @@ import { StyleSheet } from 'react-native'
 
 export default styles = StyleSheet.create({
     dcSelectOptions: {
-        position: 'absolute',
-        top: 24,
+        // position: 'absolute',
+        // top: 24,
         width: '100%',
         paddingTop: 8,
         paddingBottom: 8,

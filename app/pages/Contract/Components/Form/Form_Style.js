@@ -73,5 +73,11 @@ export default styles = StyleSheet.create({
         height: 14,
         marginLeft: 8,
         resizeMode: 'contain'
+    },
+
+    formSelectOptions: {
+        position: 'absolute',
+        top: 24,
+        width: '100%'
     }
 });

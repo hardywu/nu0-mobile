@@ -1,5 +1,5 @@
 /**
- *行情页
+ * 合约页
  */
 import React, { Component } from 'react';
 import {
@@ -651,12 +651,14 @@ export default class Contract extends Component {
                                         <Text style={styles.filterItemValText}>{restingOrder.filterSelect1.value.name}</Text>
                                         <Image style={styles.filterItemValArrow} source={arrowIcon}/>
                                     </View>
-                                    <DcSelect
-                                        dcStyle={selectAnim1.style}
-                                        options={restingOrder.filterSelect1}
-                                        setOptions={this.setROFilterSelect1}
-                                        onOptionsRelease={obj => this.handleROFilterSelectOptionsRelease1(obj)}
-                                    />
+                                    <View style={styles.filterItemSelectOptions}>
+                                        <DcSelect
+                                            dcStyle={selectAnim1.style}
+                                            options={restingOrder.filterSelect1}
+                                            setOptions={this.setROFilterSelect1}
+                                            onOptionsRelease={obj => this.handleROFilterSelectOptionsRelease1(obj)}
+                                        />
+                                    </View>
                                 </View>
                                 <View style={styles.filterItem}>
                                     <View
@@ -667,12 +669,14 @@ export default class Contract extends Component {
                                         <Text style={styles.filterItemValText}>{restingOrder.filterSelect2.value.name}</Text>
                                         <Image style={styles.filterItemValArrow} source={arrowIcon}/>
                                     </View>
-                                    <DcSelect
-                                        dcStyle={selectAnim2.style}
-                                        options={restingOrder.filterSelect2}
-                                        setOptions={this.setROFilterSelect2}
-                                        onOptionsRelease={obj => this.handleROFilterSelectOptionsRelease2(obj)}
-                                    />
+                                    <View style={styles.filterItemSelectOptions}>
+                                        <DcSelect
+                                            dcStyle={selectAnim2.style}
+                                            options={restingOrder.filterSelect2}
+                                            setOptions={this.setROFilterSelect2}
+                                            onOptionsRelease={obj => this.handleROFilterSelectOptionsRelease2(obj)}
+                                        />
+                                    </View>
                                 </View>
                                 <View style={styles.filterItem}>
                                     <View
@@ -683,12 +687,14 @@ export default class Contract extends Component {
                                         <Text style={styles.filterItemValText}>{restingOrder.filterSelect3.value.name}</Text>
                                         <Image style={styles.filterItemValArrow} source={arrowIcon}/>
                                     </View>
-                                    <DcSelect
-                                        dcStyle={selectAnim3.style}
-                                        options={restingOrder.filterSelect3}
-                                        setOptions={this.setROFilterSelect3}
-                                        onOptionsRelease={obj => this.handleROFilterSelectOptionsRelease3(obj)}
-                                    />
+                                    <View style={styles.filterItemSelectOptions}>
+                                        <DcSelect
+                                            dcStyle={selectAnim3.style}
+                                            options={restingOrder.filterSelect3}
+                                            setOptions={this.setROFilterSelect3}
+                                            onOptionsRelease={obj => this.handleROFilterSelectOptionsRelease3(obj)}
+                                        />
+                                    </View>
                                 </View>
                             </View>
                         </View>
@@ -712,12 +718,14 @@ export default class Contract extends Component {
                                         <Text style={styles.filterItemValText}>{position.filterSelect.value.name}</Text>
                                         <Image style={styles.filterItemValArrow} source={arrowIcon}/>
                                     </View>
-                                    <DcSelect
-                                        dcStyle={selectAnim4.style}
-                                        options={position.filterSelect}
-                                        setOptions={this.setPFilterSelect}
-                                        onOptionsRelease={obj => this.handlePFilterSelectOptionsRelease(obj)}
-                                    />
+                                    <View style={styles.filterItemSelectOptions}>
+                                        <DcSelect
+                                            dcStyle={selectAnim4.style}
+                                            options={position.filterSelect}
+                                            setOptions={this.setPFilterSelect}
+                                            onOptionsRelease={obj => this.handlePFilterSelectOptionsRelease(obj)}
+                                        />
+                                    </View>
                                 </View>
                             </View>
                         </View>

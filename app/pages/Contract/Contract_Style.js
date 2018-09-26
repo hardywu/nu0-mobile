@@ -232,6 +232,12 @@ export default styles = StyleSheet.create({
         height: 12,
         marginLeft: 4,
         resizeMode: 'contain'
+    },
+
+    filterItemSelectOptions: {
+        position: 'absolute',
+        top: 24,
+        width: '100%'
     }
     //筛选结束
 });
