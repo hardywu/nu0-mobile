@@ -3,15 +3,15 @@ import { StyleSheet } from 'react-native'
 
 export default styles = StyleSheet.create({
     dcSelectOptions: {
-        // position: 'absolute',
+        position: 'absolute',
         // top: 24,
-        width: '100%',
+        // width: '100%',
         paddingTop: 8,
         paddingBottom: 8,
         borderRadius: 4,
         backgroundColor: '#fff',
-        zIndex: 9,
-        elevation: 6,
+        zIndex: 10,
+        elevation: 4,
         shadowColor:'#000',
         shadowOffset:{
             height: 0,

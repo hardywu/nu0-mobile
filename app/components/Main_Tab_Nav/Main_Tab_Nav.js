@@ -90,7 +90,7 @@ export const MainTabNav = createBottomTabNavigator(
         },
     },
     {
-        initialRouteName: 'French',
+        initialRouteName: 'Pricing',
         tabBarOptions: {
             //当前选中的tab bar的文本颜色和图标颜色
             activeTintColor: Constant.ACTIVE_COLOR,

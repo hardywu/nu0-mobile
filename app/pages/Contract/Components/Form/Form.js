@@ -199,6 +199,16 @@ export default class Form extends Component {
         });
     }
 
+    //处理类型下拉框modal层释放事件
+    handleTradeTypeSelectWrapRelease = (obj) => {
+        let { tradeTypeSelect } = this.state;
+        
+        selectAnim.scaleFadeOut().start(() => {
+            tradeTypeSelect.isShow = false;
+            this.setState({ tradeTypeSelect: tradeTypeSelect });
+        });
+    }
+
     //处理买入按钮释放事件
     handleSellBtnRelease = evt => {
         alert('买入');
@@ -366,7 +376,9 @@ export default class Form extends Component {
             <View style={[styles.form]}>
                 <View style={styles.formSelect}>
                     <View
+                        ref='tradeTypeSelect'
                         style={styles.formSelectMain}
+                        collapsable={false}
                         onStartShouldSetResponder={() => true}
                         onResponderRelease={evt => this.handleTradeTypeSelectRelease(evt)}
                     >
@@ -375,10 +387,12 @@ export default class Form extends Component {
                     </View>
                     <View style={styles.formSelectOptions}>
                         <DcSelect
+                            selectHeaderRef={this.refs.tradeTypeSelect}
                             dcStyle={selectAnim.style}
                             options={tradeTypeSelect}
                             setOptions={this.setTradeTypeSelect}
                             onOptionsRelease={obj => this.handleTradeTypeSelectOptionsRelease(obj)}
+                            onWrapRelease={evt => this.handleTradeTypeSelectWrapRelease(evt)}
                         />
                     </View>
                 </View>

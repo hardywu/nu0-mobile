@@ -351,6 +351,17 @@ export default class Contract extends Component {
         });
     }
 
+    //处理 挂单页-筛选栏modal层1 释放事件
+    handleROFilterSelectWrapRelease1 = evt => {
+        let { restingOrder } = this.state;
+        let select = restingOrder.filterSelect1;
+        
+        selectAnim1.scaleFadeOut().start(() => {
+            select.isShow = false;
+            this.setState({ restingOrder: restingOrder });
+        });
+    }
+
     //设置 挂单页-筛选数据2 的值
     setROFilterSelect2 = (filterSelect, callback) => {
         let { restingOrder } = this.state;
@@ -395,6 +406,17 @@ export default class Contract extends Component {
         });
     }
 
+    //处理 挂单页-筛选栏modal层2 释放事件
+    handleROFilterSelectWrapRelease2 = evt => {
+        let { restingOrder } = this.state;
+        let select = restingOrder.filterSelect2;
+        
+        selectAnim2.scaleFadeOut().start(() => {
+            select.isShow = false;
+            this.setState({ restingOrder: restingOrder });
+        });
+    }
+
     //设置 挂单页-筛选数据3 的值
     setROFilterSelect3 = (filterSelect, callback) => {
         let { restingOrder } = this.state;
@@ -430,11 +452,23 @@ export default class Contract extends Component {
     handleROFilterSelectOptionsRelease3 = (obj) => {
         let { restingOrder } = this.state;
         let select = restingOrder.filterSelect3;
+
         
         selectAnim3.scaleFadeOut().start(() => {
             select.isShow = false;
             select.value.name = obj.name;
             select.value.code = obj.code;
+            this.setState({ restingOrder: restingOrder });
+        });
+    }
+
+    //处理 挂单页-筛选栏modal层3 释放事件
+    handleROFilterSelectWrapRelease3 = evt => {
+        let { restingOrder } = this.state;
+        let select = restingOrder.filterSelect3;
+        
+        selectAnim3.scaleFadeOut().start(() => {
+            select.isShow = false;
             this.setState({ restingOrder: restingOrder });
         });
     }
@@ -479,6 +513,17 @@ export default class Contract extends Component {
             select.isShow = false;
             select.value.name = obj.name;
             select.value.code = obj.code;
+            this.setState({ position: position });
+        });
+    }
+
+    //处理 挂单页-筛选栏modal层3 释放事件
+    handlePFilterSelectWrapRelease = evt => {
+        let { position } = this.state;
+        let select = position.filterSelect;
+        
+        selectAnim4.scaleFadeOut().start(() => {
+            select.isShow = false;
             this.setState({ position: position });
         });
     }
@@ -644,7 +689,9 @@ export default class Contract extends Component {
                             <View style={[styles.filterCenterContent, mStyles.mCenterContent]}>
                                 <View style={styles.filterItem}>
                                     <View
+                                        ref='ROFilterSelect1'
                                         style={styles.filterItemVal}
+                                        collapsable={false}
                                         onStartShouldSetResponder={() => true}
                                         onResponderRelease={evt => this.handleROFilterSelectRelease1(evt)}
                                     >
@@ -653,16 +700,20 @@ export default class Contract extends Component {
                                     </View>
                                     <View style={styles.filterItemSelectOptions}>
                                         <DcSelect
+                                            selectHeaderRef={this.refs.ROFilterSelect1}
                                             dcStyle={selectAnim1.style}
                                             options={restingOrder.filterSelect1}
                                             setOptions={this.setROFilterSelect1}
                                             onOptionsRelease={obj => this.handleROFilterSelectOptionsRelease1(obj)}
+                                            onWrapRelease={evt => this.handleROFilterSelectWrapRelease1(evt)}
                                         />
                                     </View>
                                 </View>
                                 <View style={styles.filterItem}>
                                     <View
+                                        ref='ROFilterSelect2'
                                         style={styles.filterItemVal}
+                                        collapsable={false}
                                         onStartShouldSetResponder={() => true}
                                         onResponderRelease={evt => this.handleROFilterSelectRelease2(evt)}
                                     >
@@ -671,16 +722,20 @@ export default class Contract extends Component {
                                     </View>
                                     <View style={styles.filterItemSelectOptions}>
                                         <DcSelect
+                                            selectHeaderRef={this.refs.ROFilterSelect2}
                                             dcStyle={selectAnim2.style}
                                             options={restingOrder.filterSelect2}
                                             setOptions={this.setROFilterSelect2}
                                             onOptionsRelease={obj => this.handleROFilterSelectOptionsRelease2(obj)}
+                                            onWrapRelease={evt => this.handleROFilterSelectWrapRelease2(evt)}
                                         />
                                     </View>
                                 </View>
                                 <View style={styles.filterItem}>
                                     <View
+                                        ref='ROFilterSelect3'
                                         style={styles.filterItemVal}
+                                        collapsable={false}
                                         onStartShouldSetResponder={() => true}
                                         onResponderRelease={evt => this.handleROFilterSelectRelease3(evt)}
                                     >
@@ -689,10 +744,12 @@ export default class Contract extends Component {
                                     </View>
                                     <View style={styles.filterItemSelectOptions}>
                                         <DcSelect
+                                            selectHeaderRef={this.refs.ROFilterSelect3}
                                             dcStyle={selectAnim3.style}
                                             options={restingOrder.filterSelect3}
                                             setOptions={this.setROFilterSelect3}
                                             onOptionsRelease={obj => this.handleROFilterSelectOptionsRelease3(obj)}
+                                            onWrapRelease={evt => this.handleROFilterSelectWrapRelease3(evt)}
                                         />
                                     </View>
                                 </View>
@@ -711,19 +768,23 @@ export default class Contract extends Component {
                             <View style={[styles.filterCenterContent, mStyles.mCenterContent]}>
                                 <View style={styles.filterItem}>
                                     <View
+                                        ref='PFilterSelect'
                                         style={styles.filterItemVal}
+                                        collapsable={false}
                                         onStartShouldSetResponder={() => true}
                                         onResponderRelease={evt => this.handlePFilterSelectRelease(evt)}
                                     >
                                         <Text style={styles.filterItemValText}>{position.filterSelect.value.name}</Text>
                                         <Image style={styles.filterItemValArrow} source={arrowIcon}/>
                                     </View>
-                                    <View style={styles.filterItemSelectOptions}>
+                                    <View style={[styles.filterItemSelectOptions]}>
                                         <DcSelect
+                                            selectHeaderRef={this.refs.PFilterSelect}
                                             dcStyle={selectAnim4.style}
                                             options={position.filterSelect}
                                             setOptions={this.setPFilterSelect}
                                             onOptionsRelease={obj => this.handlePFilterSelectOptionsRelease(obj)}
+                                            onWrapRelease={evt => handlePFilterSelectWrapRelease(evt)}
                                         />
                                     </View>
                                 </View>

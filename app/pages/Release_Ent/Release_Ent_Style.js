@@ -80,10 +80,12 @@ export default styles = StyleSheet.create({
     },
 
     tbody: {
+        overflow: 'visible',
         backgroundColor: '#fff'
     },
 
     tbodyRow: {
+        overflow: 'visible',
         flexDirection: 'row',
         alignItems: 'center',
         height: 46
@@ -117,6 +119,8 @@ export default styles = StyleSheet.create({
     },
 
     tbodySelect: {
+        flex: 1,
+        width: '100%',
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
@@ -126,6 +130,29 @@ export default styles = StyleSheet.create({
         width: 10,
         height: 10,
         resizeMode: 'contain'
-    }
+    },
     //主体内容结束
+
+    //发布委托按钮开始
+    submitWrap: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: '100%',
+        height: 64,
+        backgroundColor: '#fff'
+    },
+
+    submitBtn: {
+        alignItems: 'center',
+        width: 346,
+        borderRadius: 4,
+        backgroundColor: '#e2e5ec'
+    },
+
+    submitBtnText: {
+        fontSize: 15,
+        lineHeight: 42,
+        color: '#fff'
+    }
+    //发布委托按钮结束
 });

@@ -21,7 +21,6 @@ import styles from './Release_Ent_Style';
 import goBackIcon from '../../static/imgs/go_back.png'; //返回图标
 import arrowIcon from '../../static/imgs/arrow_gray.png'; //箭头图标
 
-//FIXME: 需要修复 定价方式下拉框zIndex的问题
 let selectAnim1 = new SelectAnim();
 let selectAnim2 = new SelectAnim();
 export default class ReleaseEnt extends Component {
@@ -56,10 +55,25 @@ export default class ReleaseEnt extends Component {
                             name: '浮动价格'
                         }
                     ]
-                }, //挂单页-筛选数据1
+                }, //
             }, //我要购买
             sell: {
-
+                pricingModeSelect: {
+                    isShow: false,
+                    value: {
+                        code: 0,
+                        name: '固定价格33'
+                    },
+                    selectOptions: [
+                        {
+                            code: 0,
+                            name: '固定价格33'
+                        }, {
+                            code: 1,
+                            name: '浮动价格33'
+                        }
+                    ]
+                }, //
             } //我要出售
         }
     }
@@ -128,10 +142,81 @@ export default class ReleaseEnt extends Component {
         });
     }
 
+    //处理 购买-定价方式选项modal层 释放事件
+    handleBuySellPricingModeSelectWrapRelease = evt => {
+        let { buy } = this.state;
+        let select = buy.pricingModeSelect;
+        
+        selectAnim1.scaleFadeOut().start(() => {
+            select.isShow = false;
+            this.setState({ buy: buy });
+        });
+    }
+    
+
+
+    //处理 出售-定价方式 释放事件
+    handleSellPricingModeSelectRelease = evt => {
+        let { sell } = this.state;
+        let select = sell.pricingModeSelect;
+
+        if(select.isShow) {
+            selectAnim1.scaleFadeOut().start(() => {
+                select.isShow = false;
+                this.setState({ sell: sell });
+            });
+        } else {
+            select.isShow = true;
+            this.setState({ sell: sell }, () => {
+                selectAnim1.scaleFadeIn().start();
+            });
+        }
+    }
+
+    //处理 出售-定价方式选项 释放事件
+    handleSellPricingModeSelectOptionsRelease = obj => {
+        let { sell } = this.state;
+        let select = sell.pricingModeSelect;
+        
+        selectAnim1.scaleFadeOut().start(() => {
+            select.isShow = false;
+            select.value.name = obj.name;
+            select.value.code = obj.code;
+            this.setState({ sell: sell });
+        });
+    }
+
+    //设置 出售-定价方式 的值
+    setSellPricingModeSelect = (pricingModeSelect, callback) => {
+        let { sell } = this.state;
+        sell.pricingModeSelect = pricingModeSelect;
+        this.setState({ sell: sell }, () => {
+            if(callback) {
+                callback();
+            } else {
+                return false;
+            }
+        });
+    }
+
+    //处理 购买-定价方式选项modal层 释放事件
+    handleSellPricingModeSelectWrapRelease = evt => {
+        let { sell } = this.state;
+        let select = sell.pricingModeSelect;
+        
+        selectAnim1.scaleFadeOut().start(() => {
+            select.isShow = false;
+            this.setState({ sell: sell });
+        });
+    }
+
+    
+
     render() {
         let {
             mainNav,
-            buy
+            buy,
+            sell
         } = this.state;
 
         //一级导航DOM
@@ -185,81 +270,171 @@ export default class ReleaseEnt extends Component {
                 {/* 头部结束 */}
                 {/* 主体内容开始 */}
                 <View style={styles.body}>
-                    <View style={[mStyles.mCenterContent, styles.thead]}>
-                        <Text style={styles.theadText}>价格</Text>
-                        <Text style={styles.theadText}>当前盘口价格6.83CNY</Text>
-                    </View>
-                    <View style={styles.tbody}>
-                        <View style={[mStyles.mCenterContent, styles.tbodyRow, styles.tbodyRowBorder, {zIndex: 1}]}>
-                            <View style={styles.tbodyRowLeft}>
-                                <Text style={styles.tbodyRowText}>定价方式</Text>
-                            </View>
-                            <View style={styles.tbodyRowRight}>
-                                <View
-                                    style={styles.tbodySelect}
-                                    onStartShouldSetResponder={() => true}
-                                    onResponderRelease={evt => this.handleBuyPricingModeSelectRelease(evt)}
-                                >
-                                    <Text style={styles.tbodyRowText}>{buy.pricingModeSelect.value.name}</Text>
-                                    <Image style={styles.tbodySelectlArrow} source={arrowIcon}/>
+                    {/* 购买开始 */}
+                    <View style={{display: mainNavActiveIndex === 0 ? 'flex' : 'none'}}>
+                        <View style={[mStyles.mCenterContent, styles.thead]}>
+                            <Text style={styles.theadText}>价格</Text>
+                            <Text style={styles.theadText}>当前盘口价格6.83CNY</Text>
+                        </View>
+                        <View style={styles.tbody}>
+                            <View>
+                                <View style={[mStyles.mCenterContent, styles.tbodyRow,styles.tbodyRowBorder]}>
+                                    <View style={styles.tbodyRowLeft}>
+                                        <Text style={styles.tbodyRowText}>定价方式</Text>
+                                    </View>
+                                    <View style={[styles.tbodyRowRight]}>
+                                        <View
+                                            ref='buyPricingModeSelect'
+                                            style={styles.tbodySelect}
+                                            onStartShouldSetResponder={() => true}
+                                            onResponderRelease={evt => this.handleBuyPricingModeSelectRelease(evt)}
+                                        >
+                                            <Text style={styles.tbodyRowText}>{buy.pricingModeSelect.value.name}</Text>
+                                            <Image style={styles.tbodySelectlArrow} source={arrowIcon}/>
+                                        </View>
+                                        <DcSelect
+                                            selectHeaderRef={this.refs.buyPricingModeSelect}
+                                            dcStyle={selectAnim1.style}
+                                            options={buy.pricingModeSelect}
+                                            setOptions={this.setBuyPricingModeSelect}
+                                            onOptionsRelease={obj => this.handleBuyPricingModeSelectOptionsRelease(obj)}
+                                            onWrapRelease={evt => {this.handleBuyPricingModeSelectWrapRelease(evt)}}
+                                        />
+                                    </View>
                                 </View>
-                                <View style={{position: 'absolute', top: 45, width: '100%', height: '100%', zIndex: 9}}>
-                                    <DcSelect
-                                        dcStyle={selectAnim1.style}
-                                        options={buy.pricingModeSelect}
-                                        setOptions={this.setBuyPricingModeSelect}
-                                        onOptionsRelease={obj => this.handleBuyPricingModeSelectOptionsRelease(obj)}
-                                    />
+                                <View style={[mStyles.mCenterContent, styles.tbodyRow]}>
+                                    <View style={styles.tbodyRowLeft}>
+                                        <Text style={styles.tbodyRowText}>交易价格</Text>
+                                    </View>
+                                    <View style={styles.tbodyRowRight}>
+                                        <TextInput style={[styles.tbodyRowInput, styles.tbodyRowText]} placeholder={'请输入交易价格'}/>
+                                    </View>
                                 </View>
                             </View>
                         </View>
-                        <View style={[mStyles.mCenterContent, styles.tbodyRow, {zIndex: -1}]}>
-                            <View style={styles.tbodyRowLeft}>
-                                <Text style={styles.tbodyRowText}>交易价格</Text>
+                        <View style={[mStyles.mCenterContent, styles.thead]}>
+                            <Text style={styles.theadText}>交易数额</Text>
+                        </View>
+                        <View style={styles.tbody}>
+                            <View style={[mStyles.mCenterContent, styles.tbodyRow, styles.tbodyRowBorder]}>
+                                <View style={styles.tbodyRowLeft}>
+                                    <Text style={styles.tbodyRowText}>数量(USDT)</Text>
+                                </View>
+                                <View style={styles.tbodyRowRight}>
+                                    <TextInput style={[styles.tbodyRowInput, styles.tbodyRowText]} placeholder={'请输入购买数量'}/>
+                                </View>
                             </View>
-                            <View style={styles.tbodyRowRight}>
-                                <TextInput style={[styles.tbodyRowInput, styles.tbodyRowText]} placeholder={'请输入交易价格'}/>
+                            <View style={[mStyles.mCenterContent, styles.tbodyRow]}>
+                                <View style={styles.tbodyRowLeft}>
+                                    <Text style={styles.tbodyRowText}>金额(CNY)</Text>
+                                </View>
+                                <View style={styles.tbodyRowRight}>
+                                    <TextInput style={[styles.tbodyRowInput, styles.tbodyRowText]} placeholder={'最小交易额2000'}/>
+                                </View>
+                            </View>
+                        </View>
+                        <View style={[mStyles.mCenterContent, styles.thead]}>
+                            <Text style={styles.theadText}>对手限制</Text>
+                        </View>
+                        <View style={styles.tbody}>
+                            <View style={[mStyles.mCenterContent, styles.tbodyRow, {height: 60}]}>
+                                <View style={styles.tbodyRowLeft}>
+                                    <Text style={styles.tbodyRowText}>交易方式</Text>
+                                </View>
+                                <View style={styles.tbodyRowRight}>
+                                    <TextInput style={[styles.tbodyRowInput, styles.tbodyRowText]} multiline={true} placeholder={'1.订单有效期为15分钟，请及时付款并点击【我已付款】按钮 2.币由系统锁定托管，请安心下单'}/>
+                                </View>
                             </View>
                         </View>
                     </View>
-                    
-                    <View style={[mStyles.mCenterContent, styles.thead]}>
-                        <Text style={styles.theadText}>交易数额</Text>
-                    </View>
-                    <View style={styles.tbody}>
-                        <View style={[mStyles.mCenterContent, styles.tbodyRow, styles.tbodyRowBorder]}>
-                            <View style={styles.tbodyRowLeft}>
-                                <Text style={styles.tbodyRowText}>数量(USDT)</Text>
-                            </View>
-                            <View style={styles.tbodyRowRight}>
-                                <TextInput style={[styles.tbodyRowInput, styles.tbodyRowText]} placeholder={'请输入购买数量'}/>
+                    {/* 购买结束 */}
+                    {/* 出售开始 */}
+                    <View style={{display: mainNavActiveIndex === 1 ? 'flex' : 'none'}}>
+                        <View style={[mStyles.mCenterContent, styles.thead]}>
+                            <Text style={styles.theadText}>价格</Text>
+                            <Text style={styles.theadText}>当前盘口价格6.83CNY</Text>
+                        </View>
+                        <View style={styles.tbody}>
+                            <View>
+                                <View style={[mStyles.mCenterContent, styles.tbodyRow,styles.tbodyRowBorder]}>
+                                    <View style={styles.tbodyRowLeft}>
+                                        <Text style={styles.tbodyRowText}>定价方式</Text>
+                                    </View>
+                                    <View style={[styles.tbodyRowRight]}>
+                                        <View
+                                            ref='sellPricingModeSelect'
+                                            style={styles.tbodySelect}
+                                            onStartShouldSetResponder={() => true}
+                                            onResponderRelease={evt => this.handleSellPricingModeSelectRelease(evt)}
+                                        >
+                                            <Text style={styles.tbodyRowText}>{sell.pricingModeSelect.value.name}</Text>
+                                            <Image style={styles.tbodySelectlArrow} source={arrowIcon}/>
+                                        </View>
+                                        <DcSelect
+                                            selectHeaderRef={this.refs.sellPricingModeSelect}
+                                            dcStyle={selectAnim1.style}
+                                            options={sell.pricingModeSelect}
+                                            setOptions={this.setBuyPricingModeSelect}
+                                            onOptionsRelease={obj => this.handleSellPricingModeSelectOptionsRelease(obj)}
+                                            onWrapRelease={evt => {this.handleSellPricingModeSelectWrapRelease(evt)}}
+                                        />
+                                    </View>
+                                </View>
+                                <View style={[mStyles.mCenterContent, styles.tbodyRow]}>
+                                    <View style={styles.tbodyRowLeft}>
+                                        <Text style={styles.tbodyRowText}>交易价格</Text>
+                                    </View>
+                                    <View style={styles.tbodyRowRight}>
+                                        <TextInput style={[styles.tbodyRowInput, styles.tbodyRowText]} placeholder={'请输入交易价格'}/>
+                                    </View>
+                                </View>
                             </View>
                         </View>
-                        <View style={[mStyles.mCenterContent, styles.tbodyRow]}>
-                            <View style={styles.tbodyRowLeft}>
-                                <Text style={styles.tbodyRowText}>金额(CNY)</Text>
+                        <View style={[mStyles.mCenterContent, styles.thead]}>
+                            <Text style={styles.theadText}>交易数额</Text>
+                        </View>
+                        <View style={styles.tbody}>
+                            <View style={[mStyles.mCenterContent, styles.tbodyRow, styles.tbodyRowBorder]}>
+                                <View style={styles.tbodyRowLeft}>
+                                    <Text style={styles.tbodyRowText}>数量(USDT)</Text>
+                                </View>
+                                <View style={styles.tbodyRowRight}>
+                                    <TextInput style={[styles.tbodyRowInput, styles.tbodyRowText]} placeholder={'可用 0.0'}/>
+                                </View>
                             </View>
-                            <View style={styles.tbodyRowRight}>
-                                <TextInput style={[styles.tbodyRowInput, styles.tbodyRowText]} placeholder={'最小交易额2000'}/>
+                            <View style={[mStyles.mCenterContent, styles.tbodyRow]}>
+                                <View style={styles.tbodyRowLeft}>
+                                    <Text style={styles.tbodyRowText}>金额(CNY)</Text>
+                                </View>
+                                <View style={styles.tbodyRowRight}>
+                                    <TextInput style={[styles.tbodyRowInput, styles.tbodyRowText]} placeholder={'最小交易额2000'}/>
+                                </View>
+                            </View>
+                        </View>
+                        <View style={[mStyles.mCenterContent, styles.thead]}>
+                            <Text style={styles.theadText}>对手限制</Text>
+                        </View>
+                        <View style={styles.tbody}>
+                            <View style={[mStyles.mCenterContent, styles.tbodyRow, {height: 60}]}>
+                                <View style={styles.tbodyRowLeft}>
+                                    <Text style={styles.tbodyRowText}>交易方式</Text>
+                                </View>
+                                <View style={styles.tbodyRowRight}>
+                                    <TextInput style={[styles.tbodyRowInput, styles.tbodyRowText]} multiline={true} placeholder={'1.订单有效期为15分钟，请及时付款并点击【我已付款】按钮 2.币由系统锁定托管，请安心下单'}/>
+                                </View>
                             </View>
                         </View>
                     </View>
-
-                    <View style={[mStyles.mCenterContent, styles.thead]}>
-                        <Text style={styles.theadText}>对手限制</Text>
-                    </View>
-                    <View style={styles.tbody}>
-                        <View style={[mStyles.mCenterContent, styles.tbodyRow, {height: 60}]}>
-                            <View style={styles.tbodyRowLeft}>
-                                <Text style={styles.tbodyRowText}>交易方式</Text>
-                            </View>
-                            <View style={styles.tbodyRowRight}>
-                                <TextInput style={[styles.tbodyRowInput, styles.tbodyRowText]} multiline={true} placeholder={'1.订单有效期为15分钟，请及时付款并点击【我已付款】按钮 2.币由系统锁定托管，请安心下单'}/>
-                            </View>
-                        </View>
-                    </View>
+                    {/* 出售开始 */}
                 </View>
                 {/* 主体内容结束 */}
+                {/* 发布委托按钮开始 */}
+                <View style={styles.submitWrap}>
+                    <View style={styles.submitBtn}>
+                        <Text style={styles.submitBtnText}>发布委托单</Text>
+                    </View>
+                </View>
+                {/* 发布委托按钮结束 */}
             </View>
         );
     }

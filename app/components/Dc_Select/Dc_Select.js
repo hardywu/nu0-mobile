@@ -12,9 +12,11 @@ import {
     Animated,
     Easing,
     FlatList,
-    LayoutAnimation
+    LayoutAnimation,
+    Modal
 } from 'react-native';
-import Anim from '../../public/animation'
+import Anim from '../../public/animation';
+import utils from '../../public/utils';
 
 import mStyles from '../../public/common_style';
 import styles from './Dc_Select_Style';
@@ -23,7 +25,7 @@ import styles from './Dc_Select_Style';
 export class SelectAnim {
     constructor() {
         this.style = {
-            opacity: new Animated.Value(0.6),
+            opacity: new Animated.Value(0),
             scale: new Animated.Value(0.92)
         }
     }
@@ -52,15 +54,36 @@ export class SelectAnim {
 export class DcSelect extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            position: {
+                top: null,
+                left: null,
+                width: null
+            }
+        }
+    }
+
+    componentWillReceiveProps(nextProps) {
+        let { selectHeaderRef } = nextProps;
+        let { position } = this.state;
+        //根据下拉框结果栏元素的位置和宽高，计算下拉框选项的位置
+        utils.layout(selectHeaderRef).then((data) => {
+            position.top = data.pageY + data.height + 4;
+            position.left = data.pageX;
+            position.width = data.width;
+            console.log(data)
+            this.setState({ position: position }, ()=> {console.log(position)});
+        });
     }
 
     render() {
         const {
             options,
             onOptionsRelease,
-            dcStyle
+            dcStyle,
+            onWrapRelease
         } = this.props
-
+        let { position } = this.state;
         let selectOptionsDom = options.selectOptions.map((item, index) => {
             return (
                 <Text
@@ -75,26 +98,40 @@ export class DcSelect extends Component {
                     {item.name}
                 </Text>
             )
-        })
-        
+        });
         return (
-            <Animated.View  style={[
-                styles.dcSelectOptions,
-                {
-                    height: options.isShow ? 'auto' : 0,
-                    paddingTop: options.isShow ? 8 : 0,
-                    paddingBottom: options.isShow ? 8 : 0,
-                    opacity: dcStyle.opacity, 
-                    transform: [
-                        {scale: dcStyle.scale}
-                    ]
-                }
-            ]}>
-                {selectOptionsDom}
-                {/* <Text style={styles.dcSelectOptionsItem}>选项1</Text>
-                <Text style={styles.dcSelectOptionsItem}>选项2</Text>
-                <Text style={styles.dcSelectOptionsItem}>选项3</Text> */}
-            </Animated.View >
+            <Modal
+                visible={options.isShow && position.width ? true : false}
+                animationType='none'
+                presentationStyle='overFullScreen'
+                transparent={true}
+                onRequestClose={() => false}
+            >
+                <View
+                    style={{flex: 1, backgroundColor: 'rgba(0,0,0,0)'}}
+                    onStartShouldSetResponder={() => true}
+                    onResponderRelease={evt => onWrapRelease(evt)}
+                >
+                    <Animated.View style={[
+                        styles.dcSelectOptions,
+                        {
+                            display: options.isShow ? 'flex' : 'none',
+                            top: position.top,
+                            left: position.left,
+                            width: position.width,
+                            opacity: dcStyle.opacity,
+                            transform: [
+                                {scale: dcStyle.scale}
+                            ]
+                        }
+                    ]}>
+                        {selectOptionsDom}
+                        {/* <Text style={styles.dcSelectOptionsItem}>选项1</Text>
+                        <Text style={styles.dcSelectOptionsItem}>选项2</Text>
+                        <Text style={styles.dcSelectOptionsItem}>选项3</Text> */}
+                    </Animated.View >
+                </View>
+            </Modal>
         );
     }
 }

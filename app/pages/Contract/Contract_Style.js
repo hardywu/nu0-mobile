@@ -1,5 +1,23 @@
 import Contract from '../../public/constant'
-import { StyleSheet } from 'react-native'
+import {
+    StyleSheet,
+    Platform
+} from 'react-native';
+
+let filterWrapStyle = (() => {
+    if(Platform.OS === "ios") {
+        return {
+            width: '100%',
+            height: 40,
+            zIndex: 9
+        }
+    } else {
+        return {
+            width: '100%',
+            height: 40
+        }
+    }
+})()
 
 export default styles = StyleSheet.create({
     // 头部开始
@@ -199,11 +217,7 @@ export default styles = StyleSheet.create({
     // 交易页结束
 
     //筛选开始
-    filterWrap: {
-        width: '100%',
-        height: 40,
-        zIndex: 9
-    },
+    filterWrap: filterWrapStyle,
 
     filterCenterContent: {
         flex: 1,
@@ -217,6 +231,7 @@ export default styles = StyleSheet.create({
     },
 
     filterItemVal: {
+        opacity: 1,
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center'
@@ -235,9 +250,9 @@ export default styles = StyleSheet.create({
     },
 
     filterItemSelectOptions: {
-        position: 'absolute',
-        top: 24,
-        width: '100%'
+        // position: 'absolute',
+        // top: 24,
+        // width: '100%'
     }
     //筛选结束
 });
