@@ -143,7 +143,7 @@ export default class ReleaseEnt extends Component {
     }
 
     //处理 购买-定价方式选项modal层 释放事件
-    handleBuySellPricingModeSelectWrapRelease = evt => {
+    handleBuyPricingModeSelectWrapRelease = evt => {
         let { buy } = this.state;
         let select = buy.pricingModeSelect;
         
@@ -153,8 +153,6 @@ export default class ReleaseEnt extends Component {
         });
     }
     
-
-
     //处理 出售-定价方式 释放事件
     handleSellPricingModeSelectRelease = evt => {
         let { sell } = this.state;
@@ -209,8 +207,6 @@ export default class ReleaseEnt extends Component {
             this.setState({ sell: sell });
         });
     }
-
-    
 
     render() {
         let {
@@ -286,6 +282,7 @@ export default class ReleaseEnt extends Component {
                                         <View
                                             ref='buyPricingModeSelect'
                                             style={styles.tbodySelect}
+                                            collapsable={false}
                                             onStartShouldSetResponder={() => true}
                                             onResponderRelease={evt => this.handleBuyPricingModeSelectRelease(evt)}
                                         >
@@ -307,7 +304,11 @@ export default class ReleaseEnt extends Component {
                                         <Text style={styles.tbodyRowText}>交易价格</Text>
                                     </View>
                                     <View style={styles.tbodyRowRight}>
-                                        <TextInput style={[styles.tbodyRowInput, styles.tbodyRowText]} placeholder={'请输入交易价格'}/>
+                                        <TextInput
+                                            style={[styles.tbodyRowInput, styles.tbodyRowText]}
+                                            underlineColorAndroid='transparent'
+                                            placeholder={'请输入交易价格'}
+                                        />
                                     </View>
                                 </View>
                             </View>
@@ -321,7 +322,11 @@ export default class ReleaseEnt extends Component {
                                     <Text style={styles.tbodyRowText}>数量(USDT)</Text>
                                 </View>
                                 <View style={styles.tbodyRowRight}>
-                                    <TextInput style={[styles.tbodyRowInput, styles.tbodyRowText]} placeholder={'请输入购买数量'}/>
+                                    <TextInput
+                                        style={[styles.tbodyRowInput, styles.tbodyRowText]}
+                                        underlineColorAndroid='transparent'
+                                        placeholder={'请输入购买数量'}
+                                    />
                                 </View>
                             </View>
                             <View style={[mStyles.mCenterContent, styles.tbodyRow]}>
@@ -329,7 +334,11 @@ export default class ReleaseEnt extends Component {
                                     <Text style={styles.tbodyRowText}>金额(CNY)</Text>
                                 </View>
                                 <View style={styles.tbodyRowRight}>
-                                    <TextInput style={[styles.tbodyRowInput, styles.tbodyRowText]} placeholder={'最小交易额2000'}/>
+                                    <TextInput
+                                        style={[styles.tbodyRowInput, styles.tbodyRowText]}
+                                        underlineColorAndroid='transparent'
+                                        placeholder={'最小交易额2000'}
+                                    />
                                 </View>
                             </View>
                         </View>
@@ -342,7 +351,12 @@ export default class ReleaseEnt extends Component {
                                     <Text style={styles.tbodyRowText}>交易方式</Text>
                                 </View>
                                 <View style={styles.tbodyRowRight}>
-                                    <TextInput style={[styles.tbodyRowInput, styles.tbodyRowText]} multiline={true} placeholder={'1.订单有效期为15分钟，请及时付款并点击【我已付款】按钮 2.币由系统锁定托管，请安心下单'}/>
+                                    <TextInput
+                                        style={[styles.tbodyRowInput, styles.tbodyRowText]}
+                                        multiline={true}
+                                        underlineColorAndroid='transparent'
+                                        placeholder={'1.订单有效期为15分钟，请及时付款并点击【我已付款】按钮 2.币由系统锁定托管，请安心下单'}
+                                    />
                                 </View>
                             </View>
                         </View>
@@ -364,6 +378,7 @@ export default class ReleaseEnt extends Component {
                                         <View
                                             ref='sellPricingModeSelect'
                                             style={styles.tbodySelect}
+                                            collapsable={false}
                                             onStartShouldSetResponder={() => true}
                                             onResponderRelease={evt => this.handleSellPricingModeSelectRelease(evt)}
                                         >
@@ -385,7 +400,11 @@ export default class ReleaseEnt extends Component {
                                         <Text style={styles.tbodyRowText}>交易价格</Text>
                                     </View>
                                     <View style={styles.tbodyRowRight}>
-                                        <TextInput style={[styles.tbodyRowInput, styles.tbodyRowText]} placeholder={'请输入交易价格'}/>
+                                        <TextInput
+                                            style={[styles.tbodyRowInput, styles.tbodyRowText]}
+                                            underlineColorAndroid='transparent'
+                                            placeholder={'请输入交易价格'}
+                                        />
                                     </View>
                                 </View>
                             </View>
@@ -399,7 +418,11 @@ export default class ReleaseEnt extends Component {
                                     <Text style={styles.tbodyRowText}>数量(USDT)</Text>
                                 </View>
                                 <View style={styles.tbodyRowRight}>
-                                    <TextInput style={[styles.tbodyRowInput, styles.tbodyRowText]} placeholder={'可用 0.0'}/>
+                                    <TextInput
+                                        style={[styles.tbodyRowInput, styles.tbodyRowText]}
+                                        underlineColorAndroid='transparent'
+                                        placeholder={'可用 0.0'}
+                                    />
                                 </View>
                             </View>
                             <View style={[mStyles.mCenterContent, styles.tbodyRow]}>
@@ -407,7 +430,11 @@ export default class ReleaseEnt extends Component {
                                     <Text style={styles.tbodyRowText}>金额(CNY)</Text>
                                 </View>
                                 <View style={styles.tbodyRowRight}>
-                                    <TextInput style={[styles.tbodyRowInput, styles.tbodyRowText]} placeholder={'最小交易额2000'}/>
+                                    <TextInput
+                                        style={[styles.tbodyRowInput, styles.tbodyRowText]}
+                                        underlineColorAndroid='transparent'
+                                        placeholder={'最小交易额2000'}
+                                    />
                                 </View>
                             </View>
                         </View>
@@ -420,7 +447,12 @@ export default class ReleaseEnt extends Component {
                                     <Text style={styles.tbodyRowText}>交易方式</Text>
                                 </View>
                                 <View style={styles.tbodyRowRight}>
-                                    <TextInput style={[styles.tbodyRowInput, styles.tbodyRowText]} multiline={true} placeholder={'1.订单有效期为15分钟，请及时付款并点击【我已付款】按钮 2.币由系统锁定托管，请安心下单'}/>
+                                    <TextInput
+                                        style={[styles.tbodyRowInput, styles.tbodyRowText]}
+                                        multiline={true}
+                                        underlineColorAndroid='transparent'
+                                        placeholder={'1.订单有效期为15分钟，请及时付款并点击【我已付款】按钮 2.币由系统锁定托管，请安心下单'}
+                                    />
                                 </View>
                             </View>
                         </View>

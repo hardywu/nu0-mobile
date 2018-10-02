@@ -43,7 +43,8 @@ export default styles = StyleSheet.create({
 
     logoImg: {
         width: 120,
-        height: 50
+        height: 50,
+        resizeMode: 'contain'
     },
 
     settingImg: {

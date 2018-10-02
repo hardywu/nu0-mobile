@@ -53,6 +53,7 @@ export default styles = StyleSheet.create({
 
     headInput: {
         flex: 1,
+        padding: 0,
         fontSize: 12.6,
         color: Contract.DEFAULT_FONT_COLOR
     },

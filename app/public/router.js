@@ -4,6 +4,7 @@ import { MainTabNav } from '../components/Main_Tab_Nav/Main_Tab_Nav'
 import Login from '../pages/Login/Login'
 import Search from '../pages/Search/Search'
 import ReleaseEnt from '../pages/Release_Ent/Release_Ent'
+import MyWallet from '../pages/My_Wallet/My_Wallet'
 
 const Router = createStackNavigator(
     {
@@ -33,10 +34,17 @@ const Router = createStackNavigator(
             navigationOptions: ({ navigation }) => ({
                 header: null
             })
+        },
+        //我的钱包页
+        MyWallet: {
+            screen: MyWallet,
+            navigationOptions: ({ navigation }) => ({
+                header: null
+            })
         }
     },
     {
-        initialRouteName: 'Main',
+        initialRouteName: 'MyWallet',
         headerMode: 'screen'
     }
 );

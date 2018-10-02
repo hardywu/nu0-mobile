@@ -148,6 +148,7 @@ export default class Search extends Component {
                             <Image style={styles.headInputSearchIcon} source={searchIcon}/>
                             <TextInput
                                 style={styles.headInput}
+                                underlineColorAndroid='transparent'
                                 placeholder={'搜索感兴趣的币种'}
                                 placeholderTextColor={'#939ca6'}
                             />

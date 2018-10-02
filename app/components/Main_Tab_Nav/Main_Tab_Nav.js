@@ -90,7 +90,7 @@ export const MainTabNav = createBottomTabNavigator(
         },
     },
     {
-        initialRouteName: 'Pricing',
+        initialRouteName: 'Home',
         tabBarOptions: {
             //当前选中的tab bar的文本颜色和图标颜色
             activeTintColor: Constant.ACTIVE_COLOR,
@@ -111,9 +111,9 @@ export const MainTabNav = createBottomTabNavigator(
                 backgroundColor: '#fff',
                 paddingBottom: 1,
                 paddingTop: 1,
-                borderTopWidth: 0.2,
-                borderTopColor: '#ccc',
-                elevation: 10
+                // borderTopWidth: 0.2,
+                // borderTopColor: '#ccc',
+                elevation: 6
             },
             //tab bar的文本样式
             labelStyle: {

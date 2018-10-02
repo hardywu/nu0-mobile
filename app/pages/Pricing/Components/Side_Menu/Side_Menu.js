@@ -64,6 +64,7 @@ export default class SideMenu extends Component {
                 visible={data.isShow}
                 transparent={true}
                 animationType={'fade'}
+                onRequestClose={() => false}
             >
                 <View style={styles.sideMenuWrap}>
                     <View style={styles.sideMenuOuter}>

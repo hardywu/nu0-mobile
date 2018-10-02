@@ -504,7 +504,7 @@ export default class Contract extends Component {
         }
     }
 
-    //处理 持仓页-筛选数据 释放事件
+    //处理 持仓页-筛选数据选项 释放事件
     handlePFilterSelectOptionsRelease = (obj) => {
         let { position } = this.state;
         let select = position.filterSelect;
@@ -517,7 +517,7 @@ export default class Contract extends Component {
         });
     }
 
-    //处理 挂单页-筛选栏modal层3 释放事件
+    //处理 持仓页-筛选数据modal层 释放事件
     handlePFilterSelectWrapRelease = evt => {
         let { position } = this.state;
         let select = position.filterSelect;
@@ -784,7 +784,7 @@ export default class Contract extends Component {
                                             options={position.filterSelect}
                                             setOptions={this.setPFilterSelect}
                                             onOptionsRelease={obj => this.handlePFilterSelectOptionsRelease(obj)}
-                                            onWrapRelease={evt => handlePFilterSelectWrapRelease(evt)}
+                                            onWrapRelease={evt => this.handlePFilterSelectWrapRelease(evt)}
                                         />
                                     </View>
                                 </View>

@@ -16,6 +16,7 @@ import {
 import SideMenu from './Components/Side_Menu/Side_Menu'; //侧边菜单栏组件
 import Form from './Components/Form/Form'; //左边表单组件
 import List from './Components/List/List'; //右边列表组件
+import CurCoupleSelect from './Components/Cur_Couple_Select/Cur_Couple_Select'; //交易币对下拉框组件
 
 import mStyles from '../../public/common_style';
 import styles from './Pricing_Style';
@@ -31,8 +32,11 @@ export default class Pricing extends Component {
             activeMainNavIndex: 0, //被激活的一级nav的索引 0:币币; 1:杠杆
             bb: {
                 tradeType: 0, //交易类型 0:买入; 1:卖出
+                currencyCoupleSelect: {
+                    isShow: false
+                }, //交易币对下拉框数据
                 buy: {
-                    name: 'BTC', //买入的对象
+                    name: 'BTC', //
                     select: {
                         isShow: false,
                         value: {
@@ -94,6 +98,9 @@ export default class Pricing extends Component {
             }, //币币的数据
             lever: {
                 tradeType: 0, //交易类型 0:买入; 1:卖出
+                currencyCoupleSelect: {
+                    isShow: false
+                }, //交易币对下拉框数据
                 buy: {
                     name: '杠杆BTC', //买入的对象
                     select: {
@@ -244,7 +251,36 @@ export default class Pricing extends Component {
         navigate('Search');
     }
 
+    //处理 bb交易币对结果栏 释放事件
+    handleBbCoupleValRelease = evt => {
+        let { bb } = this.state;
+        bb.currencyCoupleSelect.isShow = true;
+        this.setState({ bb: bb });
+    }
+
+    //处理 bb交易币对modal层 释放事件
+    handleBbCoupleSelectWrapRelease = evt => {
+        let { bb } = this.state;
+        bb.currencyCoupleSelect.isShow = false;
+        this.setState({ bb: bb });
+    }
+
+    //处理 杠杆交易币对结果栏 释放事件
+    handleLeverCoupleValRelease = evt => {
+        let { lever } = this.state;
+        lever.currencyCoupleSelect.isShow = true;
+        this.setState({ lever: lever });
+    }
+
+    //处理 杠杆交易币对modal层 释放事件
+    handleLeverCoupleSelectWrapRelease = evt => {
+        let { lever } = this.state;
+        lever.currencyCoupleSelect.isShow = false;
+        this.setState({ lever: lever });
+    }
+
     render() {
+        const { navigate } = this.props.navigation;
         let {
             activeMainNavIndex,
             bb,
@@ -324,7 +360,11 @@ export default class Pricing extends Component {
                         <View style={styles.trade}>
                             <View style={mStyles.mCenterContent}>
                                 <View style={styles.tradeHead}>
-                                    <View style={styles.tradeHeadItem}>
+                                    <View
+                                        style={styles.tradeHeadItem}
+                                        onStartShouldSetResponder={() => true}
+                                        onResponderRelease={evt => this.handleBbCoupleValRelease(evt)}
+                                    >
                                         <Text style={styles.tradeHeadTitle}>BTC/USDT</Text>
                                         <Image style={styles.tradeHeadTitleArrow} source={arrowIcon}></Image>
                                     </View>
@@ -364,6 +404,14 @@ export default class Pricing extends Component {
                             </View>
                         </View>
                         {/* 限价单结束 */}
+                        {/* 交易币对下拉框开始 */}
+                        <CurCoupleSelect
+                            data={bb}
+                            navigate={navigate}
+                            setData={this.setBb}
+                            onWrapRelease={evt => {this.handleBbCoupleSelectWrapRelease(evt)}}
+                        />
+                        {/* 交易币对下拉框结束 */}
                     </View>
                     {/* 币币内容结束 */}
                     {/* 杠杆内容开始 */}
@@ -372,7 +420,11 @@ export default class Pricing extends Component {
                         <View style={styles.trade}>
                             <View style={mStyles.mCenterContent}>
                                 <View style={styles.tradeHead}>
-                                    <View style={styles.tradeHeadItem}>
+                                    <View
+                                        style={styles.tradeHeadItem}
+                                        onStartShouldSetResponder={() => true}
+                                        onResponderRelease={evt => this.handleLeverCoupleValRelease(evt)}
+                                    >
                                         <Text style={styles.tradeHeadTitle}>21321/USDT</Text>
                                         <Image style={styles.tradeHeadTitleArrow} source={arrowIcon}></Image>
                                     </View>
@@ -413,6 +465,14 @@ export default class Pricing extends Component {
                             </View>
                         </View>
                         {/* 限价单结束 */}
+                        {/* 交易币对下拉框开始 */}
+                        <CurCoupleSelect
+                            data={lever}
+                            navigate={navigate}
+                            setData={this.setLever}
+                            onWrapRelease={evt => {this.handleLeverCoupleSelectWrapRelease(evt)}}
+                        />
+                        {/* 交易币对下拉框结束 */}
                     </View>
                     {/* 杠杆内容结束 */}
                 </View>
