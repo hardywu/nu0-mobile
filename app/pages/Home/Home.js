@@ -21,6 +21,7 @@ export default class Home extends Component {
         const { navigate } = this.props.navigation;
         navigate('Login');
     }
+    
     render() {
         return (
             <View style={mStyles.mFlex1}>

@@ -4,6 +4,10 @@ import {
 import Contract from './constant'
 
 export default mStyles = StyleSheet.create({
+    mt10: {
+        marginTop: 10
+    },
+
     mHide: {
         display: 'none'
     },
@@ -79,6 +83,46 @@ export default mStyles = StyleSheet.create({
 
     mCenterContent: {
         marginLeft: 16,
-        marginRight: 16,
+        marginRight: 16
+    },
+
+    mForm: {
+        backgroundColor: '#fff'
+    },
+
+    mFormCenterContent: {
+        marginLeft: 16,
+        marginRight: 16
+    },
+
+    mFormItem: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        width: '100%',
+        paddingTop: 6,
+        paddingBottom: 6,
+        borderBottomWidth: 1,
+        borderBottomColor: '#e6e6e6'
+    },
+
+    mFormLabel: {
+        width: 106,
+        fontSize: 14,
+        lineHeight: 30,
+        color: Contract.DEFAULT_FONT_COLOR
+    },
+
+    mFormInput: {
+        flex: 1,
+        padding: 0,
+        fontSize: 14,
+        lineHeight: 30,
+        color: Contract.DEFAULT_FONT_COLOR
+    },
+
+    mFormVfCode: {
+        width: 80,
+        height: 30,
+        resizeMode: 'stretch'
     }
 });

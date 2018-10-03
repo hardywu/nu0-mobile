@@ -15,7 +15,7 @@ import Contract from '../../public/constant';
 import ArcBtn from '../../components/Arc_Btn/Arc_Btn';
 
 import mStyles from '../../public/common_style';
-import styles from './Login_Style';
+import styles from './Register_Style';
 
 import closeIcon from '../../static/imgs/close.png'; //关闭按钮图标
 
@@ -33,10 +33,6 @@ export default class Login extends Component {
                     code: 1,
                     name: '邮箱',
                     isActive: false
-                }, {
-                    code: 2,
-                    name: '子账户',
-                    isActive: false
                 }
             ]
         }
@@ -45,13 +41,13 @@ export default class Login extends Component {
     //处理 关闭按钮 释放事件
     handleCloseRelease = evt => {
         const { navigate } = this.props.navigation;
-        navigate('Main'); //回到主页面
+        navigate('Login'); //回到登录页
     }
 
-    //处理 注册账号按钮 释放事件
-    handleRegisterRelease = evt => {
+    //处理 已有账户按钮 释放事件
+    handleLoginRelease = evt => {
         const { navigate } = this.props.navigation;
-        navigate('Register'); //跳转到注册页
+        navigate('Login'); //跳转到登录页
     }
 
     //处理 登录类型tab 释放事件
@@ -107,9 +103,9 @@ export default class Login extends Component {
                         <Text
                             style={styles.headerLink}
                             onStartShouldSetResponder={() => true}
-                            onResponderRelease={evt => this.handleRegisterRelease(evt)}
+                            onResponderRelease={evt => this.handleLoginRelease(evt)}
                         >
-                            注册账号
+                            已有账户？
                         </Text>
                     </View>
                 </View>
@@ -117,7 +113,7 @@ export default class Login extends Component {
                 {/* 主体内容开始 */}
                 <View style={styles.body}>
                     <View style={[mStyles.mCenterContent, styles.bodyCenterContent]}>
-                        <Text style={styles.bodyTitle}>登录</Text>
+                        <Text style={styles.bodyTitle}>注册</Text>
                         <View style={styles.bodyTab}>
                             {loginTabDOM}
                             {/* <View style={[styles.bodyTabItem, styles.bodyTabItemActive]}>
@@ -143,6 +139,15 @@ export default class Login extends Component {
                                 <View style={styles.bodyFormItemInput}>
                                     <TextInput
                                         style={styles.input}
+                                        placeholder='短信验证码'
+                                        placeholderTextColor='#a7d4fe'
+                                        underlineColorAndroid='transparent'
+                                    />
+                                    <Text style={styles.vfCodeBtn}>发送验证码</Text>
+                                </View>
+                                <View style={styles.bodyFormItemInput}>
+                                    <TextInput
+                                        style={styles.input}
                                         placeholder='密码'
                                         placeholderTextColor='#a7d4fe'
                                         underlineColorAndroid='transparent'
@@ -151,9 +156,8 @@ export default class Login extends Component {
                                 </View>
                                 <View style={styles.bodyFormItemLogin}>
                                     <View style={styles.loginBtn}>
-                                        <Text style={styles.loginBtnText}>登录</Text>
+                                        <Text style={styles.loginBtnText}>注册</Text>
                                     </View>
-                                    <Text style={styles.forgetPasswordText}>忘记密码</Text>
                                 </View>
                             </View>
                             <View style={[styles.bodyFormItem,  {display: loginTabActiveIndex === 1 ? 'flex' : 'none'}]}>
@@ -168,27 +172,11 @@ export default class Login extends Component {
                                 <View style={styles.bodyFormItemInput}>
                                     <TextInput
                                         style={styles.input}
-                                        placeholder='密码'
+                                        placeholder='邮箱验证码'
                                         placeholderTextColor='#a7d4fe'
                                         underlineColorAndroid='transparent'
-                                        secureTextEntry={true}
                                     />
-                                </View>
-                                <View style={styles.bodyFormItemLogin}>
-                                    <View style={styles.loginBtn}>
-                                        <Text style={styles.loginBtnText}>登录</Text>
-                                    </View>
-                                    <Text style={styles.forgetPasswordText}>忘记密码</Text>
-                                </View>
-                            </View>
-                            <View style={[styles.bodyFormItem,  {display: loginTabActiveIndex === 2 ? 'flex' : 'none'}]}>
-                                <View style={styles.bodyFormItemInput}>
-                                    <TextInput
-                                        style={styles.input}
-                                        placeholder='子账户'
-                                        placeholderTextColor='#a7d4fe'
-                                        multiline={true}
-                                    />
+                                    <Text style={styles.vfCodeBtn}>发送验证码</Text>
                                 </View>
                                 <View style={styles.bodyFormItemInput}>
                                     <TextInput
@@ -201,9 +189,8 @@ export default class Login extends Component {
                                 </View>
                                 <View style={styles.bodyFormItemLogin}>
                                     <View style={styles.loginBtn}>
-                                        <Text style={styles.loginBtnText}>登录</Text>
+                                        <Text style={styles.loginBtnText}>注册</Text>
                                     </View>
-                                    <Text style={styles.forgetPasswordText}>忘记密码</Text>
                                 </View>
                             </View>
                         </View>

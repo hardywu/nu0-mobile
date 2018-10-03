@@ -3,7 +3,14 @@ import { StyleSheet } from 'react-native'
 
 export default styles = StyleSheet.create({
     input: {
+        flex: 1,
         padding: 0,
+        fontSize: 14,
+        color: '#fff'
+    },
+
+    vfCodeBtn: {
+        width: 90,
         fontSize: 14,
         color: '#fff'
     },
@@ -81,6 +88,8 @@ export default styles = StyleSheet.create({
     },
 
     bodyFormItemInput: {
+        flexDirection: 'row',
+        alignItems: 'center',
         paddingTop: 15,
         paddingBottom: 15,
         borderBottomWidth: 1,
