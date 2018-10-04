@@ -120,9 +120,17 @@ export default mStyles = StyleSheet.create({
         color: Contract.DEFAULT_FONT_COLOR
     },
 
-    mFormVfCode: {
+    mFormImgVfCode: {
         width: 80,
         height: 30,
         resizeMode: 'stretch'
+    },
+
+    mFormTextVfCode: {
+        paddingLeft: 14,
+        paddingRight: 14,
+        fontSize: 14,
+        lineHeight: 30,
+        color: Contract.BLUE_COLOR
     }
 });

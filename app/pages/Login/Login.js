@@ -1,5 +1,5 @@
 /**
- *首页
+ * 登录页
  */
 import React, { Component } from 'react';
 import {
@@ -52,6 +52,12 @@ export default class Login extends Component {
     handleRegisterRelease = evt => {
         const { navigate } = this.props.navigation;
         navigate('Register'); //跳转到注册页
+    }
+
+    // 处理 忘记密码按钮 释放事件
+    handleForgetPasswordRelease = evt => {
+        const { navigate } = this.props.navigation;
+        navigate('ForgetPassword'); //跳转到注册页
     }
 
     //处理 登录类型tab 释放事件
@@ -153,7 +159,13 @@ export default class Login extends Component {
                                     <View style={styles.loginBtn}>
                                         <Text style={styles.loginBtnText}>登录</Text>
                                     </View>
-                                    <Text style={styles.forgetPasswordText}>忘记密码</Text>
+                                    <Text
+                                        style={styles.forgetPasswordText}
+                                        onStartShouldSetResponder={() => true}
+                                        onResponderRelease={evt => this.handleForgetPasswordRelease(evt)}
+                                    >
+                                        忘记密码
+                                    </Text>
                                 </View>
                             </View>
                             <View style={[styles.bodyFormItem,  {display: loginTabActiveIndex === 1 ? 'flex' : 'none'}]}>
@@ -178,7 +190,13 @@ export default class Login extends Component {
                                     <View style={styles.loginBtn}>
                                         <Text style={styles.loginBtnText}>登录</Text>
                                     </View>
-                                    <Text style={styles.forgetPasswordText}>忘记密码</Text>
+                                    <Text
+                                        style={styles.forgetPasswordText}
+                                        onStartShouldSetResponder={() => true}
+                                        onResponderRelease={evt => this.handleForgetPasswordRelease(evt)}
+                                    >
+                                        忘记密码
+                                    </Text>
                                 </View>
                             </View>
                             <View style={[styles.bodyFormItem,  {display: loginTabActiveIndex === 2 ? 'flex' : 'none'}]}>
@@ -203,7 +221,13 @@ export default class Login extends Component {
                                     <View style={styles.loginBtn}>
                                         <Text style={styles.loginBtnText}>登录</Text>
                                     </View>
-                                    <Text style={styles.forgetPasswordText}>忘记密码</Text>
+                                    <Text
+                                        style={styles.forgetPasswordText}
+                                        onStartShouldSetResponder={() => true}
+                                        onResponderRelease={evt => this.handleForgetPasswordRelease(evt)}
+                                    >
+                                        忘记密码
+                                    </Text>
                                 </View>
                             </View>
                         </View>

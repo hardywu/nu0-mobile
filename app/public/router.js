@@ -76,7 +76,7 @@ const Router = createStackNavigator(
         }
     },
     {
-        initialRouteName: 'ForgetPassword',
+        initialRouteName: 'Main',
         headerMode: 'screen'
     }
 );
