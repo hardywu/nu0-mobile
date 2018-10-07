@@ -33,6 +33,11 @@ export default class MyWallet extends Component {
         this.props.navigation.goBack();
     }
 
+    //处理 资金划转按钮 释放事件
+    handleFundsTransferRelease = evt => {
+        this.props.navigation.navigate('CapitalTransfer'); //跳转到资金划转页
+    }
+
     render() {
         return (
             <View style={[mStyles.mFlex1, styles.wrap]}>
@@ -62,7 +67,11 @@ export default class MyWallet extends Component {
                                     <Image style={styles.assetsOperationItemIcon} source={withdrawMoneyIcon}/>
                                     <Text style={styles.assetsOperationItemText}>提现</Text>
                                 </View>
-                                <View style={styles.assetsOperationItem}>
+                                <View
+                                    style={styles.assetsOperationItem}
+                                    onStartShouldSetResponder={() => true}
+                                    onResponderRelease={evt => this.handleFundsTransferRelease(evt)}
+                                >
                                     <Image style={styles.assetsOperationItemIcon} source={fundsTransferIcon}/>
                                     <Text style={styles.assetsOperationItemText}>资金划转</Text>
                                 </View>

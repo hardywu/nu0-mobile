@@ -1,11 +1,19 @@
 import {
     StyleSheet
 } from 'react-native'
-import Contract from './constant'
+import Constant from './constant'
 
 export default mStyles = StyleSheet.create({
     mt10: {
         marginTop: 10
+    },
+
+    mJustifyContentFlexEnd: {
+        justifyContent: 'flex-end'
+    },
+
+    mTARight: {
+        textAlign: 'right'
     },
 
     mHide: {
@@ -29,56 +37,56 @@ export default mStyles = StyleSheet.create({
     },
 
     mGrayColor: {
-        color: Contract.GRAY_COLOR
+        color: Constant.GRAY_COLOR
     },
 
     mGrayBorderBottom: {
-        borderBottomColor: Contract.GRAY_COLOR
+        borderBottomColor: Constant.GRAY_COLOR
     },
 
     mBlueColor: {
-        color: Contract.BLUE_COLOR
+        color: Constant.BLUE_COLOR
     },
 
     mBlueBg: {
-        backgroundColor: Contract.BLUE_COLOR
+        backgroundColor: Constant.BLUE_COLOR
     },
 
     mBlueBorder: {
-        borderColor: Contract.BLUE_COLOR
+        borderColor: Constant.BLUE_COLOR
     },
 
     mBlueBorderBottom: {
-        borderBottomColor: Contract.BLUE_COLOR
+        borderBottomColor: Constant.BLUE_COLOR
     },
 
 
     mRedColor: {
-        color: Contract.RED_COLOR
+        color: Constant.RED_COLOR
     },
 
     mRedBg: {
-        backgroundColor: Contract.RED_COLOR
+        backgroundColor: Constant.RED_COLOR
     },
 
     mRedBorderBottom: {
-        borderBottomColor: Contract.RED_COLOR
+        borderBottomColor: Constant.RED_COLOR
     },
 
     mGreenColor: {
-        color: Contract.GREEN_COLOR
+        color: Constant.GREEN_COLOR
     },
 
     mGreenBorderLeft: {
-        borderLeftColor: Contract.GREEN_COLOR
+        borderLeftColor: Constant.GREEN_COLOR
     },
 
     mGreenBorderBottom: {
-        borderBottomColor: Contract.GREEN_COLOR
+        borderBottomColor: Constant.GREEN_COLOR
     },
 
     mGreenBg: {
-        backgroundColor: Contract.GREEN_COLOR
+        backgroundColor: Constant.GREEN_COLOR
     },
 
     mCenterContent: {
@@ -109,7 +117,7 @@ export default mStyles = StyleSheet.create({
         width: 106,
         fontSize: 14,
         lineHeight: 30,
-        color: Contract.DEFAULT_FONT_COLOR
+        color: Constant.DEFAULT_FONT_COLOR
     },
 
     mFormInput: {
@@ -117,7 +125,7 @@ export default mStyles = StyleSheet.create({
         padding: 0,
         fontSize: 14,
         lineHeight: 30,
-        color: Contract.DEFAULT_FONT_COLOR
+        color: Constant.DEFAULT_FONT_COLOR
     },
 
     mFormImgVfCode: {
@@ -131,6 +139,91 @@ export default mStyles = StyleSheet.create({
         paddingRight: 14,
         fontSize: 14,
         lineHeight: 30,
-        color: Contract.BLUE_COLOR
+        color: Constant.BLUE_COLOR
+    },
+
+    mFormSelect: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center'
+    },
+
+    mFormSelectText: {
+        flex: 1,
+        fontSize: 14,
+        color: Constant.DEFAULT_FONT_COLOR
+    },
+
+    mFormSelectIcon: {
+        width: 12,
+        height: 12,
+        resizeMode: 'contain',
+        transform: [
+            {rotate: '-90deg'}
+        ]
+    },
+
+    mSearchSelection: {
+        flex: 1
+    },
+
+    mSearchSelectionWrap: {
+        backgroundColor: '#f7f8fa'
+    },
+
+    mSearchSelectionInputWrap: {
+        justifyContent: 'center',
+        width: '100%',
+        height: 34,
+        borderBottomWidth: 1,
+        borderBottomColor: '#e0e0e0'
+    },
+
+    mSearchSelectionInputCenterContent: {
+        flexDirection: 'row',
+        alignItems: 'center'
+    },
+
+    mSearchSelectionInputIcon: {
+        width: 14,
+        height: 14,
+        resizeMode: 'contain'
+    },
+
+    mSearchSelectionInput: {
+        flex: 1,
+        padding: 0,
+        paddingLeft: 5,
+        fontSize: 13
+    },
+
+    mSearchSelectionListWrap: {
+        flex: 1
+    },
+
+    mSearchSelectionListItem: {
+        backgroundColor: '#fff'
+    },
+
+    mSearchSelectionListItemCenterContent: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        paddingTop: 15,
+        paddingBottom: 15,
+        borderBottomWidth: 1,
+        borderBottomColor: '#e1e4e8',
+    },
+
+    mSearchSelectionListItemText: {
+        fontSize: 12,
+        color: Constant.DEFAULT_FONT_COLOR
+    },
+    
+    mSearchSelectionListItemSelectedIcon: {
+        width: 15,
+        height: 15,
+        resizeMode: 'contain'
     }
 });

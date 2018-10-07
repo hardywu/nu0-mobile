@@ -12,7 +12,7 @@ import {
     FlatList
 } from 'react-native';
 import Contract from '../../public/constant';
-import ArcBtn from '../../components/Arc_Btn/Arc_Btn';
+import utils from '../../public/utils';
 
 import mStyles from '../../public/common_style';
 import styles from './Login_Style';
@@ -71,6 +71,14 @@ export default class Login extends Component {
             }
         }
         this.setState({ loginTab: loginTab });
+    }
+
+    //处理 登录按钮 释放事件
+    handleLoginRelease = evt => {
+        const { navigate } = this.props.navigation;
+        utils.storage.save('userInfo', {name: 'RZeeY'}).then(() => {
+            navigate('Main'); //跳转到主页
+        })
     }
 
     render() {
@@ -143,6 +151,7 @@ export default class Login extends Component {
                                         style={styles.input}
                                         placeholder='手机号'
                                         placeholderTextColor='#a7d4fe'
+                                        underlineColorAndroid='transparent'
                                         multiline={true}
                                     />
                                 </View>
@@ -156,7 +165,11 @@ export default class Login extends Component {
                                     />
                                 </View>
                                 <View style={styles.bodyFormItemLogin}>
-                                    <View style={styles.loginBtn}>
+                                    <View
+                                        style={styles.loginBtn}
+                                        onStartShouldSetResponder={() => true}
+                                        onResponderRelease={evt => this.handleLoginRelease(evt)}
+                                    >
                                         <Text style={styles.loginBtnText}>登录</Text>
                                     </View>
                                     <Text
@@ -174,6 +187,7 @@ export default class Login extends Component {
                                         style={styles.input}
                                         placeholder='邮箱'
                                         placeholderTextColor='#a7d4fe'
+                                        underlineColorAndroid='transparent'
                                         multiline={true}
                                     />
                                 </View>
@@ -187,7 +201,11 @@ export default class Login extends Component {
                                     />
                                 </View>
                                 <View style={styles.bodyFormItemLogin}>
-                                    <View style={styles.loginBtn}>
+                                    <View
+                                        style={styles.loginBtn}
+                                        onStartShouldSetResponder={() => true}
+                                        onResponderRelease={evt => this.handleLoginRelease(evt)}
+                                    >
                                         <Text style={styles.loginBtnText}>登录</Text>
                                     </View>
                                     <Text
@@ -205,6 +223,7 @@ export default class Login extends Component {
                                         style={styles.input}
                                         placeholder='子账户'
                                         placeholderTextColor='#a7d4fe'
+                                        underlineColorAndroid='transparent'
                                         multiline={true}
                                     />
                                 </View>
@@ -218,7 +237,11 @@ export default class Login extends Component {
                                     />
                                 </View>
                                 <View style={styles.bodyFormItemLogin}>
-                                    <View style={styles.loginBtn}>
+                                    <View
+                                        style={styles.loginBtn}
+                                        onStartShouldSetResponder={() => true}
+                                        onResponderRelease={evt => this.handleLoginRelease(evt)}
+                                    >
                                         <Text style={styles.loginBtnText}>登录</Text>
                                     </View>
                                     <Text

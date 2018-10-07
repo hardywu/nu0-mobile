@@ -9,6 +9,9 @@ import ReleaseEnt from '../pages/Release_Ent/Release_Ent';
 import MyWallet from '../pages/My_Wallet/My_Wallet';
 import ContractAccount from '../pages/Contract_Account/Contract_Account';
 import FrenchAccount from '../pages/French_Account/French_Account';
+import BbAccount from '../pages/Bb_Account/Bb_Account';
+import CapitalTransfer from '../pages/Capital_Transfer/Capital_Transfer';
+import CurSelection from '../pages/Cur_Selection/Cur_Selection';
 
 const Router = createStackNavigator(
     {
@@ -73,7 +76,28 @@ const Router = createStackNavigator(
             navigationOptions: ({ navigation }) => ({
                 header: null
             })
-        }
+        },
+        //币币账户
+        BbAccount: {
+            screen: BbAccount,
+            navigationOptions: ({ navigation }) => ({
+                header: null
+            })
+        },
+        //资金划转
+        CapitalTransfer: {
+            screen: CapitalTransfer,
+            navigationOptions: ({ navigation }) => ({
+                header: null
+            })
+        },
+        //币种选择
+        CurSelection: {
+            screen: CurSelection,
+            navigationOptions: ({ navigation }) => ({
+                header: null
+            })
+        },
     },
     {
         initialRouteName: 'Main',

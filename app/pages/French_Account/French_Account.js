@@ -11,7 +11,7 @@ import {
     Image,
     FlatList
 } from 'react-native';
-import Contract from '../../public/constant'
+import Constant from '../../public/constant'
 import Header from '../../components/Header/Header';
 import AccountCard from '../../components/Account_Card/Account_Card';
 import List from './Components/List/List';
@@ -50,7 +50,7 @@ export default class FrenchAccount extends Component {
                                 originalVal='0.09992222'
                                 exchangeVal='1.22'
                                 color='#fff'
-                                backgroundColor={Contract.GREEN_COLOR}
+                                backgroundColor={Constant.GREEN_COLOR}
                             />
                             <View style={styles.assetsOperation}>
                                 <View style={styles.assetsOperationItem}>

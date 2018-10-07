@@ -5,7 +5,7 @@
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "test": "jest",
-    "bundle-ios":"node node_modules/react-native/local-cli/cli.js bundle --entry-file index.js --platform ios --dev false --bundle-output ./ios/bundle/index.ios.jsbundle --assets-dest ./ios/bundle"
+    "bundle-ios": "node node_modules/react-native/local-cli/cli.js bundle --entry-file index.js --platform ios --dev false --bundle-output ./ios/bundle/index.ios.jsbundle --assets-dest ./ios/bundle"
   },
   "dependencies": {
     "react": "16.3.1",
@@ -18,7 +18,9 @@
     "babel-preset-react-native": "4.0.0",
     "jest": "23.5.0",
     "react-native-swiper": "^1.5.13",
-    "react-test-renderer": "16.3.1"
+    "react-redux": "^5.0.7",
+    "react-test-renderer": "16.3.1",
+    "redux": "^4.0.0"
   },
   "jest": {
     "preset": "react-native"
