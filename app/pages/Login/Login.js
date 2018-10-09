@@ -11,15 +11,18 @@ import {
     Image,
     FlatList
 } from 'react-native';
-import Contract from '../../public/constant';
+import { connect } from 'react-redux';
+import Constant from '../../public/constant';
 import utils from '../../public/utils';
+import * as loginAction from '../../actions/login';
+import * as userInfoAction from '../../actions/user_info';
 
 import mStyles from '../../public/common_style';
 import styles from './Login_Style';
 
 import closeIcon from '../../static/imgs/close.png'; //关闭按钮图标
 
-export default class Login extends Component {
+class Login extends Component {
     constructor(props) {
         super(props);
         this.state={
@@ -75,10 +78,18 @@ export default class Login extends Component {
 
     //处理 登录按钮 释放事件
     handleLoginRelease = evt => {
-        const { navigate } = this.props.navigation;
-        utils.storage.save('userInfo', {name: 'RZeeY'}).then(() => {
-            navigate('Main'); //跳转到主页
-        })
+        const {
+            navigation,
+            userInfo,
+            login,
+            loginStatus,
+            updateUserInfo
+        } = this.props;
+        login(function(res){
+            navigation.navigate('Main'); //跳转到主页
+        }, function() {
+            alert('登录失败')
+        });
     }
 
     render() {
@@ -261,3 +272,13 @@ export default class Login extends Component {
         );
     }
 }
+
+export default connect(
+    (state) => ({
+        loginStatus: state.loginStatus,
+        userInfo: state.userInfo
+    }),
+    (dispatch) => ({
+        login: (success, fail) => dispatch(loginAction.login(success, fail))
+    })
+)(Login)

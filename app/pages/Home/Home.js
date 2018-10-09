@@ -9,31 +9,37 @@ import {
     ScrollView,
     Image
 } from 'react-native';
+import { connect } from 'react-redux';
 import utils from '../../public/utils';
 import Card from './Components/Card/Card';
 import Card2 from './Components/Card2/Card2';
 import Notice from './Components/Notice/Notice';
 import Banner from './Components/Banner/Banner';
 import Quotation from './Components/Quotation/Quotation';
+import * as loginAction from '../../actions/login';
+import * as userInfoAction from '../../actions/user_info';
 
 import mStyles from '../../public/common_style';
 import styles from './Home_Style';
 
-export default class Home extends Component {
+class Home extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            userInfo: null //用户信息
-        }
     }
 
     componentWillMount() {
-        //FIXME: 用redux处理登录
-        const _this = this;
-        utils.storage.delete('userInfo');
-        // utils.storage.get('userInfo').then(val => {
-        //     _this.setState({ userInfo: val });
-        // });
+        // utils.storage.delete('userInfo');
+        const {
+            navigation,
+            updateUserInfo
+        } = this.props;
+        utils.storage.get('userInfo').then(userInfo => {
+            if(userInfo) {
+                updateUserInfo(userInfo);
+            } else {
+                navigation.navigate('Login'); //跳转到主页
+            }
+        });
     }
 
     handleLoginPress = () => {
@@ -42,8 +48,12 @@ export default class Home extends Component {
     }
     
     render() {
-        let { userInfo } = this.state;
-        const { navigation } = this.props;
+        const {
+            navigation,
+            userInfo
+        } = this.props;
+        // console.log(userInfo)
+
         return (
             <View style={mStyles.mFlex1}>
                 <View style={styles.userContainer}>
@@ -81,8 +91,8 @@ export default class Home extends Component {
                     style={styles.mainContainer}
                     showsVerticalScrollIndicator={false}
                 >
-                    {/* {userInfo !== null ? <Card2 navigation={navigation}/> : <Card />} */}
-                    <Card2 navigation={navigation}/>
+                    {userInfo !== null ? <Card2 navigation={navigation}/> : <Card />}
+                    {/* <Card2 navigation={navigation}/> */}
                     <Notice />
                     <Banner />
                     <View style={styles.quoTitleBox}>
@@ -103,3 +113,13 @@ export default class Home extends Component {
         );
     }
 }
+
+export default connect(
+    (state) => ({
+        loginStatus: state.loginStatus,
+        userInfo: state.userInfo
+    }),
+    (dispatch) => ({
+        updateUserInfo: data => dispatch(userInfoAction.updateUserInfo(data))
+    })
+)(Home)
