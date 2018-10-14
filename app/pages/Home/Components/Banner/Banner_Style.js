@@ -25,7 +25,7 @@ export default styles = StyleSheet.create({
 
     bannerItemImg: {
         overflow: 'hidden',
-        width: '95.8%',
+        width: '100%',
         height: 44,
         borderRadius: 22,
         resizeMode: 'cover'

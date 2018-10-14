@@ -37,8 +37,9 @@ export default styles = StyleSheet.create({
     },
 
     userImg: {
-        width: 50,
-        height: 50
+        width: 40,
+        height: 40,
+        marginRight: 10
     },
 
     logoImg: {
@@ -53,8 +54,8 @@ export default styles = StyleSheet.create({
         marginLeft: 20
     },
 
-    tel: {
-        fontSize: 26,
+    userName: {
+        fontSize: 18,
     },
 
     mainContainer: {
@@ -70,8 +71,8 @@ export default styles = StyleSheet.create({
         borderBottomWidth: 1,
         borderBottomColor: '#d9d9d9',
         marginTop: 4,
-        marginLeft: 10,
-        marginRight: 10
+        // marginLeft: 10,
+        // marginRight: 10
     },
 
     quoTitle: {

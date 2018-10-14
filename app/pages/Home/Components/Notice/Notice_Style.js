@@ -6,8 +6,8 @@ export default styles = StyleSheet.create({
         flexDirection: 'column',
         justifyContent: 'center',
         height: 60,
-        paddingLeft: 10,
-        paddingRight: 10,
+        // paddingLeft: 10,
+        // paddingRight: 10,
         backgroundColor: '#fff'
     },
 

@@ -12,6 +12,7 @@ import FrenchAccount from '../pages/French_Account/French_Account';
 import BbAccount from '../pages/Bb_Account/Bb_Account';
 import CapitalTransfer from '../pages/Capital_Transfer/Capital_Transfer';
 import CurSelection from '../pages/Cur_Selection/Cur_Selection';
+import UserCenter from '../pages/User_Center/User_Center';
 
 const Router = createStackNavigator(
     {
@@ -94,6 +95,13 @@ const Router = createStackNavigator(
         //币种选择
         CurSelection: {
             screen: CurSelection,
+            navigationOptions: ({ navigation }) => ({
+                header: null
+            })
+        },
+        //个人中心
+        UserCenter: {
+            screen: UserCenter,
             navigationOptions: ({ navigation }) => ({
                 header: null
             })

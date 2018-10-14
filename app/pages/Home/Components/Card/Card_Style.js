@@ -33,8 +33,8 @@ export default styles = StyleSheet.create({
         justifyContent: 'center',
         width: 140,
         height: '100%',
-        paddingLeft: 16,
-        paddingRight: 16,
+        // paddingLeft: 16,
+        // paddingRight: 16,
         borderRadius: 10,
         marginRight: 14
     },

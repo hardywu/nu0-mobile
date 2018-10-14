@@ -90,8 +90,8 @@ export default mStyles = StyleSheet.create({
     },
 
     mCenterContent: {
-        marginLeft: 16,
-        marginRight: 16
+        marginLeft: 12,
+        marginRight: 12
     },
 
     mForm: {
@@ -99,8 +99,8 @@ export default mStyles = StyleSheet.create({
     },
 
     mFormCenterContent: {
-        marginLeft: 16,
-        marginRight: 16
+        marginLeft: 12,
+        marginRight: 12
     },
 
     mFormItem: {
@@ -117,6 +117,14 @@ export default mStyles = StyleSheet.create({
         width: 106,
         fontSize: 14,
         lineHeight: 30,
+        color: Constant.DEFAULT_FONT_COLOR
+    },
+
+    mFormValueText: {
+        flex: 1,
+        fontSize: 14,
+        lineHeight: 30,
+        textAlign: 'right',
         color: Constant.DEFAULT_FONT_COLOR
     },
 

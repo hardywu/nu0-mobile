@@ -1,5 +1,5 @@
 /**
- *首页
+ * 注册页
  */
 import React, { Component } from 'react';
 import {
@@ -133,6 +133,7 @@ export default class Login extends Component {
                                         style={styles.input}
                                         placeholder='手机号'
                                         placeholderTextColor='#a7d4fe'
+                                        underlineColorAndroid='transparent'
                                         multiline={true}
                                     />
                                 </View>
@@ -166,6 +167,7 @@ export default class Login extends Component {
                                         style={styles.input}
                                         placeholder='邮箱'
                                         placeholderTextColor='#a7d4fe'
+                                        underlineColorAndroid='transparent'
                                         multiline={true}
                                     />
                                 </View>

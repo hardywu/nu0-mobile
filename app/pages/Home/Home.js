@@ -47,27 +47,41 @@ class Home extends Component {
         navigate('Login');
     }
     
+    //处理 用户图标 释放事件
+    handleUserIconRelease = evt => {
+        this.props.navigation.navigate('UserCenter'); //跳转到个人中心页
+    }
+
     render() {
         const {
             navigation,
             userInfo
         } = this.props;
-        // console.log(userInfo)
 
         return (
             <View style={mStyles.mFlex1}>
                 <View style={styles.userContainer}>
                     {/* 登录的状态开始 */}
-                    <View style={[styles.userContainerCenter, styles.plr10, { display: 'none' }]}>
+                    <View style={[
+                        mStyles.mCenterContent,
+                        styles.userContainerCenter,
+                        userInfo !== null ? mStyles.mFlex : mStyles.mHide 
+                    ]}>
                         <Image
                             style={styles.userImg}
                             source={require('../../static/imgs/user_default.png')}
+                            onStartShouldSetResponder={() => true}
+                            onResponderRelease={evt => this.handleUserIconRelease(evt)}
                         />
-                        <Text style={styles.tel}>17922764886</Text>
+                        <Text style={styles.userName}>17922764886</Text>
                     </View>
                     {/* 登录的状态结束 */}
                     {/* 未登录的状态开始 */}
-                    <View style={[styles.loginContainerCenter, styles.plr10]}>
+                    <View style={[
+                        mStyles.mCenterContent,
+                        styles.loginContainerCenter,
+                        userInfo === null ? mStyles.mFlex : mStyles.mHide
+                    ]}>
                         <Image
                             style={styles.logoImg}
                             source={require('../../static/imgs/logo.png')}
@@ -91,23 +105,25 @@ class Home extends Component {
                     style={styles.mainContainer}
                     showsVerticalScrollIndicator={false}
                 >
-                    {userInfo !== null ? <Card2 navigation={navigation}/> : <Card />}
-                    {/* <Card2 navigation={navigation}/> */}
-                    <Notice />
-                    <Banner />
-                    <View style={styles.quoTitleBox}>
-                        <Image 
-                            style={{
-                                width: 20,
-                                height: 20,
-                                marginRight: 6
-                            }}
-                            source={require('../../static/imgs/trend.png')}
-                        />
-                        <Text style={styles.quoTitle}>指数</Text>
+                    <View style={[mStyles.mCenterContent]}>
+                        {userInfo !== null ? <Card2 navigation={navigation}/> : <Card />}
+                        {/* <Card2 navigation={navigation}/> */}
+                        <Notice />
+                        <Banner />
+                        <View style={styles.quoTitleBox}>
+                            <Image 
+                                style={{
+                                    width: 20,
+                                    height: 20,
+                                    marginRight: 6
+                                }}
+                                source={require('../../static/imgs/trend.png')}
+                            />
+                            <Text style={styles.quoTitle}>指数</Text>
+                        </View>
+                        <Quotation />
+                        <Text style={[styles.bottomCont, mStyles.mGrayColor]}>OKEx获得上亿投资</Text>
                     </View>
-                    <Quotation />
-                    <Text style={[styles.bottomCont, mStyles.mGrayColor]}>OKEx获得上亿投资</Text>
                 </ScrollView>
             </View>
         );

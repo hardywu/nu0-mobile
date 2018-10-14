@@ -4,8 +4,8 @@ import { StyleSheet } from 'react-native'
 export default styles = StyleSheet.create({
     quoContainer: {
         flexDirection: 'column',
-        paddingLeft: 10,
-        paddingRight: 10
+        // paddingLeft: 10,
+        // paddingRight: 10
     },
 
     quoItem: {
