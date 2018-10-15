@@ -13,6 +13,10 @@ import BbAccount from '../pages/Bb_Account/Bb_Account';
 import CapitalTransfer from '../pages/Capital_Transfer/Capital_Transfer';
 import CurSelection from '../pages/Cur_Selection/Cur_Selection';
 import UserCenter from '../pages/User_Center/User_Center';
+import SecurityCenter from '../pages/Security_Center/Security_Center';
+import BindEmail from '../pages/Bind_Email/Bind_Email';
+import CapitalPwd from '../pages/Capital_Pwd/Capital_Pwd';
+import SysSetting from '../pages/Sys_Setting/Sys_Setting';
 
 const Router = createStackNavigator(
     {
@@ -102,6 +106,34 @@ const Router = createStackNavigator(
         //个人中心
         UserCenter: {
             screen: UserCenter,
+            navigationOptions: ({ navigation }) => ({
+                header: null
+            })
+        },
+        //安全中心
+        SecurityCenter: {
+            screen: SecurityCenter,
+            navigationOptions: ({ navigation }) => ({
+                header: null
+            })
+        },
+        //绑定邮箱
+        BindEmail: {
+            screen: BindEmail,
+            navigationOptions: ({ navigation }) => ({
+                header: null
+            })
+        },
+        //设置资金密码
+        CapitalPwd: {
+            screen: CapitalPwd,
+            navigationOptions: ({ navigation }) => ({
+                header: null
+            })
+        },
+        //系统设置
+        SysSetting: {
+            screen: SysSetting,
             navigationOptions: ({ navigation }) => ({
                 header: null
             })

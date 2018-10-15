@@ -42,8 +42,14 @@ export default class FrenchAccount extends Component {
 
     }
 
+    //处理 安全中心 按压事件
     handleSecurityPress = evt => {
-        
+        this.props.navigation.navigate('SecurityCenter'); //跳转到安全中心页
+    }
+
+    //处理 系统设置 按压事件
+    handleSysSettingPress = evt => {
+        this.props.navigation.navigate('SysSetting'); //跳转到系统设置页
     }
 
     render() {
@@ -111,7 +117,7 @@ export default class FrenchAccount extends Component {
                         <View style={mStyles.mFormCenterContent}>
                             <TouchableHighlight
                                 underlayColor={'#e8e8e8'}
-                                onPress={evt => {}}
+                                onPress={evt => this.handleSysSettingPress(evt)}
                             >
                                 <View style={mStyles.mFormItem}>
                                     <Text style={mStyles.mFormLabel}>系统设置</Text>

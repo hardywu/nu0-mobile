@@ -163,6 +163,14 @@ export default mStyles = StyleSheet.create({
         color: Constant.DEFAULT_FONT_COLOR
     },
 
+    mFormSelectTextRight: {
+        flex: 1,
+        paddingRight: 17,
+        fontSize: 14,
+        textAlign: 'right',
+        color: '#666'
+    },
+
     mFormSelectIcon: {
         width: 12,
         height: 12,
