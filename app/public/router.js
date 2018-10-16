@@ -17,6 +17,8 @@ import SecurityCenter from '../pages/Security_Center/Security_Center';
 import BindEmail from '../pages/Bind_Email/Bind_Email';
 import CapitalPwd from '../pages/Capital_Pwd/Capital_Pwd';
 import SysSetting from '../pages/Sys_Setting/Sys_Setting';
+import ExchangeRateSurvey from '../pages/Exchange_Rate_Survey/Exchange_Rate_Survey';
+import MarketOverview from '../pages/Market_Overview/Market_Overview';
 
 const Router = createStackNavigator(
     {
@@ -138,9 +140,23 @@ const Router = createStackNavigator(
                 header: null
             })
         },
+        //汇率概览
+        ExchangeRateSurvey: {
+            screen: ExchangeRateSurvey,
+            navigationOptions: ({ navigation }) => ({
+                header: null
+            })
+        },
+        //市场总览
+        MarketOverview: {
+            screen: MarketOverview,
+            navigationOptions: ({ navigation }) => ({
+                header: null
+            })
+        },
     },
     {
-        initialRouteName: 'Main',
+        initialRouteName: 'MarketOverview',
         headerMode: 'screen'
     }
 );

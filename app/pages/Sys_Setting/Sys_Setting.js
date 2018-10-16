@@ -38,14 +38,13 @@ export default class SysSetting extends Component {
         // this.props.navigation.navigate('BindEmail'); //跳转到绑定邮箱页
     }
 
-    //处理 货币概览 按压事件
+    //处理 汇率概览 按压事件
     handleCurOverviewPress = evt => {
-        // this.props.navigation.navigate('CapitalPwd'); //跳转设置资金密码页
+        this.props.navigation.navigate('ExchangeRateSurvey'); //跳转费率概览页
     }
 
     //处理 费率详情 按压事件
     handleRateDetailPress = evt => {
-
     }
 
     //处理 关于 按压事件
@@ -80,7 +79,7 @@ export default class SysSetting extends Component {
                                 onPress={evt => this.handleCurOverviewPress(evt)}
                             >
                                 <View style={mStyles.mFormItem}>
-                                    <Text style={mStyles.mFormLabel}>货币概览</Text>
+                                    <Text style={mStyles.mFormLabel}>汇率概览</Text>
                                     <View style={mStyles.mFormSelect}>
                                         <Text style={mStyles.mFormSelectText}></Text>
                                         <Image style={mStyles.mFormSelectIcon} source={arrowIcon}/>
