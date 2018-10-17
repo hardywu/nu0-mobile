@@ -85,7 +85,7 @@ export default class FrenchAccount extends Component {
                     <View style={[mStyles.mt10, mStyles.mForm]}>
                         <View style={mStyles.mFormCenterContent}>
                             <TouchableHighlight
-                                underlayColor={'#e8e8e8'}
+                                underlayColor={Constant.TOUCHABLE_HIGHLIGHT_UNDERLAY_COLOR}
                                 onPress={evt => this.handleSecurityPress(evt)}
                             >
                                 <View style={mStyles.mFormItem}>
@@ -97,7 +97,7 @@ export default class FrenchAccount extends Component {
                                 </View>
                             </TouchableHighlight>
                             <TouchableHighlight
-                                underlayColor={'#e8e8e8'}
+                                underlayColor={Constant.TOUCHABLE_HIGHLIGHT_UNDERLAY_COLOR}
                                 onPress={evt => {}}
                             >
                                 <View style={mStyles.mFormItem}>
@@ -116,7 +116,7 @@ export default class FrenchAccount extends Component {
                     <View style={[mStyles.mt10, mStyles.mForm]}>
                         <View style={mStyles.mFormCenterContent}>
                             <TouchableHighlight
-                                underlayColor={'#e8e8e8'}
+                                underlayColor={Constant.TOUCHABLE_HIGHLIGHT_UNDERLAY_COLOR}
                                 onPress={evt => this.handleSysSettingPress(evt)}
                             >
                                 <View style={mStyles.mFormItem}>
@@ -130,7 +130,7 @@ export default class FrenchAccount extends Component {
                                 </View>
                             </TouchableHighlight>
                             <TouchableHighlight
-                                underlayColor={'#e8e8e8'}
+                                underlayColor={Constant.TOUCHABLE_HIGHLIGHT_UNDERLAY_COLOR}
                                 onPress={evt => {}}
                             >
                                 <View style={mStyles.mFormItem}>
@@ -144,7 +144,7 @@ export default class FrenchAccount extends Component {
                                 </View>
                             </TouchableHighlight>
                             <TouchableHighlight
-                                underlayColor={'#e8e8e8'}
+                                underlayColor={Constant.TOUCHABLE_HIGHLIGHT_UNDERLAY_COLOR}
                                 onPress={evt => {}}
                             >
                                 <View style={mStyles.mFormItem}>
@@ -158,7 +158,7 @@ export default class FrenchAccount extends Component {
                                 </View>
                             </TouchableHighlight>
                             <TouchableHighlight
-                                underlayColor={'#e8e8e8'}
+                                underlayColor={Constant.TOUCHABLE_HIGHLIGHT_UNDERLAY_COLOR}
                                 onPress={evt => {}}
                             >
                                 <View style={mStyles.mFormItem}>

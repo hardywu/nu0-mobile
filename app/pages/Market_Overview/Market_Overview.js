@@ -17,10 +17,7 @@ import Header from '../../components/Header/Header';
 import mStyles from '../../public/common_style';
 import styles from './Market_Overview_Style';
 
-import americaIcon from '../../static/imgs/country/america.png'; //美国图标
-import chinaIcon from '../../static/imgs/country/china.png'; //中国图标
-
-export default class MarketOverview extends Component {
+export default class Recharge extends Component {
     constructor(props) {
         super(props);
     }

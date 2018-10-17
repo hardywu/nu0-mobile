@@ -33,6 +33,11 @@ export default class MyWallet extends Component {
         this.props.navigation.goBack();
     }
 
+    //处理 充值按钮 释放事件
+    handleRechargeRelease = evt => {
+        this.props.navigation.navigate('Recharge'); //跳转到资金划转页
+    }
+
     //处理 资金划转按钮 释放事件
     handleFundsTransferRelease = evt => {
         this.props.navigation.navigate('CapitalTransfer'); //跳转到资金划转页
@@ -59,7 +64,11 @@ export default class MyWallet extends Component {
                                 backgroundColor='#7f8289'
                             />
                             <View style={styles.assetsOperation}>
-                                <View style={styles.assetsOperationItem}>
+                                <View
+                                    style={styles.assetsOperationItem}
+                                    onStartShouldSetResponder={() => true}
+                                    onResponderRelease={evt => this.handleRechargeRelease(evt)}
+                                >
                                     <Image style={styles.assetsOperationItemIcon} source={rechargeIcon}/>
                                     <Text style={styles.assetsOperationItemText}>充值</Text>
                                 </View>

@@ -19,6 +19,8 @@ import CapitalPwd from '../pages/Capital_Pwd/Capital_Pwd';
 import SysSetting from '../pages/Sys_Setting/Sys_Setting';
 import ExchangeRateSurvey from '../pages/Exchange_Rate_Survey/Exchange_Rate_Survey';
 import MarketOverview from '../pages/Market_Overview/Market_Overview';
+import Recharge from '../pages/Recharge/Recharge';
+import RechargeCurSelection from '../pages/Recharge_Cur_Selection/Recharge_Cur_Selection';
 
 const Router = createStackNavigator(
     {
@@ -154,9 +156,23 @@ const Router = createStackNavigator(
                 header: null
             })
         },
+        //充值
+        Recharge: {
+            screen: Recharge,
+            navigationOptions: ({ navigation }) => ({
+                header: null
+            })
+        },
+        //充值币种选择
+        RechargeCurSelection: {
+            screen: RechargeCurSelection,
+            navigationOptions: ({ navigation }) => ({
+                header: null
+            })
+        },
     },
     {
-        initialRouteName: 'MarketOverview',
+        initialRouteName: 'Main',
         headerMode: 'screen'
     }
 );

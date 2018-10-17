@@ -2,8 +2,8 @@ import * as types from '../constants/types'; // 导入事件类别,用来做事�
 
 // 初始状态
 const initialState = {
-    isSuccess: false,
-    user: null
+    isSuccess: false, //是否登录成功
+    user: null //用户信息
 }
 
 // 不同类别的事件使用switch对应处理过程
