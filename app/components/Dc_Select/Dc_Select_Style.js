@@ -1,4 +1,4 @@
-import Contract from '../../public/constant'
+import Constant from '../../public/constant'
 import { StyleSheet } from 'react-native'
 
 export default styles = StyleSheet.create({
@@ -27,6 +27,6 @@ export default styles = StyleSheet.create({
         fontSize: 14,
         lineHeight: 30,
         textAlign: 'center',
-        color: Contract.DEFAULT_FONT_COLOR
+        color: Constant.DEFAULT_FONT_COLOR
     }
 });

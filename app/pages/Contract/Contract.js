@@ -11,6 +11,8 @@ import {
 } from 'react-native';
 import Form from './Components/Form/Form'; //交易左边表单组件
 import PriceList from './Components/Price_List/Price_List'; //交易右边价格表格组件
+import PendingOrderList from './Components/Pending_Order_List/Pending_Order_List'; //挂单-列表组件
+import PositionList from './Components/Position_List/Position_List'; //持仓-列表组件
 import Constant from '../../public/constant';
 import { SelectAnim, DcSelect } from '../../components/Dc_Select/Dc_Select'
 
@@ -35,11 +37,11 @@ export default class Contract extends Component {
                 {
                     type: 0,
                     name: '交易',
-                    isActive: true,
+                    isActive: false,
                 }, {
                     type: 1,
                     name: '挂单',
-                    isActive: false,
+                    isActive: true,
                 }, {
                     type: 2,
                     name: '持仓',
@@ -755,11 +757,7 @@ export default class Contract extends Component {
                                 </View>
                             </View>
                         </View>
-                        <ScrollView
-                            showsVerticalScrollIndicator={false}
-                        >
-                            <Text>挂单数据</Text>
-                        </ScrollView>
+                        <PendingOrderList />
                     </View>
                     {/* 挂单页面结束 */}
                     {/* 持仓页面开始 */}
@@ -790,11 +788,7 @@ export default class Contract extends Component {
                                 </View>
                             </View>
                         </View>
-                        <ScrollView
-                            showsVerticalScrollIndicator={false}
-                        >
-                            <Text>持仓数据</Text>
-                        </ScrollView>
+                        <PositionList />
                     </View>
                     {/* 持仓页面结束 */}
                 </View>

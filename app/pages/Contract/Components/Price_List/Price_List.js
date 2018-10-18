@@ -1,5 +1,5 @@
 /**
- * 币币页 表单组件
+ * 合约页 交易-价格列表组件
  */
 import React, { Component } from 'react';
 import {
@@ -52,7 +52,7 @@ const selectAnim = {
     }
 }
 
-export default class List extends Component {
+export default class PriceList extends Component {
     constructor(props) {
         super(props);
     }
@@ -110,9 +110,7 @@ export default class List extends Component {
         const {
             data
         } = this.props;
-
         let select = data.select;
-
         let selectOptionsDOM = select.options.map((item, index) => {
             return (
                 <Text
@@ -128,7 +126,6 @@ export default class List extends Component {
                 </Text>
             );
         });
-
         return (
             <View style={styles.listWrap}>
                 {/* 筛选开始 */}
