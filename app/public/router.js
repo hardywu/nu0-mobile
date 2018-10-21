@@ -21,6 +21,7 @@ import ExchangeRateSurvey from '../pages/Exchange_Rate_Survey/Exchange_Rate_Surv
 import MarketOverview from '../pages/Market_Overview/Market_Overview';
 import Recharge from '../pages/Recharge/Recharge';
 import RechargeCurSelection from '../pages/Recharge_Cur_Selection/Recharge_Cur_Selection';
+import DeliveryRecord from '../pages/Delivery_Record/Delivery_Record';
 
 const Router = createStackNavigator(
     {
@@ -170,6 +171,13 @@ const Router = createStackNavigator(
                 header: null
             })
         },
+        //交割记录
+        DeliveryRecord: {
+            screen: DeliveryRecord,
+            navigationOptions: ({ navigation }) => ({
+                header: null
+            })
+        }
     },
     {
         initialRouteName: 'Main',

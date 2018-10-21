@@ -1,5 +1,5 @@
 /**
- * 合约页 挂单-持仓组件
+ * 合约页 持仓-列表组件
  */
 import React, { Component } from 'react';
 import {

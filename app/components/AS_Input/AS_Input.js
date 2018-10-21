@@ -84,3 +84,9 @@ export default class ASInput extends Component {
         );
     }
 }
+
+ASInput.defaultProps = {
+    onValChange: evt => true,
+    onSubRelease: evt => true,
+    onAddRelease: evt => true
+}

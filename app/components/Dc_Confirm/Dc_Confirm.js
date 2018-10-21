@@ -51,9 +51,7 @@ export default class DcConfirm extends Component {
                 transparent={true}
                 onRequestClose={() => false}
             >
-                <View
-                    style={styles.modalWrap}
-                >
+                <View style={styles.modalWrap}>
                     <View style={styles.confirmWrap}>
                         {/* 文本内容开始 */}
                         <View style={styles.confirmContWrap}>

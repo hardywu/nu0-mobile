@@ -256,5 +256,54 @@ export default mStyles = StyleSheet.create({
         width: 15,
         height: 15,
         resizeMode: 'contain'
+    },
+
+    mModalWrap: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'rgba(0,0,0,.7)'
+    },
+
+    mPopWrap: {
+        width: 300,
+        paddingBottom: 5,
+        backgroundColor: '#fff'
+    },
+
+    mPopHead: {
+        paddingTop: 10,
+        paddingBottom: 10,
+        paddingLeft: 28,
+        paddingRight: 28,
+        backgroundColor: Constant.ACTIVE_COLOR
+    },
+
+    mPopBody: {
+        paddingTop: 10,
+        paddingBottom: 5,
+    },
+
+    mPopFoot: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        paddingTop: 5,
+        paddingBottom: 5,
+    },
+
+    mPopHeadText: {
+        width: '100%',
+        fontSize: 14,
+        textAlign: 'center',
+        color: '#fff'
+    },
+
+    mPopHeadClose: {
+        position: 'absolute',
+        top: 10,
+        right: 8,
+        width: 14,
+        height: 14,
+        resizeMode: 'contain'
     }
 });

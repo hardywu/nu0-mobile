@@ -17,7 +17,7 @@ import {
 import mStyles from '../../public/common_style';
 import styles from './Unit_Input_Style';
 
-export default class ASInput extends Component {
+export default class UnitInput extends Component {
     constructor(props) {
         super(props);
     }
