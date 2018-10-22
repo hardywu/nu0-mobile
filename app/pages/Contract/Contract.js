@@ -41,11 +41,11 @@ export default class Contract extends Component {
                 }, {
                     type: 1,
                     name: '挂单',
-                    isActive: true,
+                    isActive: false,
                 }, {
                     type: 2,
                     name: '持仓',
-                    isActive: false,
+                    isActive: true,
                 }
             ], // 一级导航
             trade: {

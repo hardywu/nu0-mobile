@@ -22,6 +22,7 @@ import MarketOverview from '../pages/Market_Overview/Market_Overview';
 import Recharge from '../pages/Recharge/Recharge';
 import RechargeCurSelection from '../pages/Recharge_Cur_Selection/Recharge_Cur_Selection';
 import DeliveryRecord from '../pages/Delivery_Record/Delivery_Record';
+import OrdinaryKLine from '../pages/Ordinary_K_Line/Ordinary_K_Line';
 
 const Router = createStackNavigator(
     {
@@ -177,10 +178,17 @@ const Router = createStackNavigator(
             navigationOptions: ({ navigation }) => ({
                 header: null
             })
+        },
+        //Web
+        OrdinaryKLine: {
+            screen: OrdinaryKLine,
+            navigationOptions: ({ navigation }) => ({
+                header: null
+            })
         }
     },
     {
-        initialRouteName: 'Main',
+        initialRouteName: 'OrdinaryKLine',
         headerMode: 'screen'
     }
 );
