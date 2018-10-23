@@ -26,17 +26,6 @@ import styles from './Pending_Order_List_Style';
 export default class PendingOrderList extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            cancellationConfirm: {
-                show: false
-            }, //撤单
-            priceChangePop: {
-                show: false
-            }, //改价
-            stopsPop: {
-                show: false
-            }, //预设止损
-        }
     }
 
     //处理 撤单按钮 按压事件
@@ -120,71 +109,19 @@ export default class PendingOrderList extends Component {
                         <Text style={[mStyles.mGrayColor, styles.itemRowText]}>开仓</Text>
                         <Text style={[mStyles.mGrayColor, styles.itemRowText]}>已挂单</Text>
                     </View>
-                    <View style={styles.itemRow}>
-                        <Text style={[mStyles.mBlackColor, styles.itemRowText]}>回撤跳:0</Text>
-                        <Text style={[mStyles.mBlackColor, styles.itemRowText]}>止损价:0.0</Text>
-                        <Text style={[mStyles.mBlackColor, styles.itemRowText]}>止盈价:0.0</Text>
-                        <Text style={[mStyles.mBlackColor, styles.itemRowText]}>无</Text>
-                    </View>
-                </View>
-                <View style={styles.itemBtnWrap}>
-                    <View style={[mStyles.mCenterContent, styles.itemBtnCenterContent]}>
-                        <TouchableOpacity
-                            style={styles.itemBtnBox} 
-                            activeOpacity={Constant.TOUCHABLE_OPACITY_ACTIVE_OPACITY}
-                            onPress={evt => this.handleCancellationPress(evt)}
-                        >
-                            <Text style={styles.itemBtnText}>撤单</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity 
-                            style={styles.itemBtnBox} 
-                            activeOpacity={Constant.TOUCHABLE_OPACITY_ACTIVE_OPACITY}
-                            onPress={evt => this.handlePriceChangePress(evt)}
-                        >
-                            <Text style={styles.itemBtnText}>改价</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            style={styles.itemBtnBox} 
-                            activeOpacity={Constant.TOUCHABLE_OPACITY_ACTIVE_OPACITY}
-                            onPress={evt => this.handleStopsPress(evt)}
-                        >
-                            <Text style={styles.itemBtnText}>预设止损</Text>
-                        </TouchableOpacity>
-                    </View>
                 </View>
             </View>
         );
     }
 
     render() {
-        let {
-            cancellationConfirm,
-            priceChangePop,
-            stopsPop
-        } = this.state;
         return (
             <View style={mStyles.mFlex1}>
                 <FlatList
                     showsVerticalScrollIndicator={false}
-                    data={[{}, {}, {}, {}, {}]}
+                    data={[{}, {}]}
                     renderItem={this.renderListItem}
                     keyExtractor={(item, index) => String(index)}
-                />
-                <DcConfirm
-                    show={cancellationConfirm.show}
-                    text='是否确定撤单'
-                    onYesPress={evt => this.handleCancellationYesPress(evt)}
-                    onNoPress={evt => this.handleCancellationNoPress(evt)}
-                />
-                <PriceChangePop
-                    show={priceChangePop.show}
-                    onYesPress={evt => this.handlePriceChangePopYesPress(evt)}
-                    onClosePress={evt => this.handlePriceChangePopClosePress(evt)}
-                />
-                <StopsPop
-                    show={stopsPop.show}
-                    onYesPress={evt => this.handleStopsPopYesPress(evt)}
-                    onClosePress={evt => this.handleStopsPopClosePress(evt)}
                 />
             </View>
         );

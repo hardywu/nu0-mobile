@@ -23,6 +23,8 @@ import Recharge from '../pages/Recharge/Recharge';
 import RechargeCurSelection from '../pages/Recharge_Cur_Selection/Recharge_Cur_Selection';
 import DeliveryRecord from '../pages/Delivery_Record/Delivery_Record';
 import OrdinaryKLine from '../pages/Ordinary_K_Line/Ordinary_K_Line';
+import ContractHistoricalEntrustment from '../pages/Contract_Historical_Entrustment/Contract_Historical_Entrustment';
+import BbHistoricalEntrustment from '../pages/Bb_Historical_Entrustment/Bb_Historical_Entrustment';
 
 const Router = createStackNavigator(
     {
@@ -185,10 +187,24 @@ const Router = createStackNavigator(
             navigationOptions: ({ navigation }) => ({
                 header: null
             })
-        }
+        },
+        //合约历史委托
+        ContractHistoricalEntrustment: {
+            screen: ContractHistoricalEntrustment,
+            navigationOptions: ({ navigation }) => ({
+                header: null
+            })
+        },
+        //币币历史委托
+        BbHistoricalEntrustment: {
+            screen: BbHistoricalEntrustment,
+            navigationOptions: ({ navigation }) => ({
+                header: null
+            })
+        },
     },
     {
-        initialRouteName: 'OrdinaryKLine',
+        initialRouteName: 'Main',
         headerMode: 'screen'
     }
 );

@@ -29,19 +29,27 @@ export default class SideMenu extends Component {
             menu: [
                 {
                     code: 0,
-                    name: '资金划转',
-                    page: 'CapitalTransfer'
+                    name: '账户权益',
+                    page: 'ContractAccount'
                 }, {
                     code: 1,
-                    name: '我的挂单',
-                    page: ''
+                    name: '市场总览',
+                    page: 'MarketOverview'
                 }, {
                     code: 2,
                     name: '历史委托',
-                    page: 'BbHistoricalEntrustment'
+                    page: 'ContractHistoricalEntrustment'
                 }, {
                     code: 3,
-                    name: '账单',
+                    name: '合约账单',
+                    page: ''
+                }, {
+                    code: 4,
+                    name: '交割记录',
+                    page: 'DeliveryRecord'
+                }, {
+                    code: 5,
+                    name: '爆仓订单',
                     page: ''
                 }
             ]

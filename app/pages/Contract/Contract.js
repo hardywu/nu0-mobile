@@ -13,6 +13,7 @@ import Form from './Components/Form/Form'; //交易左边表单组件
 import PriceList from './Components/Price_List/Price_List'; //交易右边价格表格组件
 import PendingOrderList from './Components/Pending_Order_List/Pending_Order_List'; //挂单-列表组件
 import PositionList from './Components/Position_List/Position_List'; //持仓-列表组件
+import SideMenu from './Components/Side_Menu/Side_Menu'; //侧边菜单组件
 import Constant from '../../public/constant';
 import { SelectAnim, DcSelect } from '../../components/Dc_Select/Dc_Select'
 
@@ -47,7 +48,7 @@ export default class Contract extends Component {
                     name: '持仓',
                     isActive: true,
                 }
-            ], // 一级导航
+            ], //一级导航
             trade: {
                 contractType: {
                     isShow: false,
@@ -253,14 +254,16 @@ export default class Contract extends Component {
                         }
                     ]
                 }, //持仓页-筛选数据
-            } //持仓页数据
+            }, //持仓页数据
+            sideMenu: {
+                isShow: false
+            } //侧边菜单栏
         }
     }
 
     //处理一级导航释放事件
     handleMainNavRelease = (evt, index) => {
         let { mainNav } = this.state;
-
         mainNav.forEach((item, _index) => {
             if(index === _index) {
                 item.isActive = true;
@@ -268,8 +271,32 @@ export default class Contract extends Component {
                 item.isActive = false;
             }
         });
-
         this.setState({ mainNav: mainNav });
+    }
+
+    //菜单按钮释放事件
+    handleSideMenuRelease = evt => {
+        let { sideMenu } = this.state;
+        sideMenu.isShow = true;
+        this.setState({ sideMenu: sideMenu });
+    }
+
+    //设置菜单的值
+    setMenu = (menu, callback) => {
+        this.setState({ menu: menu }, () => {
+            if(callback) {
+                callback();
+            } else {
+                return false;
+            }
+        });
+    }
+
+    //处理菜单modal层释放事件
+    handleMenuSideModalWrapRelease = evt => {
+        let { sideMenu } = this.state;
+        sideMenu.isShow = false;
+        this.setState({ sideMenu: sideMenu });
     }
 
     //处理搜索按钮释放事件
@@ -281,7 +308,6 @@ export default class Contract extends Component {
     //交易页-处理合约类型下拉框释放事件
     handleTradeContractOptionsRelease = evt => {
         let { trade } = this.state;
-
         trade.contractType.isShow = !trade.contractType.isShow;
         this.setState({ trade: trade });
     }
@@ -289,7 +315,6 @@ export default class Contract extends Component {
     //交易页-处理合约类型下拉框选项释放事件
     handleTradeContractOptionsItemRelease = (evt, parentIndex, childIndex) => {
         let { trade } = this.state;
-
         trade.contractType.isShow = !trade.contractType.isShow;
         trade.contractType.value.type = parentIndex;
         trade.contractType.value.code = childIndex;
@@ -326,7 +351,6 @@ export default class Contract extends Component {
     handleROFilterSelectRelease1 = evt => {
         let { restingOrder } = this.state;
         let select = restingOrder.filterSelect1;
-
         if(select.isShow) {
             selectAnim1.scaleFadeOut().start(() => {
                 select.isShow = false;
@@ -344,7 +368,6 @@ export default class Contract extends Component {
     handleROFilterSelectOptionsRelease1 = (obj) => {
         let { restingOrder } = this.state;
         let select = restingOrder.filterSelect1;
-        
         selectAnim1.scaleFadeOut().start(() => {
             select.isShow = false;
             select.value.name = obj.name;
@@ -357,7 +380,6 @@ export default class Contract extends Component {
     handleROFilterSelectWrapRelease1 = evt => {
         let { restingOrder } = this.state;
         let select = restingOrder.filterSelect1;
-        
         selectAnim1.scaleFadeOut().start(() => {
             select.isShow = false;
             this.setState({ restingOrder: restingOrder });
@@ -381,7 +403,6 @@ export default class Contract extends Component {
     handleROFilterSelectRelease2 = evt => {
         let { restingOrder } = this.state;
         let select = restingOrder.filterSelect2;
-
         if(select.isShow) {
             selectAnim2.scaleFadeOut().start(() => {
                 select.isShow = false;
@@ -399,7 +420,6 @@ export default class Contract extends Component {
     handleROFilterSelectOptionsRelease2 = (obj) => {
         let { restingOrder } = this.state;
         let select = restingOrder.filterSelect2;
-        
         selectAnim2.scaleFadeOut().start(() => {
             select.isShow = false;
             select.value.name = obj.name;
@@ -412,7 +432,6 @@ export default class Contract extends Component {
     handleROFilterSelectWrapRelease2 = evt => {
         let { restingOrder } = this.state;
         let select = restingOrder.filterSelect2;
-        
         selectAnim2.scaleFadeOut().start(() => {
             select.isShow = false;
             this.setState({ restingOrder: restingOrder });
@@ -436,7 +455,6 @@ export default class Contract extends Component {
     handleROFilterSelectRelease3 = evt => {
         let { restingOrder } = this.state;
         let select = restingOrder.filterSelect3;
-
         if(select.isShow) {
             selectAnim3.scaleFadeOut().start(() => {
                 select.isShow = false;
@@ -454,8 +472,6 @@ export default class Contract extends Component {
     handleROFilterSelectOptionsRelease3 = (obj) => {
         let { restingOrder } = this.state;
         let select = restingOrder.filterSelect3;
-
-        
         selectAnim3.scaleFadeOut().start(() => {
             select.isShow = false;
             select.value.name = obj.name;
@@ -468,7 +484,6 @@ export default class Contract extends Component {
     handleROFilterSelectWrapRelease3 = evt => {
         let { restingOrder } = this.state;
         let select = restingOrder.filterSelect3;
-        
         selectAnim3.scaleFadeOut().start(() => {
             select.isShow = false;
             this.setState({ restingOrder: restingOrder });
@@ -492,7 +507,6 @@ export default class Contract extends Component {
     handlePFilterSelectRelease = evt => {
         let { position } = this.state;
         let select = position.filterSelect;
-
         if(select.isShow) {
             selectAnim4.scaleFadeOut().start(() => {
                 select.isShow = false;
@@ -510,7 +524,6 @@ export default class Contract extends Component {
     handlePFilterSelectOptionsRelease = (obj) => {
         let { position } = this.state;
         let select = position.filterSelect;
-        
         selectAnim4.scaleFadeOut().start(() => {
             select.isShow = false;
             select.value.name = obj.name;
@@ -523,7 +536,6 @@ export default class Contract extends Component {
     handlePFilterSelectWrapRelease = evt => {
         let { position } = this.state;
         let select = position.filterSelect;
-        
         selectAnim4.scaleFadeOut().start(() => {
             select.isShow = false;
             this.setState({ position: position });
@@ -535,9 +547,10 @@ export default class Contract extends Component {
             mainNav,
             trade,
             restingOrder,
-            position
+            position,
+            sideMenu
         } = this.state;
-
+        const { navigation } = this.props;
         //一级导航DOM
         let mainNavActiveIndex = null;
         let mainNavDOM = mainNav.map((item, index) => {
@@ -600,6 +613,12 @@ export default class Contract extends Component {
                 <View style={styles.header}>
                     <View style={[mStyles.mCenterContent, styles.headerCenterContent]}>
                         <View style={styles.headerMain}>
+                            <Image
+                                style={styles.headerMenu}
+                                source={menuIcon2}
+                                onStartShouldSetResponder={() => true}
+                                onResponderRelease={evt => this.handleSideMenuRelease(evt)}
+                            />
                             <Text style={styles.headerTitle}>合约</Text>
                             <Image
                                 style={styles.headerSearch}
@@ -607,7 +626,6 @@ export default class Contract extends Component {
                                 onStartShouldSetResponder={() => true}
                                 onResponderRelease={evt => this.handleGoSearchRelease(evt)}
                             />
-                            <Image style={styles.headerMenu} source={menuIcon2} />
                         </View>
                     </View>
                 </View>
@@ -793,6 +811,14 @@ export default class Contract extends Component {
                     {/* 持仓页面结束 */}
                 </View>
                 {/* 页面结束 */}
+                {/* 侧边菜单开始 */}
+                <SideMenu
+                    data={sideMenu}
+                    navigation={navigation}
+                    setData={this.setMenu}
+                    onModalWrapRelease={evt => this.handleMenuSideModalWrapRelease(evt)}
+                />
+                {/* 侧边结束开始 */}
             </View>
         );
     }

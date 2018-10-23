@@ -159,10 +159,10 @@ export default class PositionList extends Component {
             backhandConfirm
         } = this.state;
         return (
-            <View>
+            <View style={mStyles.mFlex1}>
                 <FlatList
                     showsVerticalScrollIndicator={false}
-                    data={[{}, {}]}
+                    data={[{}, {}, {}, {}, {}]}
                     renderItem={this.renderListItem}
                     keyExtractor={(item, index) => String(index)}
                 />

@@ -127,31 +127,6 @@ export default class PendingOrderList extends Component {
                         <Text style={[mStyles.mBlackColor, styles.itemRowText]}>无</Text>
                     </View>
                 </View>
-                <View style={styles.itemBtnWrap}>
-                    <View style={[mStyles.mCenterContent, styles.itemBtnCenterContent]}>
-                        <TouchableOpacity
-                            style={styles.itemBtnBox} 
-                            activeOpacity={Constant.TOUCHABLE_OPACITY_ACTIVE_OPACITY}
-                            onPress={evt => this.handleCancellationPress(evt)}
-                        >
-                            <Text style={styles.itemBtnText}>撤单</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity 
-                            style={styles.itemBtnBox} 
-                            activeOpacity={Constant.TOUCHABLE_OPACITY_ACTIVE_OPACITY}
-                            onPress={evt => this.handlePriceChangePress(evt)}
-                        >
-                            <Text style={styles.itemBtnText}>改价</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            style={styles.itemBtnBox} 
-                            activeOpacity={Constant.TOUCHABLE_OPACITY_ACTIVE_OPACITY}
-                            onPress={evt => this.handleStopsPress(evt)}
-                        >
-                            <Text style={styles.itemBtnText}>预设止损</Text>
-                        </TouchableOpacity>
-                    </View>
-                </View>
             </View>
         );
     }
@@ -166,25 +141,9 @@ export default class PendingOrderList extends Component {
             <View style={mStyles.mFlex1}>
                 <FlatList
                     showsVerticalScrollIndicator={false}
-                    data={[{}, {}, {}, {}, {}]}
+                    data={[{}, {}]}
                     renderItem={this.renderListItem}
                     keyExtractor={(item, index) => String(index)}
-                />
-                <DcConfirm
-                    show={cancellationConfirm.show}
-                    text='是否确定撤单'
-                    onYesPress={evt => this.handleCancellationYesPress(evt)}
-                    onNoPress={evt => this.handleCancellationNoPress(evt)}
-                />
-                <PriceChangePop
-                    show={priceChangePop.show}
-                    onYesPress={evt => this.handlePriceChangePopYesPress(evt)}
-                    onClosePress={evt => this.handlePriceChangePopClosePress(evt)}
-                />
-                <StopsPop
-                    show={stopsPop.show}
-                    onYesPress={evt => this.handleStopsPopYesPress(evt)}
-                    onClosePress={evt => this.handleStopsPopClosePress(evt)}
                 />
             </View>
         );

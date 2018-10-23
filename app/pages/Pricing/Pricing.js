@@ -194,6 +194,31 @@ export default class Pricing extends Component {
         this.setState({ activeMainNavIndex: index });
     }
 
+    //菜单按钮释放事件
+    handleSideMenuRelease = evt => {
+        let { sideMenu } = this.state;
+        sideMenu.isShow = true;
+        this.setState({ sideMenu: sideMenu });
+    }
+
+    //设置菜单的值
+    setMenu = (menu, callback) => {
+        this.setState({ menu: menu }, () => {
+            if(callback) {
+                callback();
+            } else {
+                return false;
+            }
+        });
+    }
+
+    //处理菜单modal层释放事件
+    handleMenuSideModalWrapRelease = evt => {
+        let { sideMenu } = this.state;
+        sideMenu.isShow = false;
+        this.setState({ sideMenu: sideMenu });
+    }
+
     //设置bb的值
     setBb = (bb, callback) => {
         this.setState({ bb: bb }, () => {
@@ -281,6 +306,7 @@ export default class Pricing extends Component {
 
     render() {
         const { navigate } = this.props.navigation;
+        const { navigation } = this.props;
         let {
             activeMainNavIndex,
             bb,
@@ -288,7 +314,6 @@ export default class Pricing extends Component {
             list,
             sideMenu
         } = this.state;
-
         return (
             <View style={mStyles.mFlex1}>
                 {/* 头部开始 */}
@@ -477,7 +502,12 @@ export default class Pricing extends Component {
                     {/* 杠杆内容结束 */}
                 </View>
                 {/* 主体内容结束 */}
-                <SideMenu data={sideMenu} setData={this.setMenu}/>
+                <SideMenu
+                    data={sideMenu}
+                    navigation={navigation}
+                    setData={this.setMenu}
+                    onModalWrapRelease={evt => this.handleMenuSideModalWrapRelease(evt)}
+                />
             </View>
         );
     }
