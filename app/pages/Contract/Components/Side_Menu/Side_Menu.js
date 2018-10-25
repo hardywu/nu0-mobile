@@ -42,7 +42,7 @@ export default class SideMenu extends Component {
                 }, {
                     code: 3,
                     name: '合约账单',
-                    page: ''
+                    page: 'ContractBill'
                 }, {
                     code: 4,
                     name: '交割记录',
@@ -50,7 +50,7 @@ export default class SideMenu extends Component {
                 }, {
                     code: 5,
                     name: '爆仓订单',
-                    page: ''
+                    page: 'WarehouseOrder'
                 }
             ]
         }
@@ -113,7 +113,7 @@ export default class SideMenu extends Component {
                             style={styles.sideMenuIcon}
                             source={arrowIcon}
                             onStartShouldSetResponder={() => true}
-                            onResponderRelease={evt => handleMenuRelease(evt)}
+                            onResponderRelease={evt => this.handleMenuRelease(evt)}
                         />
                         <ScrollView style={styles.sideMenuMain}>
                             {menuItemDOM}

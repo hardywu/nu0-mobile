@@ -34,7 +34,7 @@ export default class SideMenu extends Component {
                 }, {
                     code: 1,
                     name: '我的挂单',
-                    page: ''
+                    page: 'BbPendingOrder'
                 }, {
                     code: 2,
                     name: '历史委托',
@@ -42,7 +42,7 @@ export default class SideMenu extends Component {
                 }, {
                     code: 3,
                     name: '账单',
-                    page: ''
+                    page: 'BbBill'
                 }
             ]
         }
@@ -105,7 +105,7 @@ export default class SideMenu extends Component {
                             style={styles.sideMenuIcon}
                             source={arrowIcon}
                             onStartShouldSetResponder={() => true}
-                            onResponderRelease={evt => handleMenuRelease(evt)}
+                            onResponderRelease={evt => this.handleMenuRelease(evt)}
                         />
                         <ScrollView style={styles.sideMenuMain}>
                             {menuItemDOM}

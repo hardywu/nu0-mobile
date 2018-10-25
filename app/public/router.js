@@ -25,6 +25,10 @@ import DeliveryRecord from '../pages/Delivery_Record/Delivery_Record';
 import OrdinaryKLine from '../pages/Ordinary_K_Line/Ordinary_K_Line';
 import ContractHistoricalEntrustment from '../pages/Contract_Historical_Entrustment/Contract_Historical_Entrustment';
 import BbHistoricalEntrustment from '../pages/Bb_Historical_Entrustment/Bb_Historical_Entrustment';
+import BbPendingOrder from '../pages/Bb_Pending_Order/Bb_Pending_Order';
+import WarehouseOrder from '../pages/Warehouse_Order/Warehouse_Order';
+import ContractBill from '../pages/Contract_Bill/Contract_Bill';
+import BbBill from '../pages/Bb_Bill/Bb_Bill';
 
 const Router = createStackNavigator(
     {
@@ -198,6 +202,34 @@ const Router = createStackNavigator(
         //币币历史委托
         BbHistoricalEntrustment: {
             screen: BbHistoricalEntrustment,
+            navigationOptions: ({ navigation }) => ({
+                header: null
+            })
+        },
+        //币币我的挂单
+        BbPendingOrder: {
+            screen: BbPendingOrder,
+            navigationOptions: ({ navigation }) => ({
+                header: null
+            })
+        },
+        //爆仓订单
+        WarehouseOrder: {
+            screen: WarehouseOrder,
+            navigationOptions: ({ navigation }) => ({
+                header: null
+            })
+        },
+        //合约账单
+        ContractBill: {
+            screen: ContractBill,
+            navigationOptions: ({ navigation }) => ({
+                header: null
+            })
+        },
+        //币币账单
+        BbBill: {
+            screen: BbBill,
             navigationOptions: ({ navigation }) => ({
                 header: null
             })
