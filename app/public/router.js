@@ -29,6 +29,10 @@ import BbPendingOrder from '../pages/Bb_Pending_Order/Bb_Pending_Order';
 import WarehouseOrder from '../pages/Warehouse_Order/Warehouse_Order';
 import ContractBill from '../pages/Contract_Bill/Contract_Bill';
 import BbBill from '../pages/Bb_Bill/Bb_Bill';
+import CapitalRecord from '../pages/Capital_Record/Capital_Record';
+import BbBillSelection from '../pages/Bb_Bill_Selection/Bb_Bill_Selection';
+import LeverBill from '../pages/Lever_Bill/Lever_Bill';
+import ContractBillSelection from '../pages/Contract_Bill_Selection/Contract_Bill_Selection';
 
 const Router = createStackNavigator(
     {
@@ -230,6 +234,34 @@ const Router = createStackNavigator(
         //币币账单
         BbBill: {
             screen: BbBill,
+            navigationOptions: ({ navigation }) => ({
+                header: null
+            })
+        },
+        //资金记录
+        CapitalRecord: {
+            screen: CapitalRecord,
+            navigationOptions: ({ navigation }) => ({
+                header: null
+            })
+        },
+        //币币账单选择页
+        BbBillSelection: {
+            screen: BbBillSelection,
+            navigationOptions: ({ navigation }) => ({
+                header: null
+            })
+        },
+        //杠杆账单
+        LeverBill: {
+            screen: LeverBill,
+            navigationOptions: ({ navigation }) => ({
+                header: null
+            })
+        },
+        //合约账单选择页
+        ContractBillSelection: {
+            screen: ContractBillSelection,
             navigationOptions: ({ navigation }) => ({
                 header: null
             })

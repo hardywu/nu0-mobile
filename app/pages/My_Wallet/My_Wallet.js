@@ -43,6 +43,11 @@ export default class MyWallet extends Component {
         this.props.navigation.navigate('CapitalTransfer'); //跳转到资金划转页
     }
 
+    //处理 资金记录 释放事件
+    handleCapitalRecordRelease = evt => {
+        this.props.navigation.navigate('CapitalRecord'); //跳转到资金记录页
+    }
+
     render() {
         return (
             <View style={[mStyles.mFlex1, styles.wrap]}>
@@ -84,7 +89,11 @@ export default class MyWallet extends Component {
                                     <Image style={styles.assetsOperationItemIcon} source={fundsTransferIcon}/>
                                     <Text style={styles.assetsOperationItemText}>资金划转</Text>
                                 </View>
-                                <View style={styles.assetsOperationItem}>
+                                <View
+                                    style={styles.assetsOperationItem}
+                                    onStartShouldSetResponder={() => true}
+                                    onResponderRelease={evt => this.handleCapitalRecordRelease(evt)}
+                                >
                                     <Image style={styles.assetsOperationItemIcon} source={fundsRecordIcon}/>
                                     <Text style={styles.assetsOperationItemText}>资金记录</Text>
                                 </View>

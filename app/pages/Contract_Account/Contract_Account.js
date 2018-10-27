@@ -33,6 +33,21 @@ export default class ContractAccount extends Component {
         this.props.navigation.goBack();
     }
 
+    //处理 资金划转按钮 释放事件
+    handleCapitalTransferRelease = evt => {
+        this.props.navigation.navigate('CapitalTransfer');
+    }
+
+    //处理 交割记录按钮 释放事件
+    handleDeliveryRecordRelease = evt => {
+        this.props.navigation.navigate('DeliveryRecord');
+    }
+
+    //处理 合约账单按钮 释放事件
+    handleContractBillRelease = evt => {
+        this.props.navigation.navigate('ContractBillSelection');
+    }
+
     render() {
         return (
             <View style={[mStyles.mFlex1, styles.wrap]}>
@@ -54,15 +69,27 @@ export default class ContractAccount extends Component {
                                 backgroundColor='#7e6fec'
                             />
                             <View style={styles.assetsOperation}>
-                                <View style={styles.assetsOperationItem}>
+                                <View
+                                    style={styles.assetsOperationItem}
+                                    onStartShouldSetResponder={() => true}
+                                    onResponderRelease={evt => this.handleCapitalTransferRelease(evt)}
+                                >
                                     <Image style={styles.assetsOperationItemIcon} source={fundsTransferIcon}/>
                                     <Text style={styles.assetsOperationItemText}>资金划转</Text>
                                 </View>
-                                <View style={styles.assetsOperationItem}>
+                                <View
+                                    style={styles.assetsOperationItem}
+                                    onStartShouldSetResponder={() => true}
+                                    onResponderRelease={evt => this.handleDeliveryRecordRelease(evt)}
+                                >
                                     <Image style={styles.assetsOperationItemIcon} source={deliveryIcon}/>
                                     <Text style={styles.assetsOperationItemText}>交割记录</Text>
                                 </View>
-                                <View style={styles.assetsOperationItem}>
+                                <View
+                                    style={styles.assetsOperationItem}
+                                    onStartShouldSetResponder={() => true}
+                                    onResponderRelease={evt => this.handleContractBillRelease(evt)}
+                                >
                                     <Image style={styles.assetsOperationItemIcon} source={fundsRecordIcon}/>
                                     <Text style={styles.assetsOperationItemText}>合约账单</Text>
                                 </View>

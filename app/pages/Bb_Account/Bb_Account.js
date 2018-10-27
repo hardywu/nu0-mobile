@@ -35,11 +35,11 @@ export default class BbAccount extends Component {
                 {
                     code: 0,
                     name: '币币账户',
-                    isActive: false
+                    isActive: true
                 }, {
                     code: 1,
                     name: '杠杆账户',
-                    isActive: true
+                    isActive: false
                 }
             ]
         }
@@ -63,6 +63,26 @@ export default class BbAccount extends Component {
         this.setState({ headerTab: headerTab });
     }
 
+    //处理 币币-资金划转按钮 释放事件
+    handleBbCapitalTransferRelease = evt => {
+        this.props.navigation.navigate('CapitalTransfer');
+    }
+
+    //处理 币币-币币账单按钮 释放事件
+    handleBbBillRelease = evt => {
+        this.props.navigation.navigate('BbBillSelection');
+    }
+
+    //处理 杠杆-资金划转 释放事件
+    handleLeverCapitalTransferRelease = evt => {
+        this.props.navigation.navigate('CapitalTransfer');
+    }
+
+    //处理 杠杆-杠杠账单按钮 释放事件
+    handleLeverBillRelease = evt => {
+        this.props.navigation.navigate('LeverBill');
+    }
+    
     render() {
         let { headerTab } = this.state;
         let headerTabActiveIndex = null;
@@ -126,11 +146,19 @@ export default class BbAccount extends Component {
                                     backgroundColor={Constant.BLUE_COLOR}
                                 />
                                 <View style={styles.assetsOperation}>
-                                    <View style={styles.assetsOperationItem}>
+                                    <View
+                                        style={styles.assetsOperationItem}
+                                        onStartShouldSetResponder={() => true}
+                                        onResponderRelease={evt => this.handleBbCapitalTransferRelease(evt)}
+                                    >
                                         <Image style={styles.assetsOperationItemIcon} source={fundsTransferIcon}/>
                                         <Text style={styles.assetsOperationItemText}>资金划转</Text>
                                     </View>
-                                    <View style={styles.assetsOperationItem}>
+                                    <View
+                                        style={styles.assetsOperationItem}
+                                        onStartShouldSetResponder={() => true}
+                                        onResponderRelease={evt => this.handleBbBillRelease(evt)}
+                                    >
                                         <Image style={styles.assetsOperationItemIcon} source={fundsRecordIcon}/>
                                         <Text style={styles.assetsOperationItemText}>币币账单</Text>
                                     </View>
@@ -163,11 +191,19 @@ export default class BbAccount extends Component {
                                         <Image style={styles.assetsOperationItemIcon} source={borrowIcon}/>
                                         <Text style={styles.assetsOperationItemText}>借币</Text>
                                     </View>
-                                    <View style={styles.assetsOperationItem}>
+                                    <View
+                                        style={styles.assetsOperationItem}
+                                        onStartShouldSetResponder={() => true}
+                                        onResponderRelease={evt => this.handleLeverCapitalTransferRelease(evt)}
+                                    >
                                         <Image style={styles.assetsOperationItemIcon} source={fundsTransferIcon}/>
                                         <Text style={styles.assetsOperationItemText}>资金划转</Text>
                                     </View>
-                                    <View style={styles.assetsOperationItem}>
+                                    <View
+                                        style={styles.assetsOperationItem}
+                                        onStartShouldSetResponder={() => true}
+                                        onResponderRelease={evt => this.handleLeverBillRelease(evt)}
+                                    >
                                         <Image style={styles.assetsOperationItemIcon} source={fundsRecordIcon}/>
                                         <Text style={styles.assetsOperationItemText}>杠杆账单</Text>
                                     </View>

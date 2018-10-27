@@ -16,8 +16,16 @@ export default mStyles = StyleSheet.create({
         justifyContent: 'flex-end'
     },
 
+    mTALeft: {
+        textAlign: 'left'
+    },
+
     mTARight: {
         textAlign: 'right'
+    },
+
+    mTACenter: {
+        textAlign: 'center'
     },
 
     mHide: {

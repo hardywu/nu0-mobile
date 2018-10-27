@@ -1,0 +1,91 @@
+/**
+ * 币币账单选择页
+ */
+import React, { Component } from 'react';
+import {
+    Text,
+    TextInput,
+    View,
+    StatusBar,
+    ScrollView,
+    Image,
+    FlatList,
+    TouchableHighlight
+} from 'react-native';
+import { connect } from 'react-redux';
+import Constant from '../../public/constant';
+import Header from '../../components/Header/Header';
+import * as rechargeCurAction from '../../actions/recharge_cur';
+
+import mStyles from '../../public/common_style';
+import styles from './Bb_Bill_Selection_Style';
+
+import arrowIcon from '../../static/imgs/arrow_gray.png'; //箭头图标
+
+export default class BbBillSelection extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            listItem: [
+                {
+                    code: 0,
+                    name: '币币账单',
+                    page: 'BbBill'
+                }, {
+                    code: 1,
+                    name: '币币委托查询',
+                    page: 'BbHistoricalEntrustment'
+                }
+            ]
+        }
+    }
+
+    //处理 返回按钮 释放事件
+    handleGoBackRelease = evt => {
+        this.props.navigation.goBack();
+    }
+
+    //处理 列表元素 释放事件 
+    handleItemPress = (evt, data) => {
+        this.props.navigation.navigate(data.page);
+    }
+
+    renderListItem = ({item, index}) => {
+        return (
+            <TouchableHighlight
+                underlayColor={Constant.TOUCHABLE_HIGHLIGHT_UNDERLAY_COLOR}
+                onPress={evt => this.handleItemPress(evt, item)}
+            >
+                <View style={mStyles.mSearchSelectionListItem}>
+                    <View style={[mStyles.mCenterContent, mStyles.mSearchSelectionListItemCenterContent]}>
+                        <Text style={mStyles.mSearchSelectionListItemText}>{item.name}</Text>
+                        <Image style={styles.arrowIcon} source={arrowIcon}/>
+                    </View>
+                </View>
+            </TouchableHighlight>
+        )
+    }
+
+    render() {
+        let { listItem } = this.state;
+        console.log(listItem)
+        return (
+            <View style={[mStyles.mFlex1, mStyles.mSearchSelectionWrap]}>
+                <Header
+                    title='币币账单及委托查询'
+                    onGoBackRelease={evt => this.handleGoBackRelease(evt)}
+                />
+                <View style={mStyles.mSearchSelection}>
+                    {/* 列表开始 */}
+                    <FlatList
+                        style={mStyles.mSearchSelectionListWrap}
+                        data={listItem}
+                        keyExtractor={(item, index) => String(index)}
+                        renderItem={this.renderListItem}
+                    />
+                    {/* 列表结束 */}
+                </View>
+            </View>
+        );
+    }
+}

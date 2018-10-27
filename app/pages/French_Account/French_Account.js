@@ -32,6 +32,11 @@ export default class FrenchAccount extends Component {
         this.props.navigation.goBack();
     }
 
+    //处理 资金划转按钮 释放事件
+    handleCapitalTransferRelease = evt => {
+        this.props.navigation.navigate('CapitalTransfer');
+    }
+
     render() {
         return (
             <View style={[mStyles.mFlex1, styles.wrap]}>
@@ -57,7 +62,11 @@ export default class FrenchAccount extends Component {
                                     <Image style={styles.assetsOperationItemIcon} source={paymentSettingIcon}/>
                                     <Text style={styles.assetsOperationItemText}>收付款设置</Text>
                                 </View>
-                                <View style={styles.assetsOperationItem}>
+                                <View
+                                    style={styles.assetsOperationItem}
+                                    onStartShouldSetResponder={() => true}
+                                    onResponderRelease={evt => this.handleCapitalTransferRelease(evt)}
+                                >
                                     <Image style={styles.assetsOperationItemIcon} source={fundsTransferIcon}/>
                                     <Text style={styles.assetsOperationItemText}>资金划转</Text>
                                 </View>
