@@ -12,6 +12,10 @@ export default mStyles = StyleSheet.create({
         marginBottom: 10
     },
 
+    mbackgroundColor: {
+        backgroundColor: '#f8f8f8'
+    },
+
     mJustifyContentFlexEnd: {
         justifyContent: 'flex-end'
     },
@@ -82,6 +86,10 @@ export default mStyles = StyleSheet.create({
 
     mBlueBorderBottom: {
         borderBottomColor: Constant.BLUE_COLOR
+    },
+
+    mBlueBorderLeft: {
+        borderLeftColor: Constant.BLUE_COLOR
     },
 
     mRedColor: {

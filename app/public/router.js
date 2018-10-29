@@ -33,6 +33,7 @@ import CapitalRecord from '../pages/Capital_Record/Capital_Record';
 import BbBillSelection from '../pages/Bb_Bill_Selection/Bb_Bill_Selection';
 import LeverBill from '../pages/Lever_Bill/Lever_Bill';
 import ContractBillSelection from '../pages/Contract_Bill_Selection/Contract_Bill_Selection';
+import FrenchOrder from '../pages/French_Order/French_Order';
 
 const Router = createStackNavigator(
     {
@@ -262,6 +263,13 @@ const Router = createStackNavigator(
         //合约账单选择页
         ContractBillSelection: {
             screen: ContractBillSelection,
+            navigationOptions: ({ navigation }) => ({
+                header: null
+            })
+        },
+        //法币订单页
+        FrenchOrder: {
+            screen: FrenchOrder,
             navigationOptions: ({ navigation }) => ({
                 header: null
             })

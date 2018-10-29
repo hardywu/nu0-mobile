@@ -1,5 +1,5 @@
 /**
- *行情页
+ * 法币页
  */
 import React, { Component } from 'react';
 import {
@@ -13,17 +13,14 @@ import {
     FlatList,
     LayoutAnimation
 } from 'react-native';
-import Anim from '../../public/animation'
+import Anim from '../../public/animation';
+import BuyList from './Components/Buy_List/Buy_List';
+import SellList from './Components/Sell_List/Sell_List';
+import EntrustmentList from './Components/Entrustment_List/Entrustment_List';
 
 import mStyles from '../../public/common_style';
 import styles from './French_Style';
 
-import zfbDisableIcon from '../../static/imgs/zfb_disable.png';
-import zfbNormalIcon from '../../static/imgs/zfb_normal.png'
-import wzfDisableIcon from '../../static/imgs/wzf_disable.png';
-import wzfNormalIcon from '../../static/imgs/wzf_normal.png'
-import bankDisableIcon from '../../static/imgs/bank_disable.png';
-import bankNormalIcon from '../../static/imgs/bank_normal.png';
 import grayArrowIcon from '../../static/imgs/arrow_gray.png'; //灰色箭头icon
 import unselectedIcon from '../../static/imgs/unselected.png'; //位选中icon
 import selectedIcon from '../../static/imgs/selected.png'; //选中icon
@@ -62,6 +59,7 @@ export default class French extends Component {
         super(props);
 
         this.state = {
+            //一级导航
             mainNav: {
                 isShow: false,
                 data: [
@@ -107,8 +105,8 @@ export default class French extends Component {
                         name: 'XUC'
                     }
                 ]
-            }, //一级导航
-
+            },
+            //二级导航
             subNav: {
                 data: [
                     {
@@ -129,10 +127,35 @@ export default class French extends Component {
                         isActive: false,
                     }
                 ]
-            }, //二级导航
-
-            isCertification: true, //用户是否已经认证
+            },
+            //用户是否已经认证
+            isCertification: true,
+            //购买列表
+            buyList: {
+                //购买列表数据
+                data: [
+                    {}, {}
+                ]
+            },
+            //出售列表
+            sellList: {
+                //出售列表数据
+                data: [
+                    {}, {}, {}, {}, {}, {}, {}
+                ]
+            },
+            //委托单列表
+            sellList: {
+                //委托单列表数据
+                data: [
+                    {}, {}, {}, {}, {}, {}, {}
+                ]
+            }
         }
+    }
+
+    _setState = (obj) => {
+        this.setState(obj);
     }
 
     //处理一级导航按钮点击事件
@@ -153,15 +176,13 @@ export default class French extends Component {
         }
     }
 
-    //处理一级导航选项点击事件
+    //处理 一级导航选项 释放事件
     handleMainNavItemRelease = (evt, index) => {
         let { mainNav } = this.state;
-
         mainNavAnim.scaleFadeOut().start(() => {
             mainNav.isShow = false;
             this.setState({ mainNav: mainNav });
         });
-
         let data = mainNav.data;
         for(let i = 0; i < data.length; i++) {
             if(i === index) {
@@ -173,10 +194,9 @@ export default class French extends Component {
         this.setState({ mainNav: mainNav });
     }
 
-    //处理
+    //处理 二级导航选项 释放事件
     handleSubNavItemRelease = (evt, index) => {
         let { subNav } = this.state;
-
         let data = subNav.data;
         for(let i = 0; i < data.length; i++) {
             if(i === index) {
@@ -184,6 +204,14 @@ export default class French extends Component {
             } else {
                 data[i].isActive = false;
             }
+        }
+        //如果订单选项被点中，则跳转到法币订单页
+        if(subNav.data[3].isActive) {
+            //订单选项设为未激活状态，购买选项设为激活状态
+            subNav.data[3].isActive = false;
+            subNav.data[0].isActive = true;
+            //跳转到法币订单页
+            this.props.navigation.navigate('FrenchOrder');
         }
         this.setState({ subNav: subNav });
     }
@@ -194,63 +222,13 @@ export default class French extends Component {
         navigate('ReleaseEnt'); //跳转到发布委托单页
     }
 
-    //列表循环元素
-    renderListItem = (item) => {
-        let { isCertification } = this.state;
-
-        return (
-            <View style={styles.listItem}>
-                <View style={[styles.listItemHead, isCertification ? mStyles.mGreenBorderLeft : '']}>
-                    <View style={styles.listItemHeadInfo}>
-                        <Text style={[styles.listItemHeadInfoUser, isCertification ? mStyles.mFontColor999 : '']}>图弹幕比付款</Text>
-                        <Text style={[styles.listItemHeadDeal, isCertification ? mStyles.mFontColor999 : '']}>已交易12334</Text>
-                        <Text style={[styles.listItemHeadDealRate, isCertification ? mStyles.mFontColor999 : '']}>成交率20%</Text>
-                    </View>
-                    <View style={styles.listItemHeadPayFunc}>
-                        <Image
-                            style={styles.listItemHeadPayFuncIcon}
-                            source={bankNormalIcon}
-                        />
-                        <Image
-                            style={styles.listItemHeadPayFuncIcon}
-                            source={wzfNormalIcon}
-                        />
-                        <Image
-                            style={styles.listItemHeadPayFuncIcon}
-                            source={zfbNormalIcon}
-                        />
-                    </View>
-                </View>
-                <View style={styles.listItemBody}>
-                    <View style={styles.listItemBodyItem}>
-                        <Text style={[styles.listItemBodyItemValBig, isCertification ? mStyles.mBlackColor : '']}>1,234,23.00</Text>
-                        <Text style={styles.listItemBodyItemKey}>价格CNY</Text>
-                    </View>
-                    <View style={styles.listItemBodyItem}>
-                        <Text style={[styles.listItemBodyItemValSmall, isCertification ? mStyles.mBlackColor : '']}>1234-23321</Text>
-                        <Text style={styles.listItemBodyItemKey}>限额</Text>
-                    </View>
-                    <View style={[styles.listItemBodyItem, {borderRightWidth: 0}]}>
-                        <Text style={[styles.listItemBodyItemValSmall, isCertification ? mStyles.mBlackColor : '']}>10,000</Text>
-                        <Text style={styles.listItemBodyItemKey}>数量</Text>
-                    </View>
-                </View>
-            </View>
-        )
-    }
-
     render() {
         const _this = this;
         let {
             mainNav,
             subNav
         } = this.state;
-
-
-        let listData=[[{}],[{},{}],[{},{},{},{},{},{},{},{},{},{},{}]];
-
-        let listIndex = 0;
-
+        let subNavActiveIndex = 0; //当前次导航active的索引
         //遍历一级导航的选项
         let mainNavItemsDOM = mainNav.data.map((items, index) => {
             if(mainNav.data[index].isActive === true) {
@@ -269,18 +247,16 @@ export default class French extends Component {
                     />
                     <Text style={styles.mainNavCurItemName}>{items.name}</Text>
                 </View>
-            )
+            );
         });
 
         //遍历二级导航的选项
         let subNavItemsDOM = subNav.data.map((item, index) => {
             let brderBottomColor = null;
             let color = null;
-
             if(item.isActive) {
-                listIndex = index; //找到当前list应该显示的索引
+                subNavActiveIndex = index; //找到当前list应该显示的索引
             }
-
             if(item.type === 0) {
                 if(item.isActive) {
                     brderBottomColor = mStyles.mGreenBorderBottom;
@@ -302,7 +278,6 @@ export default class French extends Component {
                     color = mStyles.mGreenColor;
                 }
             }
-
             return(
                 <View
                     style={styles.subNavItemWrap}
@@ -370,21 +345,18 @@ export default class French extends Component {
                 </View>
                 {/* 购买，出售，委托，订单 选择结束 */}
                 {/* 资产开始 */}
-                <View style={[styles.assets, subNav.data[1].isActive ? '' : styles.searchBarHide]}>
+                <View style={[styles.assets, subNav.data[1].isActive ? mStyles.mFlex : mStyles.mHide]}>
                     <View style={[mStyles.mCenterContent, mStyles.mFlex1]}>
                         <View style={styles.assetsCenterContent}>
                             <Text style={styles.assetsText}>可用: 0.0000{mainNav.title}</Text>
                             <Text style={styles.assetsText}>冻结: 0.0000{mainNav.title}</Text>
-                            <Image
-                                style={styles.assetsArrow}
-                                source={grayArrowIcon}
-                            />
+                            <Image style={styles.assetsArrow} source={grayArrowIcon}/>
                         </View>
                     </View>
                 </View>
                 {/* 资产结束 */}
                 {/* 条件筛选开始 */}
-                <View style={styles.searchBar}>
+                <View style={[styles.searchBar, (subNavActiveIndex===0 || subNavActiveIndex===1) ? mStyles.mFlex : mStyles.mHide]}>
                     <View style={[mStyles.mCenterContent, mStyles.mFlex1, styles.searchBarCenterContent]}>
                         <View style={styles.searchBarItem}>
                             <Image
@@ -412,26 +384,37 @@ export default class French extends Component {
                 {/* 条件筛选结束 */}
                 {/* 列表开始 */}
                 <View style={styles.list}>
-                    <FlatList
-                        data={listData[listIndex]}
-                        renderItem={this.renderListItem}
-                        showsVerticalScrollIndicator={false}
-                    />
+                    <View style={[mStyles.mFlex1, subNavActiveIndex === 0 ?  mStyles.mFlex : mStyles.mHide]}>
+                        <BuyList
+                            data={this.state}
+                            setData={this._setState}
+                        />
+                    </View>
+                    <View style={[mStyles.mFlex1, subNavActiveIndex === 1 ?  mStyles.mFlex : mStyles.mHide]}>
+                        <SellList
+                            data={this.state}
+                            setData={this._setState}
+                        />
+                    </View>
+                    <View style={[mStyles.mFlex1, subNavActiveIndex === 2 ?  mStyles.mFlex : mStyles.mHide]}>
+                        <EntrustmentList
+                            data={this.state}
+                            setData={this._setState}
+                        />
+                    </View>
                 </View>
                 {/* 列表结束 */}
                 {/* 货币选择开始 */}
-                <Animated.View 
-                    style={[
-                        styles.mainNavCur,
-                        {
-                            height: mainNav.isShow ? 'auto' : 0,
-                            opacity: mainNavAnim.style.opacity, 
-                            transform: [
-                                {scale: mainNavAnim.style.scale}
-                            ]
-                        }
-                    ]}
-                >
+                <Animated.View style={[
+                    styles.mainNavCur,
+                    {
+                        height: mainNav.isShow ? 'auto' : 0,
+                        opacity: mainNavAnim.style.opacity, 
+                        transform: [
+                            {scale: mainNavAnim.style.scale}
+                        ]
+                    }
+                ]}>
                     {/* <View style={styles.mainNavCurItem}>
                         <Image 
                             style={styles.mainNavCurItemIcon}
