@@ -276,7 +276,7 @@ const Router = createStackNavigator(
         },
     },
     {
-        initialRouteName: 'Main',
+        initialRouteName: 'OrdinaryKLine',
         headerMode: 'screen'
     }
 );
