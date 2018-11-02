@@ -13,6 +13,7 @@ import SelfSelectionist from './Components/Self_Selection_List/Self_Selection_Li
 import ContractList from './Components/Contract_List/Contract_List';
 import CurrencyList from './Components/Currency_List/Currency_List';
 import GlobalCurrencyList from './Components/Global_Currency_List/Global_Currency_List';
+import EmptyTopBar from '../../components/Empty_Top_Bar/Empty_Top_Bar';
 
 import mStyles from '../../public/common_style';
 import styles from './Quotation_Style';
@@ -20,7 +21,6 @@ import styles from './Quotation_Style';
 export default class Quotation extends Component {
     constructor(props) {
         super(props);
-        
         this.state = {
             activeMainNavIndex: 0, //被激活的一级nav的索引
             subNav: [
@@ -102,8 +102,8 @@ export default class Quotation extends Component {
         } = this.state;
 
         let subNavItems = subNav[activeMainNavIndex].items;
-        for(let i = 0; i < subNavItems.length; i++) {
-            if(i === index) {
+        for (let i = 0; i < subNavItems.length; i++) {
+            if (i === index) {
                 subNavItems[i].isActive = true;
             } else {
                 subNavItems[i].isActive = false;
@@ -135,11 +135,7 @@ export default class Quotation extends Component {
                             styles.headerSubNavItem,
                             item.isActive ? styles.headerSubNavItemActive : ''
                         ]}
-                        onPress={
-                            (event) => {
-                                this.handleSubNavPress(event, index);
-                            }
-                        }
+                        onPress={event => this.handleSubNavPress(event, index)}
                     >
                         {item.name}
                     </Text>
@@ -149,62 +145,55 @@ export default class Quotation extends Component {
 
         //根据type选择对应的list组件
         let listComponent = null;
-        for(let i = 0; i < subNav[activeMainNavIndex].items.length; i++) {
-            if(subNav[activeMainNavIndex].items[i].isActive === true) {
+        for (let i = 0; i < subNav[activeMainNavIndex].items.length; i++) {
+            if (subNav[activeMainNavIndex].items[i].isActive === true) {
                 let type = subNav[activeMainNavIndex].items[i].type;
-                if(type === 0) {
+                if (type === 0) {
                     listComponent = <SelfSelectionist />;
-                } else if(type === 1) {
+                } else if (type === 1) {
                     listComponent = <ContractList />;
-                } else if(type === 2) {
+                } else if (type === 2) {
                     listComponent = <CurrencyList />;
-                } else if(type === 3) {
+                } else if (type === 3) {
                     listComponent = <GlobalCurrencyList />
                 }
             }
         }
 
         return (
-            <View style={mStyles.mFlex1}>
+            <View style={[mStyles.mFlex1]}>
+                <EmptyTopBar></EmptyTopBar>
                 {/* 头部开始 */}
                 <View style={styles.header}>
                     {/* 一级导航开始 */}
                     <View style={styles.headerMainNav}>
                         <View style={styles.headerMainNavWrap}>
                             <View style={[
-                                    styles.headerMainNavItem,
-                                    activeMainNavIndex === 0 ? styles.headerMainNavItemActive : ''
-                                ]}
+                                styles.headerMainNavItem,
+                                activeMainNavIndex === 0 ? styles.headerMainNavItemActive : ''
+                            ]}
                             >
-                                <Text 
+                                <Text
                                     style={[
                                         styles.headerMainNavItemName,
                                         activeMainNavIndex === 0 ? styles.headerMainNavItemNameActive : ''
                                     ]}
-                                    onPress={
-                                        event => {
-                                            this.mainNavItemPress(event, 0)
-                                        }
-                                    }
+                                    onPress={event => this.mainNavItemPress(event, 0)}
                                 >
                                     OKEx
                                 </Text>
                             </View>
                             <View style={[
-                                    styles.headerMainNavItem,
-                                    activeMainNavIndex === 1 ? styles.headerMainNavItemActive : ''
-                                ]}
+                                styles.headerMainNavItem,
+                                activeMainNavIndex === 1 ? styles.headerMainNavItemActive : ''
+                            ]}
                             >
                                 <Text
                                     style={[
                                         styles.headerMainNavItemName,
                                         activeMainNavIndex === 1 ? styles.headerMainNavItemNameActive : ''
                                     ]}
-                                    onPress={
-                                        event => {
-                                            this.mainNavItemPress(event, 1)
-                                        }
-                                    }
+                                    onPress={event => this.mainNavItemPress(event, 1)}
                                 >
                                     全球
                                 </Text>
@@ -234,7 +223,7 @@ export default class Quotation extends Component {
                 </View>
                 {/* 头部结束 */}
                 {/* 主体内容开始 */}
-                    {listComponent}
+                {listComponent}
                 {/* 主体内容结束 */}
             </View>
         );
