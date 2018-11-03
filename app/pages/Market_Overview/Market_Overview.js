@@ -11,8 +11,10 @@ import {
     Image,
     FlatList
 } from 'react-native';
-import Constant from '../../public/constant'
+import Constant from '../../public/constant';
 import Header from '../../components/Header/Header';
+import EmptyTopBar from '../../components/Empty_Top_Bar/Empty_Top_Bar';
+import EmptyBottomBar from '../../components/Empty_Bottom_Bar/Empty_Bottom_Bar';
 
 import mStyles from '../../public/common_style';
 import styles from './Market_Overview_Style';
@@ -29,7 +31,8 @@ export default class Recharge extends Component {
 
     render() {
         return (
-            <View style={[mStyles.mFlex1, styles.wrap]}>
+            <View style={[mStyles.mFlex1, mStyles.mBackgroundColor]}>
+                <EmptyTopBar backgroundColor='#fff'/>
                 <Header
                     title='市场总览'
                     onGoBackRelease={evt => this.handleGoBackRelease(evt)}
@@ -165,6 +168,7 @@ export default class Recharge extends Component {
                     </View>
                 </ScrollView>
                 {/* 主体内容结束 */}
+                <EmptyBottomBar backgroundColor={Constant.M_BACKGROUND_COLOR}/>
             </View>
         );
     }

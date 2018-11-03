@@ -15,6 +15,8 @@ import {
 import { connect } from 'react-redux';
 import Constant from '../../public/constant';
 import Header from '../../components/Header/Header';
+import EmptyTopBar from '../../components/Empty_Top_Bar/Empty_Top_Bar';
+import EmptyBottomBar from '../../components/Empty_Bottom_Bar/Empty_Bottom_Bar';
 import * as rechargeCurAction from '../../actions/recharge_cur';
 
 import mStyles from '../../public/common_style';
@@ -68,9 +70,9 @@ export default class BbBillSelection extends Component {
 
     render() {
         let { listItem } = this.state;
-        console.log(listItem)
         return (
             <View style={[mStyles.mFlex1, mStyles.mSearchSelectionWrap]}>
+                <EmptyTopBar backgroundColor='#fff'/>
                 <Header
                     title='币币账单及委托查询'
                     onGoBackRelease={evt => this.handleGoBackRelease(evt)}
@@ -85,6 +87,7 @@ export default class BbBillSelection extends Component {
                     />
                     {/* 列表结束 */}
                 </View>
+                <EmptyBottomBar backgroundColor={Constant.M_BACKGROUND_COLOR}/>
             </View>
         );
     }

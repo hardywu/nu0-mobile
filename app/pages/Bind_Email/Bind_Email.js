@@ -14,6 +14,8 @@ import {
 import Constant from '../../public/constant'
 import Header from '../../components/Header/Header';
 import ArcBtn from '../../components/Arc_Btn/Arc_Btn';
+import EmptyTopBar from '../../components/Empty_Top_Bar/Empty_Top_Bar';
+import EmptyBottomBar from '../../components/Empty_Bottom_Bar/Empty_Bottom_Bar';
 
 import mStyles from '../../public/common_style';
 import styles from './Bind_Email_Style';
@@ -36,7 +38,8 @@ export default class BindEmail extends Component {
 
     render() {
         return (
-            <View style={[mStyles.mFlex1, styles.wrap]}>
+            <View style={[mStyles.mFlex1, mStyles.mBackgroundColor]}>
+                <EmptyTopBar backgroundColor='#fff'/>
                 <Header
                     title='绑定邮箱'
                     onGoBackRelease={evt => this.handleGoBackRelease(evt)}
@@ -81,6 +84,7 @@ export default class BindEmail extends Component {
                         />
                     </View>
                 </View>
+                <EmptyBottomBar backgroundColor={Constant.M_BACKGROUND_COLOR}/>
             </View>
         );
     }

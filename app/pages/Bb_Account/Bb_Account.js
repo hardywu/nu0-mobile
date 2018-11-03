@@ -15,6 +15,8 @@ import Constant from '../../public/constant';
 import AccountCard from '../../components/Account_Card/Account_Card';
 import BbList from './Components/Bb_List/Bb_List';
 import LeverList from './Components/Lever_List/Lever_List';
+import EmptyTopBar from '../../components/Empty_Top_Bar/Empty_Top_Bar';
+import EmptyBottomBar from '../../components/Empty_Bottom_Bar/Empty_Bottom_Bar';
 
 import mStyles from '../../public/common_style';
 import styles from './Bb_Account_Style';
@@ -110,7 +112,8 @@ export default class BbAccount extends Component {
             )
         });
         return (
-            <View style={[mStyles.mFlex1, styles.wrap]}>
+            <View style={[mStyles.mFlex1, mStyles.mBackgroundColor]}>
+                <EmptyTopBar backgroundColor='#fff'/>
                 {/* 头部开始 */}
                 <View style={styles.header}>
                     <View style={[styles.headerCenterContent, mStyles.mCenterContent]}>
@@ -219,6 +222,7 @@ export default class BbAccount extends Component {
                     </ScrollView>
                 </View>
                 {/* 主体内容结束 */}
+                <EmptyBottomBar backgroundColor={Constant.M_BACKGROUND_COLOR}/>
             </View>
         );
     }

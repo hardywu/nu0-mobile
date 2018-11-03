@@ -1,8 +1,11 @@
 import {
     findNodeHandle,
     UIManager,
-    AsyncStorage
+    AsyncStorage,
+    Platform,
+    Dimensions
 } from 'react-native';
+import Constant from '../public/constant';
 
 let utils = {
     /** 
@@ -48,7 +51,41 @@ let utils = {
         delete: key => {
             return AsyncStorage.removeItem(key);
         }
-    }
+    },
+
+    /** 
+     * 是否为iphonex
+     */
+    isIphoneX: () => {
+        return (
+            Platform.OS === 'ios' && 
+            ((Constant.SCREEN_HEIGHT === Constant.IPHONEX_HEIGHT && Constant.SCREEN_WIDTH === Constant.IPHONEX_WIDTH) || 
+            (Constant.SCREEN_HEIGHT === Constant.IPHONEX_WIDTH && Constant.SCREEN_WIDTH === Constant.IPHONEX_HEIGHT))
+        )
+    },
+
+    /** 
+     * 是否为ios系统
+     */
+    isIos: () => {
+        if(Platform.OS === 'ios') {
+            return true;
+        } else {
+            return false;
+        }
+    },
+
+    /** 
+     * 是否为android系统
+     */
+    isAndroid: () => {
+        if(Platform.OS === 'ios') {
+            return false;
+        } else {
+            return true;
+        }
+    },
+
 }
 
 export default utils;

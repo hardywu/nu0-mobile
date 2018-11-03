@@ -13,6 +13,8 @@ import {
 } from 'react-native';
 import Constant from '../../public/constant'
 import Header from '../../components/Header/Header';
+import EmptyTopBar from '../../components/Empty_Top_Bar/Empty_Top_Bar';
+import EmptyBottomBar from '../../components/Empty_Bottom_Bar/Empty_Bottom_Bar';
 
 import mStyles from '../../public/common_style';
 import styles from './Exchange_Rate_Survey_Style';
@@ -33,6 +35,7 @@ export default class ExchangeRateSurvey extends Component {
     render() {
         return (
             <View style={[mStyles.mFlex1, styles.wrap]}>
+                <EmptyTopBar backgroundColor='#fff'/>
                 <Header
                     title='汇率概览'
                     onGoBackRelease={evt => this.handleGoBackRelease(evt)}
@@ -48,6 +51,7 @@ export default class ExchangeRateSurvey extends Component {
                     </View>
                 </View>
                 {/* 主体内容结束 */}
+                <EmptyBottomBar backgroundColor={Constant.M_BACKGROUND_COLOR}/>
             </View>
         );
     }

@@ -12,6 +12,8 @@ import {
 import Constant from '../../public/constant';
 import PendingOrderList from './Components/Pending_Order_List/Pending_Order_List'; //挂单-列表组件
 import Header from '../../components/Header/Header';
+import EmptyTopBar from '../../components/Empty_Top_Bar/Empty_Top_Bar';
+import EmptyBottomBar from '../../components/Empty_Bottom_Bar/Empty_Bottom_Bar';
 import { SelectAnim, DcSelect } from '../../components/Dc_Select/Dc_Select'
 
 import mStyles from '../../public/common_style';
@@ -277,6 +279,7 @@ export default class ContractHistoricalEntrustment extends Component {
 
         return (
             <View style={mStyles.mFlex1}>
+                <EmptyTopBar backgroundColor='#fff'/>
                 <Header
                     title='历史委托'
                     onGoBackRelease={evt => this.handleGoBackRelease(evt)}
@@ -360,6 +363,7 @@ export default class ContractHistoricalEntrustment extends Component {
                     {/* 挂单页面结束 */}
                 </View>
                 {/* 页面结束 */}
+                <EmptyBottomBar backgroundColor={Constant.M_BACKGROUND_COLOR}/>
             </View>
         );
     }

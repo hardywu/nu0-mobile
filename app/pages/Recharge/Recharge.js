@@ -17,6 +17,8 @@ import {
 import { connect } from 'react-redux';
 import Constant from '../../public/constant'
 import Header from '../../components/Header/Header';
+import EmptyTopBar from '../../components/Empty_Top_Bar/Empty_Top_Bar';
+import EmptyBottomBar from '../../components/Empty_Bottom_Bar/Empty_Bottom_Bar';
 import * as rechargeCurAction from '../../actions/recharge_cur';
 
 import mStyles from '../../public/common_style';
@@ -44,6 +46,7 @@ class Recharge extends Component {
         const { rechargeCur } = this.props
         return (
             <View style={[mStyles.mFlex1, styles.wrap]}>
+                <EmptyTopBar backgroundColor='#fff'/>
                 <Header
                     title='充值'
                     onGoBackRelease={evt => this.handleGoBackRelease(evt)}
@@ -95,6 +98,7 @@ class Recharge extends Component {
                     {/* 注意事项结束 */}
                 </View>
                 {/* 主体内容结束 */}
+                <EmptyBottomBar backgroundColor={Constant.M_BACKGROUND_COLOR}/>
             </View>
         );
     }

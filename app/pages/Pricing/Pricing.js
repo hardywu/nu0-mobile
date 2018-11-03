@@ -17,6 +17,8 @@ import SideMenu from './Components/Side_Menu/Side_Menu'; //侧边菜单栏组件
 import Form from './Components/Form/Form'; //左边表单组件
 import List from './Components/List/List'; //右边列表组件
 import CurCoupleSelect from './Components/Cur_Couple_Select/Cur_Couple_Select'; //交易币对下拉框组件
+import EmptyTopBar from '../../components/Empty_Top_Bar/Empty_Top_Bar';
+import EmptyBottomBar from '../../components/Empty_Bottom_Bar/Empty_Bottom_Bar';
 
 import mStyles from '../../public/common_style';
 import styles from './Pricing_Style';
@@ -316,6 +318,7 @@ export default class Pricing extends Component {
         } = this.state;
         return (
             <View style={mStyles.mFlex1}>
+                <EmptyTopBar backgroundColor='#fff'/>
                 {/* 头部开始 */}
                 <View style={styles.header}>
                     <View style={[mStyles.mCenterContent, styles.headerCenterContent]}>

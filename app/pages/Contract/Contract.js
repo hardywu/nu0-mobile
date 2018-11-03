@@ -14,8 +14,11 @@ import PriceList from './Components/Price_List/Price_List'; //交易右边价格
 import PendingOrderList from './Components/Pending_Order_List/Pending_Order_List'; //挂单-列表组件
 import PositionList from './Components/Position_List/Position_List'; //持仓-列表组件
 import SideMenu from './Components/Side_Menu/Side_Menu'; //侧边菜单组件
-import Constant from '../../public/constant';
 import { SelectAnim, DcSelect } from '../../components/Dc_Select/Dc_Select'
+import EmptyTopBar from '../../components/Empty_Top_Bar/Empty_Top_Bar';
+import EmptyBottomBar from '../../components/Empty_Bottom_Bar/Empty_Bottom_Bar';
+
+import Constant from '../../public/constant';
 
 import mStyles from '../../public/common_style';
 import styles from './Contract_Style';
@@ -609,6 +612,7 @@ export default class Contract extends Component {
 
         return (
             <View style={mStyles.mFlex1}>
+                <EmptyTopBar backgroundColor='#fff'/>
                 {/* 头部开始 */}
                 <View style={styles.header}>
                     <View style={[mStyles.mCenterContent, styles.headerCenterContent]}>

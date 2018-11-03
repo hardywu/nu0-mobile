@@ -14,6 +14,7 @@ import ContractList from './Components/Contract_List/Contract_List';
 import CurrencyList from './Components/Currency_List/Currency_List';
 import GlobalCurrencyList from './Components/Global_Currency_List/Global_Currency_List';
 import EmptyTopBar from '../../components/Empty_Top_Bar/Empty_Top_Bar';
+import EmptyBottomBar from '../../components/Empty_Bottom_Bar/Empty_Bottom_Bar';
 
 import mStyles from '../../public/common_style';
 import styles from './Quotation_Style';
@@ -162,7 +163,7 @@ export default class Quotation extends Component {
 
         return (
             <View style={[mStyles.mFlex1]}>
-                <EmptyTopBar></EmptyTopBar>
+                <EmptyTopBar backgroundColor='#fff'/>
                 {/* 头部开始 */}
                 <View style={styles.header}>
                     {/* 一级导航开始 */}
@@ -171,8 +172,7 @@ export default class Quotation extends Component {
                             <View style={[
                                 styles.headerMainNavItem,
                                 activeMainNavIndex === 0 ? styles.headerMainNavItemActive : ''
-                            ]}
-                            >
+                            ]}>
                                 <Text
                                     style={[
                                         styles.headerMainNavItemName,

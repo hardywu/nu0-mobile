@@ -12,7 +12,7 @@ export default mStyles = StyleSheet.create({
         marginBottom: 10
     },
 
-    mbackgroundColor: {
+    mBackgroundColor: {
         backgroundColor: '#f8f8f8'
     },
 

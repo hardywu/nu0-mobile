@@ -1,5 +1,5 @@
 /**
- * 公用 头部
+ * 公用 底部
  */
 import React, { Component } from 'react';
 import {
@@ -12,14 +12,14 @@ import Constant from '../../public/constant';
 import utils from '../../public/utils';
 
 import mStyles from '../../public/common_style';
-import styles from './Empty_Top_Bar_Style';
+import styles from './Empty_Bottom_Bar_Style';
  
-let paddingTopValue = (() => {
+let paddingBottomValue = (() => {
     if(utils.isIos()) {
         if(utils.isIphoneX()) {
-            return 44; //如果是iponex返回44
+            return 34; //如果是iponex返回44
         } else {
-            return 20; //如果不是iponex返回20
+            return 0; //如果不是iponex返回20
         }
     } else {
         return 0; //如果是android系统返回0
@@ -27,7 +27,7 @@ let paddingTopValue = (() => {
 })();
 
 
-export default class EmptyTopBar extends Component {
+export default class EmptyBottomBar extends Component {
     constructor(props) {
         super(props);
     }
@@ -36,7 +36,7 @@ export default class EmptyTopBar extends Component {
         const { backgroundColor } = this.props;
         return (
             <View style={{
-                paddingTop: paddingTopValue,
+                paddingBottom: paddingBottomValue,
                 backgroundColor: backgroundColor
             }}>
             </View>
@@ -44,6 +44,6 @@ export default class EmptyTopBar extends Component {
     }
 }
 
-EmptyTopBar.defaultProps = {
+EmptyBottomBar.defaultProps = {
     backgroundColor: '#fff'
 }

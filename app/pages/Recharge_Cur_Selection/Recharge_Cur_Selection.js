@@ -15,6 +15,8 @@ import {
 import { connect } from 'react-redux';
 import Constant from '../../public/constant';
 import Header from '../../components/Header/Header';
+import EmptyTopBar from '../../components/Empty_Top_Bar/Empty_Top_Bar';
+import EmptyBottomBar from '../../components/Empty_Bottom_Bar/Empty_Bottom_Bar';
 import * as rechargeCurAction from '../../actions/recharge_cur';
 
 import mStyles from '../../public/common_style';
@@ -46,6 +48,7 @@ class RechargeCurSelection extends Component {
     render() {
         return (
             <View style={[mStyles.mFlex1, mStyles.mSearchSelectionWrap]}>
+                <EmptyTopBar backgroundColor='#fff'/>
                 <Header
                     title='充值币种选择'
                     onGoBackRelease={evt => this.handleGoBackRelease(evt)}
@@ -86,6 +89,7 @@ class RechargeCurSelection extends Component {
                     />
                     {/* 列表结束 */}
                 </View>
+                <EmptyBottomBar backgroundColor={Constant.M_BACKGROUND_COLOR}/>
             </View>
         );
     }

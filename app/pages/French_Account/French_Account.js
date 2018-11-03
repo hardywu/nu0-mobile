@@ -11,10 +11,12 @@ import {
     Image,
     FlatList
 } from 'react-native';
-import Constant from '../../public/constant'
+import Constant from '../../public/constant';
 import Header from '../../components/Header/Header';
 import AccountCard from '../../components/Account_Card/Account_Card';
 import List from './Components/List/List';
+import EmptyTopBar from '../../components/Empty_Top_Bar/Empty_Top_Bar';
+import EmptyBottomBar from '../../components/Empty_Bottom_Bar/Empty_Bottom_Bar';
 
 import mStyles from '../../public/common_style';
 import styles from './French_Account_Style';
@@ -40,6 +42,7 @@ export default class FrenchAccount extends Component {
     render() {
         return (
             <View style={[mStyles.mFlex1, styles.wrap]}>
+                <EmptyTopBar backgroundColor='#fff'/>
                 <Header
                     title='法币账户'
                     onGoBackRelease={evt => this.handleGoBackRelease(evt)}
@@ -80,6 +83,7 @@ export default class FrenchAccount extends Component {
                     </View>
                     {/* 列表结束 */}
                 </ScrollView>
+                <EmptyBottomBar backgroundColor={Constant.M_BACKGROUND_COLOR}/>
             </View>
         );
     }

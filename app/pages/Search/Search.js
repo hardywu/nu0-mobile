@@ -11,6 +11,9 @@ import {
     Image,
     FlatList
 } from 'react-native';
+import Constant from '../../public/constant';
+import EmptyTopBar from '../../components/Empty_Top_Bar/Empty_Top_Bar';
+import EmptyBottomBar from '../../components/Empty_Bottom_Bar/Empty_Bottom_Bar';
 
 import mStyles from '../../public/common_style';
 import styles from './Search_Style';
@@ -133,7 +136,8 @@ export default class Search extends Component {
         });
 
         return (
-            <View style={[mStyles.mFlex1, styles.wrap]}>
+            <View style={[mStyles.mFlex1, mStyles.mBackgroundColor]}>
+                <EmptyTopBar backgroundColor='#fff'/>
                 {/* 头部（搜索栏、导航栏）开始 */}
                 <View style={styles.head}>
                     {/* 搜索栏开始 */}
@@ -192,6 +196,7 @@ export default class Search extends Component {
                     {/* 搜索历史列表结束 */}
                 </View>
                 {/* 主体内容结束 */}
+                <EmptyBottomBar backgroundColor={Constant.M_BACKGROUND_COLOR}/>
             </View>
         );
     }

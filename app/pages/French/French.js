@@ -17,6 +17,8 @@ import Anim from '../../public/animation';
 import BuyList from './Components/Buy_List/Buy_List';
 import SellList from './Components/Sell_List/Sell_List';
 import EntrustmentList from './Components/Entrustment_List/Entrustment_List';
+import EmptyTopBar from '../../components/Empty_Top_Bar/Empty_Top_Bar';
+import EmptyBottomBar from '../../components/Empty_Bottom_Bar/Empty_Bottom_Bar';
 
 import mStyles from '../../public/common_style';
 import styles from './French_Style';
@@ -294,6 +296,7 @@ export default class French extends Component {
 
         return (
             <View style={mStyles.mFlex1}>
+                <EmptyTopBar backgroundColor='#fff'/>
                 <View style={styles.header}>
                     <View style={[mStyles.mCenterContent, styles.headerCenter]}>
                         <View style={styles.mainNavLeft}>

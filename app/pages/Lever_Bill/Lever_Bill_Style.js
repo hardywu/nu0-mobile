@@ -21,8 +21,7 @@ let filterWrapStyle = (() => {
 
 export default styles = StyleSheet.create({
     body: {
-        flex: 1,
-        backgroundColor: '#f8f8f8'
+        flex: 1
     },
 
     row: {

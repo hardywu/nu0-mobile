@@ -17,6 +17,8 @@ import {
 } from 'react-native';
 import Constant from '../../public/constant'
 import Header from '../../components/Header/Header';
+import EmptyTopBar from '../../components/Empty_Top_Bar/Empty_Top_Bar';
+import EmptyBottomBar from '../../components/Empty_Bottom_Bar/Empty_Bottom_Bar';
 
 import mStyles from '../../public/common_style';
 import styles from './Delivery_Record_Style';
@@ -152,6 +154,7 @@ export default class DeliveryRecord extends Component {
         });
         return (
             <View style={[mStyles.mFlex1, styles.wrap]}>
+                <EmptyTopBar backgroundColor='#fff'/>
                 <Header
                     title='交割记录'
                     onGoBackRelease={evt => this.handleGoBackRelease(evt)}
@@ -203,6 +206,7 @@ export default class DeliveryRecord extends Component {
                     </View>
                     {/* 列表结束 */}
                 </View>
+                <EmptyBottomBar backgroundColor={Constant.M_BACKGROUND_COLOR}/>
             </View>
         );
     }

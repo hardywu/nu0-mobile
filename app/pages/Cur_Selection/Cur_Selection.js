@@ -15,6 +15,8 @@ import Constant from '../../public/constant';
 import Header from '../../components/Header/Header';
 import ArcBtn from '../../components/Arc_Btn/Arc_Btn';
 import ModalSelect from '../../components/Modal_Select/Modal_Select';
+import EmptyTopBar from '../../components/Empty_Top_Bar/Empty_Top_Bar';
+import EmptyBottomBar from '../../components/Empty_Bottom_Bar/Empty_Bottom_Bar';
 
 import mStyles from '../../public/common_style';
 import styles from './Cur_Selection_Style';
@@ -39,6 +41,7 @@ export default class CurSelection extends Component {
     render() {
         return (
             <View style={[mStyles.mFlex1, mStyles.mSearchSelectionWrap]}>
+                <EmptyTopBar backgroundColor='#fff'/>
                 <Header
                     title='币种选择'
                     onGoBackRelease={evt => this.handleGoBackRelease(evt)}
@@ -219,6 +222,7 @@ export default class CurSelection extends Component {
                     </ScrollView>
                     {/* 列表结束 */}
                 </View>
+                <EmptyBottomBar backgroundColor={Constant.M_BACKGROUND_COLOR}/>
             </View>
         );
     }

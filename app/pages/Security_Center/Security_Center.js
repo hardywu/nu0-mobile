@@ -17,6 +17,8 @@ import {
 } from 'react-native';
 import Constant from '../../public/constant'
 import Header from '../../components/Header/Header';
+import EmptyTopBar from '../../components/Empty_Top_Bar/Empty_Top_Bar';
+import EmptyBottomBar from '../../components/Empty_Bottom_Bar/Empty_Bottom_Bar';
 
 import mStyles from '../../public/common_style';
 import styles from './Security_Center_Style';
@@ -47,6 +49,7 @@ export default class SecurityCenter extends Component {
     render() {
         return (
             <View style={[mStyles.mFlex1, styles.wrap]}>
+                <EmptyTopBar backgroundColor='#fff'/>
                 <Header
                     title='安全中心'
                     onGoBackRelease={evt => this.handleGoBackRelease(evt)}
@@ -93,6 +96,7 @@ export default class SecurityCenter extends Component {
                     </View>
                     {/* 资金密码开始 */}
                 </View>
+                <EmptyBottomBar backgroundColor={Constant.M_BACKGROUND_COLOR}/>
             </View>
         );
     }

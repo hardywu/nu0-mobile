@@ -15,8 +15,10 @@ import {
     TouchableHighlight,
     Switch
 } from 'react-native';
-import Constant from '../../public/constant'
+import Constant from '../../public/constant';
 import Header from '../../components/Header/Header';
+import EmptyTopBar from '../../components/Empty_Top_Bar/Empty_Top_Bar';
+import EmptyBottomBar from '../../components/Empty_Bottom_Bar/Empty_Bottom_Bar';
 
 import mStyles from '../../public/common_style';
 import styles from './Sys_Setting_Style';
@@ -54,7 +56,8 @@ export default class SysSetting extends Component {
 
     render() {
         return (
-            <View style={[mStyles.mFlex1, styles.wrap]}>
+            <View style={[mStyles.mFlex1, mStyles.mBackgroundColor]}>
+                <EmptyTopBar backgroundColor='#fff'/>
                 <Header
                     title='系统设置'
                     onGoBackRelease={evt => this.handleGoBackRelease(evt)}
@@ -114,6 +117,7 @@ export default class SysSetting extends Component {
                     </View>
                     {/* 绑定手机、邮箱结束 */}
                 </View>
+                <EmptyBottomBar backgroundColor={Constant.M_BACKGROUND_COLOR}/>
             </View>
         );
     }

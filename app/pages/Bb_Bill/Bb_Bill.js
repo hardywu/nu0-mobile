@@ -12,7 +12,9 @@ import {
 import Constant from '../../public/constant';
 import List from './Components/List/List'; //挂单-列表组件
 import Header from '../../components/Header/Header';
-import { SelectAnim, DcSelect } from '../../components/Dc_Select/Dc_Select'
+import { SelectAnim, DcSelect } from '../../components/Dc_Select/Dc_Select';
+import EmptyTopBar from '../../components/Empty_Top_Bar/Empty_Top_Bar';
+import EmptyBottomBar from '../../components/Empty_Bottom_Bar/Empty_Bottom_Bar';
 
 import mStyles from '../../public/common_style';
 import styles from './Bb_Bill_Style';
@@ -277,6 +279,7 @@ export default class BbBill extends Component {
 
         return (
             <View style={mStyles.mFlex1}>
+                <EmptyTopBar backgroundColor='#fff'/>
                 <Header
                     title='币币账单'
                     onGoBackRelease={evt => this.handleGoBackRelease(evt)}
@@ -360,6 +363,7 @@ export default class BbBill extends Component {
                     {/* 挂单页面结束 */}
                 </View>
                 {/* 页面结束 */}
+                <EmptyBottomBar backgroundColor={Constant.M_BACKGROUND_COLOR}/>
             </View>
         );
     }

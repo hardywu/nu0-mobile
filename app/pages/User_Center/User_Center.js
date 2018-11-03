@@ -16,6 +16,8 @@ import {
 } from 'react-native';
 import Constant from '../../public/constant'
 import Header from '../../components/Header/Header';
+import EmptyTopBar from '../../components/Empty_Top_Bar/Empty_Top_Bar';
+import EmptyBottomBar from '../../components/Empty_Bottom_Bar/Empty_Bottom_Bar';
 
 import mStyles from '../../public/common_style';
 import styles from './User_Center_Style';
@@ -54,12 +56,13 @@ export default class FrenchAccount extends Component {
 
     render() {
         return (
-            <View style={[mStyles.mFlex1, styles.wrap]}>
+            <View style={[mStyles.mFlex1, mStyles.mBackgroundColor]}>
+                <EmptyTopBar backgroundColor='#fff'/>
                 <Header
                     title='个人中心'
                     onGoBackRelease={evt => this.handleGoBackRelease(evt)}
                 />
-                <View>
+                <View style={[mStyles.mFlex1]}>
                     {/* 用户信息开始 */}
                     <View style={[mStyles.mt10, styles.userWrap]}>
                         <View style={[mStyles.mCenterContent, styles.userCenterContent]}>
@@ -177,6 +180,7 @@ export default class FrenchAccount extends Component {
                         <Text style={styles.logoutText}>退出当前账号</Text>
                     </View>
                 </View>
+                <EmptyBottomBar backgroundColor={Constant.M_BACKGROUND_COLOR}/>
             </View>
         );
     }

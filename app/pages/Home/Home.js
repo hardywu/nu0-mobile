@@ -16,6 +16,8 @@ import Card2 from './Components/Card2/Card2';
 import Notice from './Components/Notice/Notice';
 import Banner from './Components/Banner/Banner';
 import Quotation from './Components/Quotation/Quotation';
+import EmptyTopBar from '../../components/Empty_Top_Bar/Empty_Top_Bar';
+import EmptyBottomBar from '../../components/Empty_Bottom_Bar/Empty_Bottom_Bar';
 import * as loginAction from '../../actions/login';
 import * as userInfoAction from '../../actions/user_info';
 
@@ -60,6 +62,7 @@ class Home extends Component {
 
         return (
             <View style={mStyles.mFlex1}>
+                <EmptyTopBar backgroundColor='#fff'/>
                 <View style={styles.userContainer}>
                     {/* 登录的状态开始 */}
                     <View style={[

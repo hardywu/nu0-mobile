@@ -13,11 +13,14 @@ import {
     FlatList,
     LayoutAnimation
 } from 'react-native';
+import Constant from '../../public/constant'
 import Anim from '../../public/animation';
 import Header from '../../components/Header/Header';
 import UndoneList from './Components/Undone_List/Undone_List';
 import DoneList from './Components/Done_List/Done_List';
 import CancelledList from './Components/Cancelled_List/Cancelled_List';
+import EmptyTopBar from '../../components/Empty_Top_Bar/Empty_Top_Bar';
+import EmptyBottomBar from '../../components/Empty_Bottom_Bar/Empty_Bottom_Bar';
 
 import mStyles from '../../public/common_style';
 import styles from './French_Order_Style';
@@ -118,7 +121,8 @@ export default class FrenchOrder extends Component {
         });
 
         return (
-            <View style={[mStyles.mFlex1, mStyles.mbackgroundColor]}>
+            <View style={[mStyles.mFlex1, mStyles.mBackgroundColor]}>
+                <EmptyTopBar backgroundColor='#fff'/>
                 <Header
                     title='法币订单'
                     onGoBackRelease={evt => this.handleGoBackRelease(evt)}
@@ -150,6 +154,7 @@ export default class FrenchOrder extends Component {
                     </View>
                 </View>
                 {/* 列表结束 */}
+                <EmptyBottomBar backgroundColor={Constant.M_BACKGROUND_COLOR}/>
             </View>
         )
     }

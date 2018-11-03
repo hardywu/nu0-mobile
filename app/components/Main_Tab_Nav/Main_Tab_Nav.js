@@ -88,7 +88,7 @@ export const MainTabNav = createBottomTabNavigator({
         }), 
     },
 }, {
-    initialRouteName: 'Quotation',
+    initialRouteName: 'Home',
     tabBarOptions: {
         //当前选中的tab bar的文本颜色和图标颜色
         activeTintColor: Constant.ACTIVE_COLOR,

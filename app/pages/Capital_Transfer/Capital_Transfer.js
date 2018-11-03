@@ -15,6 +15,8 @@ import Constant from '../../public/constant';
 import Header from '../../components/Header/Header';
 import ArcBtn from '../../components/Arc_Btn/Arc_Btn';
 import ModalSelect from '../../components/Modal_Select/Modal_Select';
+import EmptyTopBar from '../../components/Empty_Top_Bar/Empty_Top_Bar';
+import EmptyBottomBar from '../../components/Empty_Bottom_Bar/Empty_Bottom_Bar';
 
 import mStyles from '../../public/common_style';
 import styles from './Capital_Transfer_Style';
@@ -122,54 +124,56 @@ export default class CapitalTransfer extends Component {
             </View>
         );
         return (
-            <View style={[mStyles.mFlex1, styles.wrap]}>
+            <View style={[mStyles.mFlex1, mStyles.mBackgroundColor]}>
+                <EmptyTopBar backgroundColor='#fff'/>
                 <Header
                     title='资金划转'
                     onGoBackRelease={evt => this.handleGoBackRelease(evt)}
                 />
-                <View style={[mStyles.mt10, styles.ctWrap]}>
-                    <View style={[mStyles.mCenterContent, styles.ctWrapCenterContent]}>
-                        {transferType === 0 ? myWalletDOM : accountDOM}
-                        <View
-                            style={styles.ctWrapItem}
-                            onStartShouldSetResponder={() => true}
-                            onResponderRelease={evt => this.handleTransferRelease(evt)}
-                        >
-                            <Image  style={styles.ctIcon} source={capitalTransferIcon}/>
+                <View style={[mStyles.mFlex1, mStyles.mBackgroundColor]}>
+                    <View style={[mStyles.mt10, styles.ctWrap]}>
+                        <View style={[mStyles.mCenterContent, styles.ctWrapCenterContent]}>
+                            {transferType === 0 ? myWalletDOM : accountDOM}
+                            <View
+                                style={styles.ctWrapItem}
+                                onStartShouldSetResponder={() => true}
+                                onResponderRelease={evt => this.handleTransferRelease(evt)}
+                            >
+                                <Image  style={styles.ctIcon} source={capitalTransferIcon}/>
+                            </View>
+                            {transferType === 0 ? accountDOM : myWalletDOM}
                         </View>
-                        {transferType === 0 ? accountDOM : myWalletDOM}
                     </View>
-                </View>
-                <View style={mStyles.mt10}>
-                    <View style={mStyles.mForm}>
-                        <View style={mStyles.mFormCenterContent}>
-                            <View style={[mStyles.mFormItem, accountSelect.value.code === 2 ? mStyles.mFlex : mStyles.mHide]}>
-                                <Text style={mStyles.mFormLabel}>币对选择</Text>
-                                <View style={mStyles.mFormSelect}>
-                                    <Text style={mStyles.mFormSelectText}>BTC/USDT</Text>
-                                    <Image style={mStyles.mFormSelectIcon} source={arrowIcon}/>
+                    <View style={mStyles.mt10}>
+                        <View style={mStyles.mForm}>
+                            <View style={mStyles.mFormCenterContent}>
+                                <View style={[mStyles.mFormItem, accountSelect.value.code === 2 ? mStyles.mFlex : mStyles.mHide]}>
+                                    <Text style={mStyles.mFormLabel}>币对选择</Text>
+                                    <View style={mStyles.mFormSelect}>
+                                        <Text style={mStyles.mFormSelectText}>BTC/USDT</Text>
+                                        <Image style={mStyles.mFormSelectIcon} source={arrowIcon}/>
+                                    </View>
+                                </View>
+                                <View style={mStyles.mFormItem}>
+                                    <Text style={mStyles.mFormLabel}>币种选择</Text>
+                                    <View
+                                        style={mStyles.mFormSelect}
+                                        onStartShouldSetResponder={() => true}
+                                        onResponderRelease={evt => this.handleCurSelectionRelease(evt)}
+                                    >
+                                        <Text style={mStyles.mFormSelectText}>BTC</Text>
+                                        <Image style={mStyles.mFormSelectIcon} source={arrowIcon}/>
+                                    </View>
+                                </View>
+                                <View style={mStyles.mFormItem}>
+                                    <Text style={mStyles.mFormLabel}>转入数量</Text>
+                                    <TextInput
+                                        style={mStyles.mFormInput}
+                                        placeholder='转入数量'
+                                        underlineColorAndroid='transparent'
+                                    />
                                 </View>
                             </View>
-                            <View style={mStyles.mFormItem}>
-                                <Text style={mStyles.mFormLabel}>币种选择</Text>
-                                <View
-                                    style={mStyles.mFormSelect}
-                                    onStartShouldSetResponder={() => true}
-                                    onResponderRelease={evt => this.handleCurSelectionRelease(evt)}
-                                >
-                                    <Text style={mStyles.mFormSelectText}>BTC</Text>
-                                    <Image style={mStyles.mFormSelectIcon} source={arrowIcon}/>
-                                </View>
-                            </View>
-                            <View style={mStyles.mFormItem}>
-                                <Text style={mStyles.mFormLabel}>转入数量</Text>
-                                <TextInput
-                                    style={mStyles.mFormInput}
-                                    placeholder='转入数量'
-                                    underlineColorAndroid='transparent'
-                                />
-                            </View>
-                        </View>
                     </View>
                     <View style={mStyles.mt10}>
                         <View style={mStyles.mCenterContent}>
@@ -185,11 +189,13 @@ export default class CapitalTransfer extends Component {
                         />
                     </View>
                 </View>
+                </View>
                 <ModalSelect 
                     options={accountSelect}
                     onOptionsRelease={(evt, obj) => this.handleAccountSelectOptionsRelease(evt, obj)}
                     onModalWrapRelease={evt => this.handleAccountSelectModalWrapRelease(evt)}
                 />
+                <EmptyBottomBar backgroundColor={Constant.M_BACKGROUND_COLOR}/>
             </View>
         );
     }

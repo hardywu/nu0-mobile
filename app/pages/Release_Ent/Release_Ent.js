@@ -13,6 +13,9 @@ import {
     Easing,
     FlatList
 } from 'react-native';
+import Constant from '../../public/constant';
+import EmptyTopBar from '../../components/Empty_Top_Bar/Empty_Top_Bar';
+import EmptyBottomBar from '../../components/Empty_Bottom_Bar/Empty_Bottom_Bar';
 import { SelectAnim, DcSelect } from '../../components/Dc_Select/Dc_Select'
 
 import mStyles from '../../public/common_style';
@@ -26,7 +29,6 @@ let selectAnim2 = new SelectAnim();
 export default class ReleaseEnt extends Component {
     constructor(props) {
         super(props);
-
         this.state = {
             mainNav: [
                 {
@@ -244,7 +246,8 @@ export default class ReleaseEnt extends Component {
         });
         
         return (
-            <View style={mStyles.mFlex1}>
+            <View style={[mStyles.mFlex1, mStyles.mBackgroundColor]}>
+                <EmptyTopBar backgroundColor='#fff'/>
                 {/* 头部开始 */}
                 <View style={styles.head}>
                     <View style={[styles.headCenterContent, mStyles.mCenterContent]}>
@@ -467,6 +470,7 @@ export default class ReleaseEnt extends Component {
                     </View>
                 </View>
                 {/* 发布委托按钮结束 */}
+                <EmptyBottomBar backgroundColor='#fff'/>
             </View>
         );
     }

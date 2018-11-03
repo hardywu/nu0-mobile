@@ -12,6 +12,8 @@ import {
 import Constant from '../../public/constant';
 import List from './Components/List/List'; //挂单-列表组件
 import Header from '../../components/Header/Header';
+import EmptyTopBar from '../../components/Empty_Top_Bar/Empty_Top_Bar';
+import EmptyBottomBar from '../../components/Empty_Bottom_Bar/Empty_Bottom_Bar';
 import { SelectAnim, DcSelect } from '../../components/Dc_Select/Dc_Select'
 
 import mStyles from '../../public/common_style';
@@ -277,12 +279,13 @@ export default class LeverBill extends Component {
 
         return (
             <View style={mStyles.mFlex1}>
+                <EmptyTopBar backgroundColor='#fff'/>
                 <Header
                     title='杠杠账单'
                     onGoBackRelease={evt => this.handleGoBackRelease(evt)}
                 />
                 {/* 页面开始 */}
-                <View style={styles.body}>
+                <View style={[styles.body, mStyles.mBackgroundColor]}>
                     {/* 挂单页面开始 */}
                     <View style={[mStyles.mFlex, styles.row]}>
                         <View style={styles.filterWrap}>
@@ -360,6 +363,7 @@ export default class LeverBill extends Component {
                     {/* 挂单页面结束 */}
                 </View>
                 {/* 页面结束 */}
+                <EmptyBottomBar backgroundColor={Constant.M_BACKGROUND_COLOR}/>
             </View>
         );
     }
