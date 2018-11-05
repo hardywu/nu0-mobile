@@ -1,7 +1,8 @@
 /*基于准备好的dom，初始化echarts实例*/
 echarts.registerTheme('echartsTheme', echartsTheme);
-var myChart = echarts.init(document.getElementById('echartsContainer'), 'echartsTheme');
-
+var myChart1 = echarts.init(document.getElementById('echartsContainer1'), 'echartsTheme');
+var myChart2 = echarts.init(document.getElementById('echartsContainer2'), 'echartsTheme');
+var myChart3 = echarts.init(document.getElementById('echartsContainer3'), 'echartsTheme');
 // 数据意义：开盘(open)，收盘(close)，最低(lowest)，最高(highest)
 var data0 = splitData([
     ['2013/1/24', 2320.26, 2320.26, 2287.3, 2362.94],
@@ -93,7 +94,6 @@ var data0 = splitData([
     ['2013/6/7', 2242.26, 2210.9, 2205.07, 2250.63],
     ['2013/6/13', 2190.1, 2148.35, 2126.22, 2190.1]
 ]);
-
 //切割数组，把数组中的日期和数据分离，返回数组中的日期和数据
 function splitData(rawData) {
     var categoryData = [];
@@ -115,7 +115,6 @@ function splitData(rawData) {
         values: values //数组中的数据 y轴对应的数据
     };
 }
-
 //计算MA平均线，N日移动平均线=N日收盘价之和/N  dayCount要计算的天数(5,10,20,30)
 function calculateMA(dayCount) {
     var result = [];
@@ -137,89 +136,97 @@ function calculateMA(dayCount) {
     }
     return result;
 }
-
-option = {
-    //提示框
+option1 = {
     tooltip: {
-        //触发类型：坐标轴触发
         trigger: 'axis',
-        axisPointer: { //坐标轴指示器配置项
+        showContent: false,
+        axisPointer: {
             label: {
+                show: true,
                 color: '#fff',
                 backgroundColor: 'rgba(165, 165, 165, 0.3)'
             },
-            type: 'cross' //指示器类型，十字准星
+            type: 'cross',
+            lineStyle: {
+                type: 'dashed'
+            },
+            crossStyle: {
+                type: 'dashed'
+            },
+            axis: 'y'
         }
     },
-    //图例控件，点击图例控制哪些系列不现实
     legend: {
         data: ['日K', 'MA5', 'MA10', 'MA20', 'MA30']
     },
-    //直角坐标系
     grid: {
         show: true,
         borderWidth: 0,
-        tooltip: {
-            trigger: 'none',
-            axisPointer: {
-                type: 'cross',
-                axis: 'y'
-            }
-        },
-        // backgroundColor:'#ccc'
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: '100%',
     },
     xAxis: {
+        show: false,
         type: 'category',
-        //坐标轴类型，类目轴
         data: data0.categoryData,
-        //scale: true,  //只在数字轴中有效
         boundaryGap: false,
-        //刻度作为分割线，标签和数据点会在两个刻度上
+        axisLabel: {
+            inside: true,
+        },
         axisLine: {
             onZero: false
         },
         splitLine: {
             show: false
         },
-        //是否显示坐标轴轴线
-        //splitNumber: 20,    //坐标轴的分割段数，预估值，在类目轴中无效
+        axisPointer: {
+            label: {
+                show: false
+            }
+        },
         min: 'dataMin',
-        //特殊值，数轴上的最小值作为最小刻度
-        max: 'dataMax' //特殊值，数轴上的最大值作为最大刻度
+        max: 'dataMax'
     },
     yAxis: {
-        // offset: -10,
         scale: true,
-        //坐标刻度不强制包含零刻度
+        splitNumber: 3,
         splitArea: {
-            show: true, //显示分割区域
+            show: true,
             areaStyle: {
                 color: 'transparent'
             }
+        },
+        axisTick: {
+            show: false,
+            inside: true,
+        },
+        axisLabel: {
+            inside: true,
+        },
+        splitLine: {
+            lineStyle: {
+                color: '#444444',
+                type: 'dotted'
+            }
         }
     },
-    //用于区域缩放
     dataZoom: [{
             filterMode: 'filter',
-            //当前数据窗口外的数据被过滤掉来达到数据窗口缩放的效果  默认值filter
             type: 'inside',
-            //内置型数据区域缩放组件
             start: 80,
-            //数据窗口范围的起始百分比
-            end: 100 //数据窗口范围的结束百分比
+            end: 100
         },
         {
             show: false,
             type: 'slider',
-            //滑动条型数据区域缩放组件
             y: '90%',
             start: 50,
             end: 100
         }
     ],
-    //图表类型
-    series: [
-        {
+    series: [{
             name: '日K',
             type: 'candlestick',
             data: data0.values,
@@ -256,7 +263,7 @@ option = {
             type: 'line',
             data: calculateMA(10),
             smooth: true,
-            lineStyle: { //标线的样式
+            lineStyle: {
                 normal: {
                     opacity: 0.5
                 }
@@ -288,5 +295,297 @@ option = {
     ]
 };
 
+var option2 = {
+    tooltip: {
+        trigger: 'axis',
+        showContent: false,
+        axisPointer: {
+            label: {
+                show: true,
+                color: '#fff',
+                backgroundColor: 'rgba(165, 165, 165, 0.3)'
+            },
+            type: 'cross',
+            lineStyle: {
+                type: 'dashed'
+            },
+            crossStyle: {
+                type: 'dashed'
+            }
+        }
+    },
+    grid: {
+        show: true,
+        borderWidth: 0,
+        bottom: 0,
+        top: 0,
+        left: 0,
+        width: '100%',
+    },
+    xAxis: {
+        show: false,
+        type: 'category',
+        data: data0.categoryData,
+        boundaryGap: false,
+        axisLine: {
+            onZero: false
+        },
+        splitLine: {
+            show: false
+        },
+        axisPointer: {
+            label: {
+                show: false
+            }
+        },
+        min: 'dataMin',
+        max: 'dataMax'
+    },
+    yAxis: {
+        scale: true,
+        splitNumber: 1,
+        splitArea: {
+            show: true,
+            areaStyle: {
+                color: 'transparent'
+            }
+        },
+        axisLabel: {
+            inside: true,
+        },
+        splitLine: {
+            lineStyle: {
+                color: '#444444',
+                type: 'dotted'
+            }
+        }
+    },
+    dataZoom: [{
+            filterMode: 'filter',
+            type: 'inside',
+            start: 80,
+            end: 100
+        },
+        {
+            show: false,
+            type: 'slider',
+            y: '90%',
+            start: 50,
+            end: 100
+        }
+    ],
+    series: [{
+            name: '日K',
+            type: 'candlestick',
+            data: data0.values,
+            axisPointer: {
+                show: false
+            },
+            itemStyle: {
+                normal: {
+                    color: "transparent",
+                    color0: "#62c89d",
+                    borderColor: "#ee6560",
+                    borderColor0: "#62c89d",
+                    borderWidth: 1
+                }
+            }
+        },
+        {
+            name: 'MA5',
+            type: 'line',
+            data: calculateMA(5),
+            markPoint: {
+                symbol: 'none'
+            },
+            smooth: true,
+            lineStyle: {
+                normal: {
+                    opacity: 0.5
+                }
+            }
+        },
+        {
+            name: 'MA10',
+            type: 'line',
+            data: calculateMA(10),
+            smooth: true,
+            lineStyle: {
+                normal: {
+                    opacity: 0.5
+                }
+            }
+        },
+        {
+            name: 'MA20',
+            type: 'line',
+            data: calculateMA(20),
+            smooth: true,
+            lineStyle: {
+                normal: {
+                    opacity: 0.5
+                }
+            }
+        },
+        {
+            name: 'MA30',
+            type: 'line',
+            data: calculateMA(30),
+            smooth: true,
+            lineStyle: {
+                normal: {
+                    opacity: 0.5
+                }
+            }
+        },
+    ]
+}
+
+var option3 = {
+    tooltip: {
+        trigger: 'axis',
+        showContent: false,
+        axisPointer: {
+            label: {
+                show: true,
+                color: '#fff',
+                backgroundColor: 'rgba(165, 165, 165, 0.3)'
+            },
+            type: 'cross',
+            lineStyle: {
+                type: 'dashed'
+            },
+            crossStyle: {
+                type: 'dashed'
+            },
+            axis: 'y'
+        }
+    },
+    grid: {
+        show: true,
+        borderWidth: 0,
+        bottom: 24,
+        top: 0,
+        left: 0,
+        width: '100%',
+    },
+    xAxis: {
+        type: 'category',
+        data: data0.categoryData,
+        boundaryGap: false,
+        axisLine: {
+            onZero: false
+        },
+        splitLine: {
+            show: false
+        },
+        min: 'dataMin',
+        max: 'dataMax'
+    },
+    yAxis: {
+        splitNumber: 1,
+        scale: true,
+        splitArea: {
+            show: true,
+            areaStyle: {
+                color: 'transparent'
+            }
+        },
+        axisLabel: {
+            inside: true,
+        },
+        splitLine: {
+            lineStyle: {
+                color: '#444444',
+                type: 'dotted'
+            }
+        }
+    },
+    dataZoom: [{
+            filterMode: 'filter',
+            type: 'inside',
+            start: 80,
+            end: 100
+        },
+        {
+            show: false,
+            type: 'slider',
+            y: '90%',
+            start: 50,
+            end: 100
+        }
+    ],
+    series: [{
+            name: '日K',
+            type: 'candlestick',
+            data: data0.values,
+            axisPointer: {
+                show: false
+            },
+            itemStyle: {
+                normal: {
+                    color: "transparent",
+                    color0: "#62c89d",
+                    borderColor: "#ee6560",
+                    borderColor0: "#62c89d",
+                    borderWidth: 1
+                }
+            }
+        },
+        {
+            name: 'MA5',
+            type: 'line',
+            data: calculateMA(5),
+            markPoint: {
+                symbol: 'none'
+            },
+            smooth: true,
+            lineStyle: {
+                normal: {
+                    opacity: 0.5
+                }
+            }
+        },
+        {
+            name: 'MA10',
+            type: 'line',
+            data: calculateMA(10),
+            smooth: true,
+            lineStyle: {
+                normal: {
+                    opacity: 0.5
+                }
+            }
+        },
+        {
+            name: 'MA20',
+            type: 'line',
+            data: calculateMA(20),
+            smooth: true,
+            lineStyle: {
+                normal: {
+                    opacity: 0.5
+                }
+            }
+        },
+        {
+            name: 'MA30',
+            type: 'line',
+            data: calculateMA(30),
+            smooth: true,
+            lineStyle: {
+                normal: {
+                    opacity: 0.5
+                }
+            }
+        },
+    ]
+}
+
+
 // 使用刚指定的配置项和数据显示图表
-myChart.setOption(option);
+myChart1.setOption(option1);
+myChart2.setOption(option2);
+myChart3.setOption(option3);
+//联动配置
+echarts.connect([myChart1, myChart2, myChart3]);

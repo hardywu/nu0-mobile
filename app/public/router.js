@@ -190,7 +190,7 @@ const Router = createStackNavigator(
                 header: null
             })
         },
-        //Web
+        //OrdinaryKLine
         OrdinaryKLine: {
             screen: OrdinaryKLine,
             navigationOptions: ({ navigation }) => ({
@@ -276,7 +276,7 @@ const Router = createStackNavigator(
         },
     },
     {
-        initialRouteName: 'Main',
+        initialRouteName: 'OrdinaryKLine',
         headerMode: 'screen'
     }
 );

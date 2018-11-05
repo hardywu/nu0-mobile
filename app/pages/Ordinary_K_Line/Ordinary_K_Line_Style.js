@@ -2,49 +2,41 @@ import Constant from '../../public/constant'
 import { StyleSheet } from 'react-native'
 
 export default styles = StyleSheet.create({
-    wrap: {
-        backgroundColor: '#f8f8f8'
+    operationWrap: {
+        flexDirection: 'row'
     },
 
-    userWrap: {
-        width: '100%',
-        height: 80,
-        backgroundColor: '#fff'
-    },
-
-    userCenterContent: {
-        flexDirection: 'row',
+    btn: {
+        flex: 1,
+        justifyContent: 'center',
         alignItems: 'center',
-        height: '100%'
+        paddingTop: 18,
+        paddingBottom: 18,
+        paddingLeft: 8,
+        paddingRight: 8
     },
 
-    userImg: {
-        width: 40,
-        height: 40,
-        marginRight: 14,
+    btnText: {
+        fontSize: 15,
+        color: '#fff'
+    },
+
+    collectionWrap: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: 100,
+        backgroundColor: '#293751'
+    },
+
+    collectionIcon: {
+        width: 20,
+        height: 20,
         resizeMode: 'contain'
     },
 
-    userName: {
-        fontSize: 14,
-        color: Constant.DEFAULT_FONT_COLOR
-    },
-
-    logoutWrap: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        width: '100%',
-        paddingTop: 6,
-        paddingBottom: 6,
-        backgroundColor: '#fff'
-    },
-
-    logoutText: {
-        flex: 1,
-        fontSize: 14,
-        lineHeight: 30,
-        color: '#b5b5b7',
-        fontSize: 15,
-        textAlign: 'center'
+    collectionText: {
+        marginTop: 4,
+        fontSize: 13,
+        color: '#fff'
     }
 });
