@@ -1,4 +1,3 @@
-/*基于准备好的dom，初始化echarts实例*/
 echarts.registerTheme('echartsTheme', echartsTheme);
 var myChart1 = echarts.init(document.getElementById('echartsContainer1'), 'echartsTheme');
 var myChart2 = echarts.init(document.getElementById('echartsContainer2'), 'echartsTheme');
@@ -375,23 +374,6 @@ var option2 = {
         }
     ],
     series: [{
-            name: '日K',
-            type: 'candlestick',
-            data: data0.values,
-            axisPointer: {
-                show: false
-            },
-            itemStyle: {
-                normal: {
-                    color: "transparent",
-                    color0: "#62c89d",
-                    borderColor: "#ee6560",
-                    borderColor0: "#62c89d",
-                    borderWidth: 1
-                }
-            }
-        },
-        {
             name: 'MA5',
             type: 'line',
             data: calculateMA(5),
@@ -516,23 +498,6 @@ var option3 = {
         }
     ],
     series: [{
-            name: '日K',
-            type: 'candlestick',
-            data: data0.values,
-            axisPointer: {
-                show: false
-            },
-            itemStyle: {
-                normal: {
-                    color: "transparent",
-                    color0: "#62c89d",
-                    borderColor: "#ee6560",
-                    borderColor0: "#62c89d",
-                    borderWidth: 1
-                }
-            }
-        },
-        {
             name: 'MA5',
             type: 'line',
             data: calculateMA(5),
