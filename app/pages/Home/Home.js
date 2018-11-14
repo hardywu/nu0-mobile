@@ -10,7 +10,7 @@ import {
     Image
 } from 'react-native';
 import { connect } from 'react-redux';
-import * as axios from 'axios';
+import Constant from '../../public/constant';
 import utils from '../../public/utils';
 import api from '../../public/api';
 import Card from './Components/Card/Card';
@@ -44,14 +44,6 @@ class Home extends Component {
                 navigation.navigate('Login'); //跳转到主页
             }
         });
-    }
-
-    componentDidMount() {
-        api.test('dsds').then(res => {
-            console.log(res)
-        }).catch(err => {
-            console.log(err)
-        }) 
     }
 
     handleLoginPress = () => {

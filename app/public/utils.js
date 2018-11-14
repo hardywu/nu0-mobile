@@ -8,6 +8,40 @@ import {
 import Constant from '../public/constant';
 
 let utils = {
+    //baseurl
+    domain: 'http://auth.wb.local/api',
+
+    checkRequestSuccess: function(res) {
+        if((res.status === 200) || (res.status === 201)) {
+            return true;
+        } else {
+            return false;
+        }
+    },
+
+    checkErrorType: function (response) {
+        if(response.status === 400) {
+            return 'Bad Request'
+        } else if(response.status === 401) {
+            return 'Unauthorized'
+        } else if(response.status === 404) {
+            return 'Not Found'
+        }
+    },
+
+    jsonToFormData: function(obj) {
+        // let str = [];
+        // for(let key in obj){
+        //     str.push(`${key}=${obj[key]}`)
+        // }
+        // return str.join('&');
+        let formData = new FormData();
+		for(let key in obj){
+			formData.append(key, obj[k]);
+		}
+        return formData
+    },
+
     /**
      * 底层请求
      * @param url 请求的地址
@@ -16,27 +50,10 @@ let utils = {
     disRequest: function (url, options) {
         options.cache = options.cache || 'default';
         options.headers = options.headers || {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-        }
-        return new Promise(function (resolve, reject) {
-            fetch(
-                url,
-                options
-            ).then((res) => {
-                if (res.ok) {
-                    resolve(res.json());
-                } else {
-                    console.log('返回数据异常');
-                    reject({
-                        status: res.status
-                    });
-                }
-            }).catch((err) => {
-                console.log('网络异常');
-                reject(err);
-            })
-        })
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Authorization': 'API_KEY'
+        };
+        return fetch(url, options);
     },
 
     /** 
