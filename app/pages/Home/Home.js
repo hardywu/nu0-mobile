@@ -33,17 +33,17 @@ class Home extends Component {
 
     componentWillMount() {
         // utils.storage.delete('userInfo');
-        const {
-            navigation,
-            updateUserInfo
-        } = this.props;
-        utils.storage.get('userInfo').then(userInfo => {
-            if(userInfo) {
-                updateUserInfo(userInfo);
-            } else {
-                navigation.navigate('Login'); //跳转到主页
-            }
-        });
+        // const {
+        //     navigation,
+        //     updateUserInfo
+        // } = this.props;
+        // utils.storage.get('userInfo').then(userInfo => {
+        //     if(userInfo) {
+        //         updateUserInfo(userInfo);
+        //     } else {
+        //         navigation.navigate('Login'); //跳转到主页
+        //     }
+        // });
     }
 
     handleLoginPress = () => {
@@ -136,11 +136,11 @@ class Home extends Component {
 }
 
 export default connect(
-    (state) => ({
-        loginStatus: state.loginStatus,
-        userInfo: state.userInfo
-    }),
-    (dispatch) => ({
-        updateUserInfo: data => dispatch(userInfoAction.updateUserInfo(data))
-    })
+    // (state) => ({
+    //     loginStatus: state.loginStatus,
+    //     userInfo: state.userInfo
+    // }),
+    // (dispatch) => ({
+    //     updateUserInfo: data => dispatch(userInfoAction.updateUserInfo(data))
+    // })
 )(Home)
