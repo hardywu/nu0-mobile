@@ -19,6 +19,7 @@
     "babel-preset-react-native": "4.0.0",
     "jest": "23.5.0",
     "react-native-axios": "^0.17.1",
+    "react-native-root-toast": "^3.0.1",
     "react-native-safe-area-view": "^0.11.0",
     "react-native-swiper": "^1.5.13",
     "react-redux": "^5.0.7",

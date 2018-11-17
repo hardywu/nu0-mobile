@@ -18,5 +18,7 @@ export default Constant = {
     IPHONEX_HEIGHT: 812, //iphonex屏幕高度
     SCREEN_WIDTH: Dimensions.get('window').width, //实际屏幕宽度
     SCREEN_HEIGHT: Dimensions.get('window').height, //实际屏幕高度
+    TOAST_POSITION: -80, //toast显示位置
+    TOAST_DURATION: 1000, //toast显示时间
     APPLICATION_ID: 'a68be319fca51caca60eed5711226e568bd1c1d13ff452b945515f1a6ffbaca4', //appid
 }

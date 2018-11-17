@@ -9,6 +9,7 @@ const api = {
                 method: 'POST',
                 body: utils.jsonToFormData(params)
             }).then(res => {
+                console.log(res)
                 if (utils.checkRequestSuccess(res)) {
                     res.json().then(data => resolve(data));
                 } else {
@@ -21,7 +22,7 @@ const api = {
                 reject(err)
             });
         });
-    },
+    }
 }
 
 export default api;

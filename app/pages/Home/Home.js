@@ -31,19 +31,8 @@ class Home extends Component {
         super(props);
     }
 
-    componentWillMount() {
-        // utils.storage.delete('userInfo');
-        // const {
-        //     navigation,
-        //     updateUserInfo
-        // } = this.props;
-        // utils.storage.get('userInfo').then(userInfo => {
-        //     if(userInfo) {
-        //         updateUserInfo(userInfo);
-        //     } else {
-        //         navigation.navigate('Login'); //跳转到主页
-        //     }
-        // });
+    componentDidMount() {
+        
     }
 
     handleLoginPress = () => {

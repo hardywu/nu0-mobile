@@ -2,6 +2,13 @@ import React, {
     Component
 } from 'react';
 import {
+    Text,
+    View,
+    StatusBar,
+    ScrollView,
+    Image
+} from 'react-native';
+import {
     createStackNavigator,
     StackActions,
     NavigationActions
@@ -53,6 +60,23 @@ import * as tokenAction from '../actions/token';
 class Router extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            userLoginInfo: null
+        }
+        this.StackNavigator = null;
+    }
+
+    componentWillMount() {
+        utils.storage.get('userLoginInfo').then(data => {
+            if(data) {
+                this.setState({ userLoginInfo: data });       
+            } else {
+                this.setState({ userLoginInfo: null });
+            }
+        });
+    }
+
+    componentWillUpdate(props, state) {
         this.StackNavigator = createStackNavigator({
             Main: {
                 screen: MainTabNav,
@@ -360,19 +384,18 @@ class Router extends Component {
                 })
             },
         }, {
-            initialRouteName: props.userInfo ? 'Main' : 'Login',
+            initialRouteName: state.userLoginInfo ? 'Main' : 'Login', //如果有userLoginInfo则进入主页，否则进入注册页
             headerMode: 'screen'
         });
     }
 
-    componentWillMount() {
-    }
-
     render() {
-        let {
-            StackNavigator
-        } = this;
-        return <StackNavigator />
+        let { StackNavigator } = this;
+        if(StackNavigator) {
+            return <StackNavigator />
+        } else {
+            return <View/>
+        }
     }
 }
 

@@ -10,6 +10,7 @@ import Constant from '../public/constant';
 let utils = {
     //baseurl
     domain: 'http://auth.wb.local/api',
+    // domain: '132.232.221.240/api',
 
     checkRequestSuccess: function(res) {
         if((res.status === 200) || (res.status === 201)) {
@@ -30,16 +31,16 @@ let utils = {
     },
 
     jsonToFormData: function(obj) {
-        // let str = [];
-        // for(let key in obj){
-        //     str.push(`${key}=${obj[key]}`)
-        // }
-        // return str.join('&');
-        let formData = new FormData();
-		for(let key in obj){
-			formData.append(key, obj[key]);
-		}
-        return formData
+        let str = [];
+        for(let key in obj){
+            str.push(`${key}=${obj[key]}`)
+        }
+        return str.join('&');
+        // let formData = new FormData();
+		// for(let key in obj){
+		// 	formData.append(key, obj[key]);
+		// }
+        // return formData
     },
 
     /**
@@ -51,7 +52,7 @@ let utils = {
         options.cache = options.cache || 'default';
         options.headers = options.headers || {
             'Content-Type': 'application/x-www-form-urlencoded',
-            'Authorization': 'API_KEY'
+            // 'Authorization': 'API_KEY'
         };
         return fetch(url, options);
     },

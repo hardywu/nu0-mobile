@@ -14,6 +14,7 @@ import {
 import { SafeAreaView } from 'react-navigation';
 import { connect } from 'react-redux';
 import Constant from '../../public/constant';
+import Toast from 'react-native-root-toast';
 import utils from '../../public/utils';
 import api from '../../public/api';
 import * as userInfoAction from '../../actions/user_info';
@@ -23,6 +24,7 @@ import styles from './Login_Style';
 
 import closeIcon from '../../static/imgs/close.png'; //关闭按钮图标
 
+let toast = null;
 class Login extends Component {
     constructor(props) {
         super(props);
@@ -49,6 +51,9 @@ class Login extends Component {
                 pw: 'aikohMai7oh' //密码
             }
         }
+    }
+
+    componentDidMount() {
     }
 
     checkLoginTabActiveIndex = () => {
@@ -95,28 +100,32 @@ class Login extends Component {
     //处理 登录按钮 释放事件
     handleLoginRelease = evt => {
         let {
+            toast,
             email
         } = this.state;
-        const {
-            navigation
-        } = this.props;
-        // login(function(res){
-        //     // navigation.navigate('Main'); //跳转到主页
-        // }, function() {
-        //     // alert('登录失败');
-        // });
+        const { navigation } = this.props;
         let loginType = this.checkLoginTabActiveIndex();
+        //判断登录类型（手机/邮箱等）
         if(loginType === 0) {
             //使用手机号登录
         } else if(loginType === 1) {
             //使用邮箱登录
             console.log('登录中...');
+            toast = Toast.show('登录中...', {
+                duration: Constant.TOAST_DURATION,
+                position: Constant.TOAST_POSITION,
+            });
             api.postV1Sessions({
                 email: email.acc,
                 password: email.pw,
                 application_id: Constant.APPLICATION_ID
             }).then(res => {
                 console.log('获取token成功');
+                Toast.hide(toast);
+                toast = Toast.show('登录成功', {
+                    duration: Constant.TOAST_DURATION,
+                    position: Constant.TOAST_POSITION,
+                });
                 //成功回调
                 let userLoginInfo = {
                     type: 0,
@@ -124,12 +133,13 @@ class Login extends Component {
                     pw: email.pw
                 };
                 //将用户账号密码存入本地
-                utils.storage.save('userLogin', userLoginInfo).then(data => {
+                utils.storage.save('userLoginInfo', userLoginInfo).then(data => {
                     console.log('已保存用户登录信息');
                 });
                 //将token存入本地
                 utils.storage.save('token', res).then(data => {
                     console.log('已保存token');
+                    navigation.navigate('Main'); //跳转到主页
                 });
             }).catch(msg => {
                 //失败回调
@@ -154,6 +164,7 @@ class Login extends Component {
 
     render() {
         let {
+            toast,
             loginTab,
             email
         } = this.state;
