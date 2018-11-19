@@ -29,12 +29,26 @@ import styles from './Home_Style';
 class Home extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            user: {
+                email: ''
+            }
+        }
     }
 
     componentDidMount() {
-        
+        let { user } = this.state;
+        //请求用户信息接口
+        api.getV1AccountsMe().then(res => {
+            //设置用昵称为邮箱
+            user.email = res.email;
+            this.setState({ user: user });
+        }).catch(msg => {
+            console.log(msg)
+        })
     }
 
+    //处理 登录按钮 释放事件
     handleLoginPress = () => {
         const { navigate } = this.props.navigation;
         navigate('Login');
@@ -46,6 +60,9 @@ class Home extends Component {
     }
 
     render() {
+        let {
+            user
+        } = this.state;
         const {
             navigation,
             userInfo
@@ -67,7 +84,7 @@ class Home extends Component {
                             onStartShouldSetResponder={() => true}
                             onResponderRelease={evt => this.handleUserIconRelease(evt)}
                         />
-                        <Text style={styles.userName}>17922764886</Text>
+                        <Text style={styles.userName}>{user.email}</Text>
                     </View>
                     {/* 登录的状态结束 */}
                     {/* 未登录的状态开始 */}

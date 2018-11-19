@@ -8,12 +8,11 @@ import {
 import Constant from '../public/constant';
 
 let utils = {
-    //baseurl
     domain: 'http://auth.wb.local/api',
     // domain: '132.232.221.240/api',
 
-    checkRequestSuccess: function(res) {
-        if((res.status === 200) || (res.status === 201)) {
+    checkRequestSuccess: function (res) {
+        if ((res.status === 200) || (res.status === 201)) {
             return true;
         } else {
             return false;
@@ -21,25 +20,25 @@ let utils = {
     },
 
     checkErrorType: function (response) {
-        if(response.status === 400) {
+        if (response.status === 400) {
             return 'Bad Request'
-        } else if(response.status === 401) {
+        } else if (response.status === 401) {
             return 'Unauthorized'
-        } else if(response.status === 404) {
+        } else if (response.status === 404) {
             return 'Not Found'
         }
     },
 
-    jsonToFormData: function(obj) {
+    jsonToFormData: function (obj) {
         let str = [];
-        for(let key in obj){
+        for (let key in obj) {
             str.push(`${key}=${obj[key]}`)
         }
         return str.join('&');
         // let formData = new FormData();
-		// for(let key in obj){
-		// 	formData.append(key, obj[key]);
-		// }
+        // for(let key in obj){
+        // 	formData.append(key, obj[key]);
+        // }
         // return formData
     },
 
@@ -50,10 +49,8 @@ let utils = {
      */
     disRequest: function (url, options) {
         options.cache = options.cache || 'default';
-        options.headers = options.headers || {
-            'Content-Type': 'application/x-www-form-urlencoded',
-            // 'Authorization': 'API_KEY'
-        };
+        options.headers = options.headers || {};
+        options.headers['Content-Type'] = 'application/x-www-form-urlencoded';
         return fetch(url, options);
     },
 

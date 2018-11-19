@@ -128,7 +128,7 @@ class Login extends Component {
                 });
                 //成功回调
                 let userLoginInfo = {
-                    type: 0,
+                    type: 1,
                     acc: email.acc,
                     pw: email.pw
                 };
