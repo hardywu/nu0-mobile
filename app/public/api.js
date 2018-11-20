@@ -1,23 +1,23 @@
 import utils from './utils';
 
-const api = {
+export default api = {
     //创建一个新的sessions
     postV1Sessions: params => {
         return new Promise((resolve, reject) => {
             utils.disRequest(`${utils.domain}/v1/sessions`, {
                 method: 'POST',
-                body: utils.jsonToFormData(params)
+                body: utils.jsonToUrlencoded(params)
             }).then(res => {
                 if (utils.checkRequestSuccess(res)) {
+                    //成功回调
                     res.json().then(data => resolve(data));
                 } else {
-                    res.json().then(data => {
-                        reject(data.error);
-                    });
+                    //失败回调
+                    reject(utils.checkErrorType(res));
                 }
             }).catch(err => {
-                alert(`网络异常`);
-                reject(err)
+                //失败回调
+                reject(`网络异常`);
             });
         });
     },
@@ -28,49 +28,51 @@ const api = {
             return new Promise((resolve, reject) => {
                 utils.disRequest(`${utils.domain}/v1/accounts/me`, {
                     method: 'GET',
-                    headers: { Authorization: `Bearer ${token}` },
-                    body: utils.jsonToFormData(params || {})
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    },
+                    body: utils.jsonToUrlencoded(params || {})
                 }).then(res => {
                     if (utils.checkRequestSuccess(res)) {
+                        //成功回调
                         res.json().then(data => resolve(data));
                     } else {
-                        res.json().then(data => {
-                            reject(data.error);
-                        });
+                        //失败回调
+                        reject(utils.checkErrorType(res));
                     }
                 }).catch(err => {
-                    alert(`网络异常`);
-                    reject(err)
+                    //失败回调
+                    reject(`网络异常`);
                 });
             });
         });
     },
 
     //返回当前的用户信息
-    getV1ProfilesMe:  params => {
+    getV1ProfilesMe: params => {
         return utils.storage.get('token').then(token => {
             return new Promise((resolve, reject) => {
                 utils.disRequest(`${utils.domain}/v1/profiles/me`, {
                     method: 'GET',
-                    headers: { Authorization: `Bearer ${token}` },
-                    body: utils.jsonToFormData(params || {})
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    },
+                    body: utils.jsonToUrlencoded(params || {})
                 }).then(res => {
                     if (utils.checkRequestSuccess(res)) {
+                        //成功回调
                         res.json().then(data => resolve(data));
                     } else {
-                        res.json().then(data => {
-                            reject(data.error);
-                        });
+                        //失败回调
+                        reject(utils.checkErrorType(res));
                     }
                 }).catch(err => {
-                    alert(`网络异常`);
-                    reject(err)
+                    //失败回调
+                    reject(`网络异常`);
                 });
             });
         });
     },
 
-    
-}
 
-export default api;
+}

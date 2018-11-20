@@ -14,20 +14,42 @@ import {
     TouchableOpacity,
     TouchableHighlight
 } from 'react-native';
+//组件
 import Constant from '../../public/constant'
 import Header from '../../components/Header/Header';
 import EmptyTopBar from '../../components/Empty_Top_Bar/Empty_Top_Bar';
 import EmptyBottomBar from '../../components/Empty_Bottom_Bar/Empty_Bottom_Bar';
-
+//样式
 import mStyles from '../../public/common_style';
 import styles from './User_Center_Style';
-
+//图片
 import userDefaultIcon from '../../static/imgs/user_default.png'; //用户默认头像
 import arrowIcon from '../../static/imgs/arrow_gray.png'; //箭头图标
+//其他
+import utils from '../../public/utils';
+import api from '../../public/api';
 
 export default class FrenchAccount extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            user: {
+                email: ''
+            }
+        }
+    }
+
+    componentDidMount() {
+        let { user } = this.state;
+        //请求用户信息接口
+        api.getV1AccountsMe().then(res => {
+            //设置用昵称为邮箱
+            user.email = res.email;
+            this.setState({ user: user });
+        }).catch(msg => {
+            utils.toast.show(msg);
+            console.log(msg);
+        });
     }
 
     //处理 返回按钮 释放事件
@@ -36,8 +58,21 @@ export default class FrenchAccount extends Component {
     }
 
     //处理 退出当前账户按钮 按压事件
-    handleLogoutRelease = evt => {
-
+    handleLogoutPress = evt => {
+        //删除本地token
+        utils.storage.delete('token').then(() => {
+            console.log('删除本地token 成功');
+            return(true);
+        }).then(() => {
+            //删除本地登录信息
+            return utils.storage.delete('userLoginInfo').then(() => {
+                console.log('删除本地登录信息 成功');
+                return(true);
+            });
+        }).then(() => {
+            //跳转到登录页
+            this.props.navigation.navigate('Login');
+        });
     }
 
     handleCurSelectionRelease = evt => {
@@ -55,6 +90,9 @@ export default class FrenchAccount extends Component {
     }
 
     render() {
+        let {
+            user
+        } = this.state;
         return (
             <View style={[mStyles.mFlex1, mStyles.mBackgroundColor]}>
                 <EmptyTopBar backgroundColor='#fff'/>
@@ -70,7 +108,7 @@ export default class FrenchAccount extends Component {
                                 style={styles.userImg}
                                 source={userDefaultIcon}
                             />
-                            <Text style={styles.userName}>17922764886</Text>
+                            <Text style={styles.userName}>{user.email}</Text>
                         </View>
                     </View>
                     {/* 用户信息结束 */}
@@ -176,9 +214,15 @@ export default class FrenchAccount extends Component {
                             </TouchableHighlight>
                         </View>
                     </View>
-                    <View style={[mStyles.mt10, styles.logoutWrap]}>
-                        <Text style={styles.logoutText}>退出当前账号</Text>
-                    </View>
+                    {/* 退出登录按钮开始 */}
+                    <TouchableHighlight
+                        style={[mStyles.mt10, styles.logoutWrap]}
+                        underlayColor={Constant.TOUCHABLE_HIGHLIGHT_UNDERLAY_COLOR}
+                        onPress={evt => this.handleLogoutPress(evt)}
+                    >
+                            <Text style={styles.logoutText}>退出当前账号</Text>
+                    </TouchableHighlight>
+                    {/* 退出登录按钮结束 */}
                 </View>
                 <EmptyBottomBar backgroundColor={Constant.M_BACKGROUND_COLOR}/>
             </View>

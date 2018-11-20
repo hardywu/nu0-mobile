@@ -20,6 +20,7 @@ import Banner from './Components/Banner/Banner';
 import Quotation from './Components/Quotation/Quotation';
 import EmptyTopBar from '../../components/Empty_Top_Bar/Empty_Top_Bar';
 import EmptyBottomBar from '../../components/Empty_Bottom_Bar/Empty_Bottom_Bar';
+import Toast from 'react-native-root-toast';
 import * as loginAction from '../../actions/login';
 import * as userInfoAction from '../../actions/user_info';
 
@@ -44,8 +45,9 @@ class Home extends Component {
             user.email = res.email;
             this.setState({ user: user });
         }).catch(msg => {
+            utils.toast.show(msg);
             console.log(msg)
-        })
+        });
     }
 
     //处理 登录按钮 释放事件
