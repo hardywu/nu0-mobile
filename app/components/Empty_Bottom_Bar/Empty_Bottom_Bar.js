@@ -26,7 +26,6 @@ let paddingBottomValue = (() => {
     }
 })();
 
-
 export default class EmptyBottomBar extends Component {
     constructor(props) {
         super(props);

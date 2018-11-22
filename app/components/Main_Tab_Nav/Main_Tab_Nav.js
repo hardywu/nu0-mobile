@@ -3,15 +3,28 @@
  */
 import React from 'react';
 import { Image } from 'react-native';
-import { createBottomTabNavigator } from 'react-navigation';
-import * as Constant from '../../public/constant'
+import { createBottomTabNavigator, createMaterialTopTabNavigator } from 'react-navigation';
+import * as Constant from '../../public/constant';
 import Home from '../../pages/Home/Home';
 import Quotation from '../../pages/Quotation/Quotation'
 import Pricing from '../../pages/Pricing/Pricing'
 import French from '../../pages/French/French'
 import Contract from '../../pages/Contract/Contract'
+import utils from '../../public/utils';
 
-export const MainTabNav = createBottomTabNavigator({
+let paddingBottomValue = (() => {
+    if(utils.isIos()) {
+        if(utils.isIphoneX()) {
+            return 34; //如果是iponex返回44
+        } else {
+            return 0; //如果不是iponex返回20
+        }
+    } else {
+        return 0; //如果是android系统返回0
+    }
+})();
+
+export const MainTabNav = createMaterialTopTabNavigator({
     //首页
     Home: {
         screen: Home,
@@ -89,9 +102,11 @@ export const MainTabNav = createBottomTabNavigator({
     },
 }, {
     initialRouteName: 'Home',
+    swipeEnabled: false,
+    tabBarPosition: 'bottom',
     tabBarOptions: {
         //当前选中的tab bar的文本颜色和图标颜色
-        activeTintColor: Constant.ACTIVE_COLOR,
+        activeTintColor: '#3075ef',
         //当前未选中的tab bar的文本颜色和图标颜色
         inactiveTintColor: '#b5b5b7',
         //是否显示tab bar的图标，默认是false
@@ -106,12 +121,11 @@ export const MainTabNav = createBottomTabNavigator({
         pressOpacity: 0.8,
         //tab bar的样式
         style: {
+            paddingBottom: paddingBottomValue,
             backgroundColor: '#fff',
-            paddingBottom: 1,
-            paddingTop: 1,
             // borderTopWidth: 0.2,
             // borderTopColor: '#ccc',
-            elevation: 6
+            elevation: 6,
         },
         //tab bar的文本样式
         labelStyle: {
@@ -120,13 +134,5 @@ export const MainTabNav = createBottomTabNavigator({
         },
         //tab 页指示符的样式 (tab页下面的一条线).
         indicatorStyle: { height: 0 },
-    },
-    //是否允许滑动切换tab页
-    swipeEnabled: false,
-    //是否在切换tab页时使用动画
-    animationEnabled: false,
-    //是否懒加载
-    lazy: true,
-    //返回按钮是否会导致tab切换到初始tab页？ 如果是，则设置为initialRoute，否则为none。 缺省为initialRoute。
-    backBehavior: 'none',
+    }
 });

@@ -297,146 +297,148 @@ export default class French extends Component {
         return (
             <View style={mStyles.mFlex1}>
                 <EmptyTopBar backgroundColor='#fff'/>
-                <View style={styles.header}>
-                    <View style={[mStyles.mCenterContent, styles.headerCenter]}>
-                        <View style={styles.mainNavLeft}>
-                            <Text style={styles.mainNavLeftText}>CNY</Text>
+                <View style={mStyles.mFlex1}>
+                    <View style={styles.header}>
+                        <View style={[mStyles.mCenterContent, styles.headerCenter]}>
+                            <View style={styles.mainNavLeft}>
+                                <Text style={styles.mainNavLeftText}>CNY</Text>
+                            </View>
+                            <View 
+                                style={styles.mainNavCenter}
+                                onStartShouldSetResponder={() => true}
+                                onResponderRelease={this.handleMainNavRelease}
+                            >
+                                <Text style={styles.mainNavCenterText}>{mainNav.title}/CNY</Text>
+                                <Image                             
+                                    style={{
+                                        width: 14,
+                                        height: 14,
+                                        marginLeft: 8
+                                    }}
+                                    source={require('../../static/imgs/arrow_black.png')}
+                                />
+                            </View>
+                            <View style={styles.mainNavRight}>
+                                <Text style={[styles.mainNavRightText, mStyles.mRedColor]}>¥7823.21</Text>
+                            </View>
                         </View>
-                        <View 
-                            style={styles.mainNavCenter}
-                            onStartShouldSetResponder={() => true}
-                            onResponderRelease={this.handleMainNavRelease}
-                        >
-                            <Text style={styles.mainNavCenterText}>{mainNav.title}/CNY</Text>
-                            <Image                             
-                                style={{
-                                    width: 14,
-                                    height: 14,
-                                    marginLeft: 8
-                                }}
-                                source={require('../../static/imgs/arrow_black.png')}
+                    </View>
+                    {/* 购买，出售，委托，订单 选择开始 */}
+                    <View style={styles.subNav}>
+                        {/* <View style={styles.subNavItemWrap}>
+                            <View style={[styles.subNavItem, mStyles.mGreenBorderBottom]}>
+                                <Text style={[styles.subNavItemText, mStyles.mGreenColor]}>购买</Text>
+                            </View>
+                        </View>
+                        <View style={styles.subNavItemWrap}>
+                            <View style={[styles.subNavItem, mStyles.mRedBorderBottom]}>
+                                <Text style={[styles.subNavItemText, mStyles.mRedColor]}>出售</Text>
+                            </View>
+                        </View>
+                        <View style={styles.subNavItemWrap}>
+                            <View style={[styles.subNavItem, mStyles.mBlueBorderBottom]}>
+                                <Text style={[styles.subNavItemText, mStyles.mBlueColor]}>委托单</Text>
+                            </View>
+                        </View>
+                        <View style={styles.subNavItemWrap}>
+                            <View style={styles.subNavItem}>
+                                <Text style={styles.subNavItemText}>订单</Text>
+                            </View>
+                        </View> */}
+                        {subNavItemsDOM}
+                    </View>
+                    {/* 购买，出售，委托，订单 选择结束 */}
+                    {/* 资产开始 */}
+                    <View style={[styles.assets, subNav.data[1].isActive ? mStyles.mFlex : mStyles.mHide]}>
+                        <View style={[mStyles.mCenterContent, mStyles.mFlex1]}>
+                            <View style={styles.assetsCenterContent}>
+                                <Text style={styles.assetsText}>可用: 0.0000{mainNav.title}</Text>
+                                <Text style={styles.assetsText}>冻结: 0.0000{mainNav.title}</Text>
+                                <Image style={styles.assetsArrow} source={grayArrowIcon}/>
+                            </View>
+                        </View>
+                    </View>
+                    {/* 资产结束 */}
+                    {/* 条件筛选开始 */}
+                    <View style={[styles.searchBar, (subNavActiveIndex===0 || subNavActiveIndex===1) ? mStyles.mFlex : mStyles.mHide]}>
+                        <View style={[mStyles.mCenterContent, mStyles.mFlex1, styles.searchBarCenterContent]}>
+                            <View style={styles.searchBarItem}>
+                                <Image
+                                    style={styles.searchBarItemSelectIcon}
+                                    source={unselectedIcon}
+                                />
+                                <Text style={styles.searchBarItemText}>认证商家</Text>
+                            </View>
+                            <View style={styles.searchBarItem}>
+                                <Text style={styles.searchBarItemText}>所有金额</Text>
+                                <Image
+                                    style={styles.searchBarItemArrowIcon}
+                                    source={grayArrowIcon}
+                                />
+                            </View>
+                            <View style={styles.searchBarItem}>
+                                <Text style={styles.searchBarItemText}>所有方式</Text>
+                                <Image
+                                    style={styles.searchBarItemArrowIcon}
+                                    source={grayArrowIcon}
+                                />
+                            </View>
+                        </View>
+                    </View>
+                    {/* 条件筛选结束 */}
+                    {/* 列表开始 */}
+                    <View style={styles.list}>
+                        <View style={[mStyles.mFlex1, subNavActiveIndex === 0 ?  mStyles.mFlex : mStyles.mHide]}>
+                            <BuyList
+                                data={this.state}
+                                setData={this._setState}
                             />
                         </View>
-                        <View style={styles.mainNavRight}>
-                            <Text style={[styles.mainNavRightText, mStyles.mRedColor]}>¥7823.21</Text>
-                        </View>
-                    </View>
-                </View>
-                {/* 购买，出售，委托，订单 选择开始 */}
-                <View style={styles.subNav}>
-                    {/* <View style={styles.subNavItemWrap}>
-                        <View style={[styles.subNavItem, mStyles.mGreenBorderBottom]}>
-                            <Text style={[styles.subNavItemText, mStyles.mGreenColor]}>购买</Text>
-                        </View>
-                    </View>
-                    <View style={styles.subNavItemWrap}>
-                        <View style={[styles.subNavItem, mStyles.mRedBorderBottom]}>
-                            <Text style={[styles.subNavItemText, mStyles.mRedColor]}>出售</Text>
-                        </View>
-                    </View>
-                    <View style={styles.subNavItemWrap}>
-                        <View style={[styles.subNavItem, mStyles.mBlueBorderBottom]}>
-                            <Text style={[styles.subNavItemText, mStyles.mBlueColor]}>委托单</Text>
-                        </View>
-                    </View>
-                    <View style={styles.subNavItemWrap}>
-                        <View style={styles.subNavItem}>
-                            <Text style={styles.subNavItemText}>订单</Text>
-                        </View>
-                    </View> */}
-                    {subNavItemsDOM}
-                </View>
-                {/* 购买，出售，委托，订单 选择结束 */}
-                {/* 资产开始 */}
-                <View style={[styles.assets, subNav.data[1].isActive ? mStyles.mFlex : mStyles.mHide]}>
-                    <View style={[mStyles.mCenterContent, mStyles.mFlex1]}>
-                        <View style={styles.assetsCenterContent}>
-                            <Text style={styles.assetsText}>可用: 0.0000{mainNav.title}</Text>
-                            <Text style={styles.assetsText}>冻结: 0.0000{mainNav.title}</Text>
-                            <Image style={styles.assetsArrow} source={grayArrowIcon}/>
-                        </View>
-                    </View>
-                </View>
-                {/* 资产结束 */}
-                {/* 条件筛选开始 */}
-                <View style={[styles.searchBar, (subNavActiveIndex===0 || subNavActiveIndex===1) ? mStyles.mFlex : mStyles.mHide]}>
-                    <View style={[mStyles.mCenterContent, mStyles.mFlex1, styles.searchBarCenterContent]}>
-                        <View style={styles.searchBarItem}>
-                            <Image
-                                style={styles.searchBarItemSelectIcon}
-                                source={unselectedIcon}
-                            />
-                            <Text style={styles.searchBarItemText}>认证商家</Text>
-                        </View>
-                        <View style={styles.searchBarItem}>
-                            <Text style={styles.searchBarItemText}>所有金额</Text>
-                            <Image
-                                style={styles.searchBarItemArrowIcon}
-                                source={grayArrowIcon}
+                        <View style={[mStyles.mFlex1, subNavActiveIndex === 1 ?  mStyles.mFlex : mStyles.mHide]}>
+                            <SellList
+                                data={this.state}
+                                setData={this._setState}
                             />
                         </View>
-                        <View style={styles.searchBarItem}>
-                            <Text style={styles.searchBarItemText}>所有方式</Text>
-                            <Image
-                                style={styles.searchBarItemArrowIcon}
-                                source={grayArrowIcon}
+                        <View style={[mStyles.mFlex1, subNavActiveIndex === 2 ?  mStyles.mFlex : mStyles.mHide]}>
+                            <EntrustmentList
+                                data={this.state}
+                                setData={this._setState}
                             />
                         </View>
                     </View>
-                </View>
-                {/* 条件筛选结束 */}
-                {/* 列表开始 */}
-                <View style={styles.list}>
-                    <View style={[mStyles.mFlex1, subNavActiveIndex === 0 ?  mStyles.mFlex : mStyles.mHide]}>
-                        <BuyList
-                            data={this.state}
-                            setData={this._setState}
-                        />
+                    {/* 列表结束 */}
+                    {/* 货币选择开始 */}
+                    <Animated.View style={[
+                        styles.mainNavCur,
+                        {
+                            height: mainNav.isShow ? 'auto' : 0,
+                            opacity: mainNavAnim.style.opacity, 
+                            transform: [
+                                {scale: mainNavAnim.style.scale}
+                            ]
+                        }
+                    ]}>
+                        {/* <View style={styles.mainNavCurItem}>
+                            <Image 
+                                style={styles.mainNavCurItemIcon}
+                                source={require('../../static/imgs/BCN.png')}
+                            />
+                            <Text style={styles.mainNavCurItemName}>BCN</Text>
+                        </View> */}
+                        {mainNavItemsDOM}
+                    </Animated.View>
+                    {/* 货币选择结束 */}
+                    {/* 发布按钮开始 */}
+                    <View
+                        style={styles.releaseBtn}
+                        onStartShouldSetResponder={() => true}
+                        onResponderRelease={evt => this.handleReleaseBtnRelease(evt)}
+                    >
+                        <Image style={styles.releaseBtnIcon} source={releaseIcon}/>
                     </View>
-                    <View style={[mStyles.mFlex1, subNavActiveIndex === 1 ?  mStyles.mFlex : mStyles.mHide]}>
-                        <SellList
-                            data={this.state}
-                            setData={this._setState}
-                        />
-                    </View>
-                    <View style={[mStyles.mFlex1, subNavActiveIndex === 2 ?  mStyles.mFlex : mStyles.mHide]}>
-                        <EntrustmentList
-                            data={this.state}
-                            setData={this._setState}
-                        />
-                    </View>
+                    {/* 发布按钮结束 */}
                 </View>
-                {/* 列表结束 */}
-                {/* 货币选择开始 */}
-                <Animated.View style={[
-                    styles.mainNavCur,
-                    {
-                        height: mainNav.isShow ? 'auto' : 0,
-                        opacity: mainNavAnim.style.opacity, 
-                        transform: [
-                            {scale: mainNavAnim.style.scale}
-                        ]
-                    }
-                ]}>
-                    {/* <View style={styles.mainNavCurItem}>
-                        <Image 
-                            style={styles.mainNavCurItemIcon}
-                            source={require('../../static/imgs/BCN.png')}
-                        />
-                        <Text style={styles.mainNavCurItemName}>BCN</Text>
-                    </View> */}
-                    {mainNavItemsDOM}
-                </Animated.View>
-                {/* 货币选择结束 */}
-                {/* 发布按钮开始 */}
-                <View
-                    style={styles.releaseBtn}
-                    onStartShouldSetResponder={() => true}
-                    onResponderRelease={evt => this.handleReleaseBtnRelease(evt)}
-                >
-                    <Image style={styles.releaseBtnIcon} source={releaseIcon}/>
-                </View>
-                {/* 发布按钮结束 */}
             </View>
         );
     }
