@@ -384,7 +384,8 @@ class Router extends Component {
                 })
             },
         }, {
-            initialRouteName: state.userLoginInfo ? 'Main' : 'Login', //如果有userLoginInfo则进入主页，否则进入注册页
+            // initialRouteName: state.userLoginInfo ? 'Main' : 'Login', //如果有userLoginInfo则进入主页，否则进入注册页
+            initialRouteName: 'Main',
             headerMode: 'screen'
         });
     }

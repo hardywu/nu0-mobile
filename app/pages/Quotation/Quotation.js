@@ -23,7 +23,9 @@ export default class Quotation extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            activeMainNavIndex: 0, //被激活的一级nav的索引
+            //被激活的一级nav的索引
+            activeMainNavIndex: 0,
+            //子nav的选项配置， 根据activeMainNavIndex的值显示哪个子nav
             subNav: [
                 {
                     //okex
@@ -86,7 +88,8 @@ export default class Quotation extends Component {
                         }
                     ]
                 }
-            ], //子nav的选项配置， 根据activeMainNavIndex的值显示哪个子nav
+            ],
+        
         }
     }
 
@@ -145,20 +148,41 @@ export default class Quotation extends Component {
         });
 
         //根据type选择对应的list组件
-        let listComponent = null;
+        let listComponent = [];
+        // for (let i = 0; i < subNav[activeMainNavIndex].items.length; i++) {
+        //     if (subNav[activeMainNavIndex].items[i].isActive === true) {
+        //         let type = subNav[activeMainNavIndex].items[i].type;
+        //         if (type === 0) {
+        //             listComponent = <SelfSelectionist />;
+        //         } else if (type === 1) {
+        //             listComponent = <ContractList />;
+        //         } else if (type === 2) {
+        //             listComponent = <CurrencyList />;
+        //         } else if (type === 3) {
+        //             listComponent = <GlobalCurrencyList />
+        //         }
+        //     }
+        // }
+
         for (let i = 0; i < subNav[activeMainNavIndex].items.length; i++) {
-            if (subNav[activeMainNavIndex].items[i].isActive === true) {
-                let type = subNav[activeMainNavIndex].items[i].type;
-                if (type === 0) {
-                    listComponent = <SelfSelectionist />;
-                } else if (type === 1) {
-                    listComponent = <ContractList />;
-                } else if (type === 2) {
-                    listComponent = <CurrencyList />;
-                } else if (type === 3) {
-                    listComponent = <GlobalCurrencyList />
-                }
+            let type = subNav[activeMainNavIndex].items[i].type;
+            let tmp = null;
+            if (type === 0) {
+                tmp = <SelfSelectionist />;
+            } else if (type === 1) {
+                tmp = <ContractList />;
+            } else if (type === 2) {
+                tmp = <CurrencyList />;
+            } else if (type === 3) {
+                tmp = <GlobalCurrencyList />
             }
+            listComponent.push(
+                <View style={[mStyles.mFlex1, {
+                    display: subNav[activeMainNavIndex].items[i].isActive === true ? 'flex' : 'none'
+                }]}>
+                    {tmp}
+                </View>
+            );
         }
 
         return (
@@ -223,7 +247,9 @@ export default class Quotation extends Component {
                 </View>
                 {/* 头部结束 */}
                 {/* 主体内容开始 */}
-                {listComponent}
+                <View style={mStyles.mFlex1}>
+                    {listComponent}  
+                </View>
                 {/* 主体内容结束 */}
             </View>
         );
