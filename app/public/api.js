@@ -17,7 +17,7 @@ export default api = {
                 }
             }).catch(err => {
                 //失败回调
-                reject(`网络异常`);
+                reject(utils.errCodeMessage[5000]);
             });
         });
     },
@@ -42,7 +42,7 @@ export default api = {
                     }
                 }).catch(err => {
                     //失败回调
-                    reject(`网络异常`);
+                    reject(utils.errCodeMessage[5000]);
                 });
             });
         });
@@ -68,7 +68,7 @@ export default api = {
                     }
                 }).catch(err => {
                     //失败回调
-                    reject(`网络异常`);
+                    reject(utils.errCodeMessage[5000]);
                 });
             });
         });

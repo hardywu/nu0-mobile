@@ -104,7 +104,6 @@ export default class Quotation extends Component {
             activeMainNavIndex,
             subNav
         } = this.state;
-
         let subNavItems = subNav[activeMainNavIndex].items;
         for (let i = 0; i < subNavItems.length; i++) {
             if (i === index) {
@@ -113,7 +112,6 @@ export default class Quotation extends Component {
                 subNavItems[i].isActive = false;
             }
         }
-
         this.setState({ subNav: subNav });
     }
 
@@ -177,9 +175,12 @@ export default class Quotation extends Component {
                 tmp = <GlobalCurrencyList />
             }
             listComponent.push(
-                <View style={[mStyles.mFlex1, {
-                    display: subNav[activeMainNavIndex].items[i].isActive === true ? 'flex' : 'none'
-                }]}>
+                <View
+                    style={[mStyles.mFlex1, {
+                        display: subNav[activeMainNavIndex].items[i].isActive === true ? 'flex' : 'none'
+                    }]}
+                    key={i}
+                >
                     {tmp}
                 </View>
             );

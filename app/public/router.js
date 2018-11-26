@@ -61,17 +61,17 @@ class Router extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            userLoginInfo: null
+            token: null
         }
         this.StackNavigator = null;
     }
 
     componentWillMount() {
-        utils.storage.get('userLoginInfo').then(data => {
+        utils.storage.get('token').then(data => {
             if(data) {
-                this.setState({ userLoginInfo: data });       
+                this.setState({ token: data });       
             } else {
-                this.setState({ userLoginInfo: null });
+                this.setState({ token: null });
             }
         });
     }
@@ -384,8 +384,8 @@ class Router extends Component {
                 })
             },
         }, {
-            // initialRouteName: state.userLoginInfo ? 'Main' : 'Login', //如果有userLoginInfo则进入主页，否则进入注册页
-            initialRouteName: 'Main',
+            initialRouteName: state.token ? 'Main' : 'Login', //如果有token则进入主页，否则进入注册页
+            // initialRouteName: 'Main',
             headerMode: 'screen'
         });
     }

@@ -45,8 +45,8 @@ class Home extends Component {
             user.email = res.email;
             this.setState({ user: user });
         }).catch(msg => {
-            utils.toast.show(msg);
-            console.log(msg)
+            utils.toast.show(err.msg);
+            console.log(err)
         });
     }
 

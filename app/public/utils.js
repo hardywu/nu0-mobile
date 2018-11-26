@@ -12,8 +12,8 @@ let utils = {
     domain: 'http://auth.wb.local/api',
     // domain: '132.232.221.240/api',
 
-    //错误信息
-    codeMessage: {
+    //请求错误信息
+    requestCodeMessage: {
         200: '服务器成功返回请求的数据。',
         201: '新建或修改数据成功。',
         202: '一个请求已经进入后台排队（异步任务）。',
@@ -31,6 +31,18 @@ let utils = {
         504: '网关超时。',
     },
 
+    //
+    errCodeMessage: {
+        3000: {
+            status: 3000,
+            msg: '未知错误'
+        },
+        5000: {
+            status: 5000,
+            msg: '网络错误'
+        }
+    },
+
     /** 
      * 判断是否操作成功
      */
@@ -46,10 +58,13 @@ let utils = {
      * 返回错误信息
      */
     checkErrorType: function (response) {
-        if (response.status in this.codeMessage) {
-            return this.codeMessage[response.status];
+        if (response.status in this.requestCodeMessage) {
+            return {
+                status: response.status,
+                msg: this.requestCodeMessage[response.status]
+            }
         } else {
-            return '未知错误';
+            return errCodeMessage[3000];
         }
     },
 

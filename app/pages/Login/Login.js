@@ -126,24 +126,19 @@ class Login extends Component {
                     duration: Constant.TOAST_DURATION,
                     position: Constant.TOAST_POSITION,
                 });
-                //成功回调
-                let userLoginInfo = {
-                    type: 1,
-                    acc: email.acc,
-                    pw: email.pw
-                };
-                //将用户账号密码存入本地
-                utils.storage.save('userLoginInfo', userLoginInfo).then(data => {
-                    console.log('已保存用户登录信息');
-                });
                 //将token存入本地
                 utils.storage.save('token', res).then(data => {
                     console.log('已保存token');
                     navigation.navigate('Main'); //跳转到主页
                 });
-            }).catch(msg => {
+            }).catch(err => {
                 //失败回调
-                console.log(`错误: ${msg}`);
+                Toast.hide(toast);
+                toast = Toast.show(err.msg, {
+                    duration: Constant.TOAST_DURATION,
+                    position: Constant.TOAST_POSITION,
+                });
+                console.log(`错误: ${err.msg}`);
             })
         }
     }

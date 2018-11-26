@@ -14,6 +14,7 @@ import {
     TouchableOpacity,
     TouchableHighlight
 } from 'react-native';
+import { StackActions, NavigationActions } from 'react-navigation'
 //组件
 import Constant from '../../public/constant'
 import Header from '../../components/Header/Header';
@@ -62,16 +63,14 @@ export default class FrenchAccount extends Component {
         //删除本地token
         utils.storage.delete('token').then(() => {
             console.log('删除本地token 成功');
-            return(true);
+            return true;
         }).then(() => {
-            //删除本地登录信息
-            return utils.storage.delete('userLoginInfo').then(() => {
-                console.log('删除本地登录信息 成功');
-                return(true);
+            //跳转到登录页并清空路由历史记录
+            const resetAction = StackActions.reset({
+                index: 0,
+                actions: [NavigationActions.navigate({ routeName: 'Login' })],
             });
-        }).then(() => {
-            //跳转到登录页
-            this.props.navigation.navigate('Login');
+            this.props.navigation.dispatch(resetAction);
         });
     }
 
