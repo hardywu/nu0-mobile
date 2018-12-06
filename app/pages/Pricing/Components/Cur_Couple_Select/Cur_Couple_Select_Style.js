@@ -11,7 +11,6 @@ export default styles = StyleSheet.create({
 
     ccsWrap: {
         position: 'absolute',
-        top: 98,
         width: '100%',
         height: 340,
         backgroundColor: '#f5f9fc'

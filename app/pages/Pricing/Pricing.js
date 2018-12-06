@@ -1,6 +1,7 @@
 /**
  *币币页
  */
+//组件
 import React, { Component } from 'react';
 import {
     Text,
@@ -19,24 +20,43 @@ import List from './Components/List/List'; //右边列表组件
 import CurCoupleSelect from './Components/Cur_Couple_Select/Cur_Couple_Select'; //交易币对下拉框组件
 import EmptyTopBar from '../../components/Empty_Top_Bar/Empty_Top_Bar';
 import EmptyBottomBar from '../../components/Empty_Bottom_Bar/Empty_Bottom_Bar';
-
+//样式
 import mStyles from '../../public/common_style';
 import styles from './Pricing_Style';
-
+//图标
 import menuIcon from '../../static/imgs/menu.png'; //菜单按钮
 import searchIcon from '../../static/imgs/search.png'; //搜索按钮
 import arrowIcon from '../../static/imgs/arrow_gray.png'; //灰色箭头按钮
+//其他
+import utils from '../../public/utils';
+import api from '../../public/api';
 
 export default class Pricing extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            activeMainNavIndex: 0, //被激活的一级nav的索引 0:币币; 1:杠杆
+            //被激活的一级nav的索引 0:币币; 1:杠杆
+            activeMainNavIndex: 0,
+            //币币的数据
             bb: {
-                tradeType: 0, //交易类型 0:买入; 1:卖出
+                //交易类型 0:买入; 1:卖出
+                tradeType: 0,
+                //交易币对下拉框数据
                 currencyCoupleSelect: {
-                    isShow: false
-                }, //交易币对下拉框数据
+                    isShow: false,
+                    data: [
+                        // {
+                        //     pricingCurId: 'eth',
+                        //     pricingCurName: 'dsa',
+                        //     couples: [
+                        //         {
+    
+                        //         }
+                        //     ]
+                        // }
+                    ]
+                },
+                //买入
                 buy: {
                     name: 'BTC', //
                     select: {
@@ -66,7 +86,8 @@ export default class Pricing extends Component {
                         placeholder: '数量',
                         value: 0
                     },
-                }, //买入
+                },
+                //卖出
                 sell: {
                     name: 'USDT', //卖出的对象
                     select: {
@@ -96,8 +117,9 @@ export default class Pricing extends Component {
                         placeholder: '数量',
                         value: 0
                     },
-                } //卖出
-            }, //币币的数据
+                }
+            },
+            //杠杆的数据
             lever: {
                 tradeType: 0, //交易类型 0:买入; 1:卖出
                 currencyCoupleSelect: {
@@ -163,7 +185,8 @@ export default class Pricing extends Component {
                         value: 0
                     },
                 } //卖出
-            }, //杠杆的数据
+            },
+            //右侧列表栏
             list: {
                 select: {
                     isShow: false,
@@ -184,11 +207,30 @@ export default class Pricing extends Component {
                         }
                     ]
                 } //下拉框
-            }, //右侧列表栏
+            },
+            //侧边菜单栏
             sideMenu: {
                 isShow: false
-            }, //侧边菜单栏
+            }
         }
+    }
+
+    componentDidMount() {
+        let { bb } = this.state;
+        //发起bb-计价币种列表请求
+        api.getV2Currencies().then(res => {
+            console.log(res)
+            res.forEach((item, index) => {
+                bb.currencyCoupleSelect.data.push({
+                    pricingCurId: item.id,
+                    pricingCurName: item.id
+                })
+            });
+            this.setState({});
+        }).catch(err => {
+            utils.toast.show(err.msg);
+            console.log(`err: ${err.msg}`);
+        })
     }
 
     //一级导航press事件
@@ -390,6 +432,7 @@ export default class Pricing extends Component {
                                 <View style={styles.tradeHead}>
                                     <View
                                         style={styles.tradeHeadItem}
+                                        ref='bbCoupleSelect'
                                         onStartShouldSetResponder={() => true}
                                         onResponderRelease={evt => this.handleBbCoupleValRelease(evt)}
                                     >
@@ -435,6 +478,7 @@ export default class Pricing extends Component {
                         {/* 交易币对下拉框开始 */}
                         <CurCoupleSelect
                             data={bb}
+                            selectHeaderRef={this.refs.bbCoupleSelect}
                             navigate={navigate}
                             setData={this.setBb}
                             onWrapRelease={evt => {this.handleBbCoupleSelectWrapRelease(evt)}}
@@ -494,12 +538,13 @@ export default class Pricing extends Component {
                         </View>
                         {/* 限价单结束 */}
                         {/* 交易币对下拉框开始 */}
-                        <CurCoupleSelect
+                        {/* <CurCoupleSelect
                             data={lever}
+                            selectHeaderRef={this.refs.bbCoupleSelect}
                             navigate={navigate}
                             setData={this.setLever}
                             onWrapRelease={evt => {this.handleLeverCoupleSelectWrapRelease(evt)}}
-                        />
+                        /> */}
                         {/* 交易币对下拉框结束 */}
                     </View>
                     {/* 杠杆内容结束 */}

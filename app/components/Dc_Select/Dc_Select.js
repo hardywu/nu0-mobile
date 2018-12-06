@@ -71,8 +71,7 @@ export class DcSelect extends Component {
             position.top = data.pageY + data.height + 4;
             position.left = data.pageX;
             position.width = data.width;
-            console.log(data)
-            this.setState({ position: position }, ()=> {console.log(position)});
+            this.setState({ position: position });
         });
     }
 

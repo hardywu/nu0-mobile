@@ -44,7 +44,7 @@ class Home extends Component {
             //设置用昵称为邮箱
             user.email = res.email;
             this.setState({ user: user });
-        }).catch(msg => {
+        }).catch(err => {
             utils.toast.show(err.msg);
             console.log(err)
         });

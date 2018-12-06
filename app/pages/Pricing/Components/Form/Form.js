@@ -79,7 +79,6 @@ export default class Form extends Component {
         // 如果点击的是买入
         if(index === 0) {
             data.tradeType = 0;
-            console.log(data)
             setData(data);
         } else {
             // 如果点击的是卖出
@@ -281,7 +280,6 @@ export default class Form extends Component {
             return tmp;
         })()
         
-        console.log(priceInput.value)
         return (
             <View style={styles.form}>
                 {/* 买入/卖出按钮开始 */}

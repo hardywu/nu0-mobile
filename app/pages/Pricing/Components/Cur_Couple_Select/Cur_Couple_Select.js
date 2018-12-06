@@ -15,6 +15,7 @@ import {
     Picker,
     Modal
 } from 'react-native';
+import utils from '../../../../public/utils'
 
 import mStyles from '../../../../public/common_style';
 import styles from './Cur_Couple_Select_Style';
@@ -24,6 +25,11 @@ import searchIcon from '../../../../static/imgs/search_2.png'; //搜索按钮
 export default class CurCoupleSelect extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            position: {
+                top: null
+            }
+        }
     }
 
     //处理 搜索按钮 释放事件
@@ -39,12 +45,32 @@ export default class CurCoupleSelect extends Component {
         });
     }
 
+    componentWillReceiveProps(nextProps) {
+        const { selectHeaderRef } = nextProps;
+        let { position } = this.state;
+        // 根据下拉框结果栏元素的位置和宽高，计算下拉框选项的位置
+        utils.layout(selectHeaderRef).then((data) => {
+            position.top = data.pageY + data.height + 10;
+            this.setState({ position: position });
+        });
+    }
+
     render() {
         const {
             data,
             onWrapRelease
         } = this.props;
-
+        let { position } = this.state;
+        //计价币种列DOM
+        let pricingCurDOM = [];
+        data.currencyCoupleSelect.data.forEach((item, index) => {
+            pricingCurDOM.push(
+                <View style={styles.ccsBodyCurrencyItem} key={index}>
+                    <Text style={styles.ccsBodyCurrencyItemText}>{item.pricingCurName}</Text>
+                </View>
+            )
+        });
+        // let 
         return (
             <Modal
                 visible={data.currencyCoupleSelect.isShow}
@@ -58,7 +84,11 @@ export default class CurCoupleSelect extends Component {
                     onStartShouldSetResponder={() => true}
                     onResponderRelease={evt => onWrapRelease(evt)}
                 >
-                    <View style={styles.ccsWrap}>
+                    <View style={
+                        [styles.ccsWrap, {
+                            top: position.top
+                        }]
+                    }>
                         {/* 头部开始 */}
                         <View style={styles.ccsHead}>
                             <View style={[mStyles.mCenterContent, styles.ccsHeadCenter]}>
@@ -94,12 +124,10 @@ export default class CurCoupleSelect extends Component {
                                 <View style={styles.ccsBodyCurrencyItem}>
                                     <Text style={styles.ccsBodyCurrencyItemText}>自选</Text>
                                 </View>
-                                <View style={[styles.ccsBodyCurrencyItem, styles.ccsBodyCurrencyItemActive]}>
+                                {pricingCurDOM}
+                                {/* <View style={[styles.ccsBodyCurrencyItem, styles.ccsBodyCurrencyItemActive]}>
                                     <Text style={[styles.ccsBodyCurrencyItemText, mStyles.mBlueColor]}>USDT</Text>
-                                </View>
-                                <View style={styles.ccsBodyCurrencyItem}>
-                                    <Text style={styles.ccsBodyCurrencyItemText}>OKB</Text>
-                                </View>
+                                </View> */}
                                 <View
                                     style={styles.ccsBodyCurrencyItem}
                                     onStartShouldSetResponder={() => true}
