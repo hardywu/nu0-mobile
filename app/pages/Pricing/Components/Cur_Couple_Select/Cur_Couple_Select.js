@@ -58,19 +58,24 @@ export default class CurCoupleSelect extends Component {
     render() {
         const {
             data,
-            onWrapRelease
+            onWrapRelease,
+            onPricingCurRelease
         } = this.props;
         let { position } = this.state;
         //计价币种列DOM
         let pricingCurDOM = [];
         data.currencyCoupleSelect.data.forEach((item, index) => {
             pricingCurDOM.push(
-                <View style={styles.ccsBodyCurrencyItem} key={index}>
-                    <Text style={styles.ccsBodyCurrencyItemText}>{item.pricingCurName}</Text>
+                <View
+                    style={item.pricingCurId === data.currencyCoupleSelect.value.pricingCurId ? [styles.ccsBodyCurrencyItem, styles.ccsBodyCurrencyItemActive] : styles.ccsBodyCurrencyItem}
+                    key={index}
+                    onStartShouldSetResponder={() => true}
+                    onResponderRelease={evt => onPricingCurRelease(evt)}
+                >
+                    <Text style={item.pricingCurId === data.currencyCoupleSelect.value.pricingCurId ? [styles.ccsBodyCurrencyItemText, mStyles.mBlueColor] : styles.ccsBodyCurrencyItemText}>{item.pricingCurName}</Text>
                 </View>
             )
         });
-        // let 
         return (
             <Modal
                 visible={data.currencyCoupleSelect.isShow}
@@ -84,111 +89,71 @@ export default class CurCoupleSelect extends Component {
                     onStartShouldSetResponder={() => true}
                     onResponderRelease={evt => onWrapRelease(evt)}
                 >
-                    <View style={
-                        [styles.ccsWrap, {
-                            top: position.top
-                        }]
-                    }>
-                        {/* 头部开始 */}
-                        <View style={styles.ccsHead}>
-                            <View style={[mStyles.mCenterContent, styles.ccsHeadCenter]}>
-                                <View style={[styles.ccsHeadItem, styles.ccsHeadCurrency]}>
-                                    <Text style={styles.ccsHeadText}>计价币种</Text>
+                </View>
+                <View
+                    style={[styles.ccsWrap, {
+                        top: position.top
+                    }]}
+                >
+                    {/* 头部开始 */}
+                    <View style={styles.ccsHead}>
+                        <View style={[mStyles.mCenterContent, styles.ccsHeadCenter]}>
+                            <View style={[styles.ccsHeadItem, styles.ccsHeadCurrency]}>
+                                <Text style={styles.ccsHeadText}>计价币种</Text>
+                            </View>
+                            <View style={[styles.ccsHeadItem, styles.ccsHeadCouple]}>
+                                <Text style={styles.ccsHeadText}>交易币对</Text>
+                            </View>
+                            <View style={[styles.ccsHeadItem, styles.ccsHeadPrice]}>
+                                <Text style={styles.ccsHeadText}>最新价</Text>
+                                <View style={styles.ccsHeadSortWrap}>
+                                    <Text style={styles.ccsHeadSortText}>▲</Text>
+                                    <Text style={styles.ccsHeadSortText}>▼</Text>
                                 </View>
-                                <View style={[styles.ccsHeadItem, styles.ccsHeadCouple]}>
-                                    <Text style={styles.ccsHeadText}>交易币对</Text>
-                                </View>
-                                <View style={[styles.ccsHeadItem, styles.ccsHeadPrice]}>
-                                    <Text style={styles.ccsHeadText}>最新价</Text>
-                                    <View style={styles.ccsHeadSortWrap}>
-                                        <Text style={styles.ccsHeadSortText}>▲</Text>
-                                        <Text style={styles.ccsHeadSortText}>▼</Text>
-                                    </View>
-                                </View>
-                                <View style={[styles.ccsHeadItem, styles.ccsHeadRange]}>
-                                    <Text style={styles.ccsHeadText}>涨跌幅</Text>
-                                    <View style={styles.ccsHeadSortWrap}>
-                                        <Text style={styles.ccsHeadSortText}>▲</Text>
-                                        <Text style={styles.ccsHeadSortText}>▼</Text>
-                                    </View>
+                            </View>
+                            <View style={[styles.ccsHeadItem, styles.ccsHeadRange]}>
+                                <Text style={styles.ccsHeadText}>涨跌幅</Text>
+                                <View style={styles.ccsHeadSortWrap}>
+                                    <Text style={styles.ccsHeadSortText}>▲</Text>
+                                    <Text style={styles.ccsHeadSortText}>▼</Text>
                                 </View>
                             </View>
                         </View>
-                        {/* 头部结束 */}
-                        {/* 主体内容开始 */}
-                        <View style={styles.ccsBody}>
-                            <ScrollView
-                                style={styles.ccsBodyCurrency}
-                                showsVerticalScrollIndicator={false}
-                            >
-                                <View style={styles.ccsBodyCurrencyItem}>
-                                    <Text style={styles.ccsBodyCurrencyItemText}>自选</Text>
-                                </View>
-                                {pricingCurDOM}
-                                {/* <View style={[styles.ccsBodyCurrencyItem, styles.ccsBodyCurrencyItemActive]}>
-                                    <Text style={[styles.ccsBodyCurrencyItemText, mStyles.mBlueColor]}>USDT</Text>
-                                </View> */}
-                                <View
-                                    style={styles.ccsBodyCurrencyItem}
-                                    onStartShouldSetResponder={() => true}
-                                    onResponderRelease={evt => this.handleSearchRelease(evt)}
-                                >
-                                    <Image style={styles.ccsBodyCurrencyItemIcon} source={searchIcon}/>
-                                </View>
-                            </ScrollView>
-                            <ScrollView
-                                style={styles.ccsBodyData}
-                                showsVerticalScrollIndicator={false}
-                            >
-                                <View style={styles.ccsBodyDataItem}>
-                                    <Text style={[styles.ccsBodyDataItemText, styles.ccsBodyDataCoupleText, mStyles.mBlueColor]}>BTC/USDT</Text>
-                                    <Text style={[styles.ccsBodyDataItemText, styles.ccsBodyDataPriceText]}>66668.3212</Text>
-                                    <Text style={[styles.ccsBodyDataItemText, styles.ccsBodyDataRangeText, mStyles.mGreenColor]}>+0.12%</Text>
-                                </View>
-                                <View style={styles.ccsBodyDataItem}>
-                                    <Text style={[styles.ccsBodyDataItemText, styles.ccsBodyDataCoupleText]}>BTC/USDT</Text>
-                                    <Text style={[styles.ccsBodyDataItemText, styles.ccsBodyDataPriceText]}>66668.3212</Text>
-                                    <Text style={[styles.ccsBodyDataItemText, styles.ccsBodyDataRangeText, mStyles.mRedColor]}>-0.12%</Text>
-                                </View>
-                                <View style={styles.ccsBodyDataItem}>
-                                    <Text style={[styles.ccsBodyDataItemText, styles.ccsBodyDataCoupleText]}>BTC/USDT</Text>
-                                    <Text style={[styles.ccsBodyDataItemText, styles.ccsBodyDataPriceText]}>66668.3212</Text>
-                                    <Text style={[styles.ccsBodyDataItemText, styles.ccsBodyDataRangeText, mStyles.mGreenColor]}>+0.12%</Text>
-                                </View>
-                                <View style={styles.ccsBodyDataItem}>
-                                    <Text style={[styles.ccsBodyDataItemText, styles.ccsBodyDataCoupleText]}>BTC/USDT</Text>
-                                    <Text style={[styles.ccsBodyDataItemText, styles.ccsBodyDataPriceText]}>66668.3212</Text>
-                                    <Text style={[styles.ccsBodyDataItemText, styles.ccsBodyDataRangeText, mStyles.mRedColor]}>-0.12%</Text>
-                                </View>
-                                <View style={styles.ccsBodyDataItem}>
-                                    <Text style={[styles.ccsBodyDataItemText, styles.ccsBodyDataCoupleText]}>BTC/USDT</Text>
-                                    <Text style={[styles.ccsBodyDataItemText, styles.ccsBodyDataPriceText]}>66668.3212</Text>
-                                    <Text style={[styles.ccsBodyDataItemText, styles.ccsBodyDataRangeText, mStyles.mGreenColor]}>+0.12%</Text>
-                                </View>
-                                <View style={styles.ccsBodyDataItem}>
-                                    <Text style={[styles.ccsBodyDataItemText, styles.ccsBodyDataCoupleText]}>BTC/USDT</Text>
-                                    <Text style={[styles.ccsBodyDataItemText, styles.ccsBodyDataPriceText]}>66668.3212</Text>
-                                    <Text style={[styles.ccsBodyDataItemText, styles.ccsBodyDataRangeText, mStyles.mRedColor]}>-0.12%</Text>
-                                </View>
-                                <View style={styles.ccsBodyDataItem}>
-                                    <Text style={[styles.ccsBodyDataItemText, styles.ccsBodyDataCoupleText]}>BTC/USDT</Text>
-                                    <Text style={[styles.ccsBodyDataItemText, styles.ccsBodyDataPriceText]}>66668.3212</Text>
-                                    <Text style={[styles.ccsBodyDataItemText, styles.ccsBodyDataRangeText]}>-0.12%</Text>
-                                </View>
-                                <View style={styles.ccsBodyDataItem}>
-                                    <Text style={[styles.ccsBodyDataItemText, styles.ccsBodyDataCoupleText]}>BTC/USDT</Text>
-                                    <Text style={[styles.ccsBodyDataItemText, styles.ccsBodyDataPriceText]}>66668.3212</Text>
-                                    <Text style={[styles.ccsBodyDataItemText, styles.ccsBodyDataRangeText, mStyles.mRedColor]}>-0.12%</Text>
-                                </View>
-                                <View style={styles.ccsBodyDataItem}>
-                                    <Text style={[styles.ccsBodyDataItemText, styles.ccsBodyDataCoupleText]}>BTC/USDT</Text>
-                                    <Text style={[styles.ccsBodyDataItemText, styles.ccsBodyDataPriceText]}>66668.3212</Text>
-                                    <Text style={[styles.ccsBodyDataItemText, styles.ccsBodyDataRangeText]}>-0.12%</Text>
-                                </View>
-                            </ScrollView>
-                        </View>
-                        {/* 主体内容结束 */}
                     </View>
+                    {/* 头部结束 */}
+                    {/* 主体内容开始 */}
+                    <View style={styles.ccsBody}>
+                        <ScrollView
+                            style={styles.ccsBodyCurrency}
+                            showsVerticalScrollIndicator={false}
+                        >
+                            <View style={styles.ccsBodyCurrencyItem}>
+                                <Text style={styles.ccsBodyCurrencyItemText}>自选</Text>
+                            </View>
+                            {pricingCurDOM}
+                            {/* <View style={[styles.ccsBodyCurrencyItem, styles.ccsBodyCurrencyItemActive]}>
+                                <Text style={[styles.ccsBodyCurrencyItemText, mStyles.mBlueColor]}>USDT</Text>
+                            </View> */}
+                            <View
+                                style={styles.ccsBodyCurrencyItem}
+                                onStartShouldSetResponder={() => true}
+                                onResponderRelease={evt => this.handleSearchRelease(evt)}
+                            >
+                                <Image style={styles.ccsBodyCurrencyItemIcon} source={searchIcon}/>
+                            </View>
+                        </ScrollView>
+                        <ScrollView
+                            style={styles.ccsBodyData}
+                            showsVerticalScrollIndicator={false}
+                        >
+                            <View style={styles.ccsBodyDataItem}>
+                                <Text style={[styles.ccsBodyDataItemText, styles.ccsBodyDataCoupleText]}>BTC/USDT</Text>
+                                <Text style={[styles.ccsBodyDataItemText, styles.ccsBodyDataPriceText]}>66668.3212</Text>
+                                <Text style={[styles.ccsBodyDataItemText, styles.ccsBodyDataRangeText]}>-0.12%</Text>
+                            </View>
+                        </ScrollView>
+                    </View>
+                    {/* 主体内容结束 */}
                 </View>
             </Modal>
         );

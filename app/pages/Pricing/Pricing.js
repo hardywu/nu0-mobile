@@ -44,6 +44,10 @@ export default class Pricing extends Component {
                 //交易币对下拉框数据
                 currencyCoupleSelect: {
                     isShow: false,
+                    value: {
+                        pricingCurId: 'eth',
+                        couplesId: ''
+                    },
                     data: [
                         // {
                         //     pricingCurId: 'eth',
@@ -63,18 +67,15 @@ export default class Pricing extends Component {
                         isShow: false,
                         value: {
                             code: 0,
-                            name: 'bb买入选项1'
+                            name: '限价单'
                         },
                         options: [
                             {
                                 code: 0,
-                                name: 'bb买入选项1'
+                                name: '限价单'
                             }, {
                                 code: 1,
-                                name: 'bb买入选项2'
-                            }, {
-                                code: 2,
-                                name: 'bb买入选项3'
+                                name: '市价单'
                             }
                         ]
                     }, //下拉框
@@ -334,6 +335,11 @@ export default class Pricing extends Component {
         this.setState({ bb: bb });
     }
 
+    //处理 bb交易币对计价币种 释放事件
+    handleBbCoupleSelectPricingCurRelease = evt => {
+        // console.log('被电击')
+    }
+
     //处理 杠杆交易币对结果栏 释放事件
     handleLeverCoupleValRelease = evt => {
         let { lever } = this.state;
@@ -481,7 +487,8 @@ export default class Pricing extends Component {
                             selectHeaderRef={this.refs.bbCoupleSelect}
                             navigate={navigate}
                             setData={this.setBb}
-                            onWrapRelease={evt => {this.handleBbCoupleSelectWrapRelease(evt)}}
+                            onWrapRelease={evt => this.handleBbCoupleSelectWrapRelease(evt)}
+                            onPricingCurRelease={evt => this.handleBbCoupleSelectPricingCurRelease(evt)}
                         />
                         {/* 交易币对下拉框结束 */}
                     </View>
