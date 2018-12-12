@@ -99,4 +99,30 @@ export default api = {
             });
         });
     },
+
+    // 比 Currency 币（例如ETH) 在最近的24小时的交易信息，包括交易量，最高最低价等。
+    getV2CurrencyTrades: params => {
+        return utils.storage.get('token').then(token => {
+            return new Promise((resolve, reject) => {
+                utils.disRequest(`${utils.domain2}/v2/currency/trades?${utils.jsonToUrlencoded(params || {})}`, {
+                    method: 'GET',
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                }).then(res => {
+                    if (utils.checkRequestSuccess(res)) {
+                        //成功回调
+                        res.json().then(data => resolve(data));
+                    } else {
+                        //失败回调
+                        reject(utils.checkErrorType(res));
+                    }
+                }).catch(err => {
+                    console.log(err)
+                    //失败回调
+                    reject(utils.errCodeMessage[5000]);
+                });
+            });
+        });
+    },
 }

@@ -220,7 +220,6 @@ export default class Pricing extends Component {
         let { bb } = this.state;
         //发起bb-计价币种列表请求
         api.getV2Currencies().then(res => {
-            console.log(res)
             res.forEach((item, index) => {
                 bb.currencyCoupleSelect.data.push({
                     pricingCurId: item.id,
@@ -336,8 +335,14 @@ export default class Pricing extends Component {
     }
 
     //处理 bb交易币对计价币种 释放事件
-    handleBbCoupleSelectPricingCurRelease = evt => {
-        // console.log('被电击')
+    handleBbCoupleSelectPricingCurRelease = (evt, pricingCur) => {
+        api.getV2CurrencyTrades({
+            currency: pricingCur.pricingCurId
+        }).then(res => {
+            console.log(res)
+        }).catch(err => {
+            console.log(err.msg)
+        })
     }
 
     //处理 杠杆交易币对结果栏 释放事件
@@ -487,8 +492,8 @@ export default class Pricing extends Component {
                             selectHeaderRef={this.refs.bbCoupleSelect}
                             navigate={navigate}
                             setData={this.setBb}
-                            onWrapRelease={evt => this.handleBbCoupleSelectWrapRelease(evt)}
-                            onPricingCurRelease={evt => this.handleBbCoupleSelectPricingCurRelease(evt)}
+                            onWrapRelease={this.handleBbCoupleSelectWrapRelease}
+                            onPricingCurRelease={this.handleBbCoupleSelectPricingCurRelease}
                         />
                         {/* 交易币对下拉框结束 */}
                     </View>

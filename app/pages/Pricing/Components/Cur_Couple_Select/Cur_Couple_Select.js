@@ -70,7 +70,7 @@ export default class CurCoupleSelect extends Component {
                     style={item.pricingCurId === data.currencyCoupleSelect.value.pricingCurId ? [styles.ccsBodyCurrencyItem, styles.ccsBodyCurrencyItemActive] : styles.ccsBodyCurrencyItem}
                     key={index}
                     onStartShouldSetResponder={() => true}
-                    onResponderRelease={evt => onPricingCurRelease(evt)}
+                    onResponderRelease={evt => onPricingCurRelease(evt, item)}
                 >
                     <Text style={item.pricingCurId === data.currencyCoupleSelect.value.pricingCurId ? [styles.ccsBodyCurrencyItemText, mStyles.mBlueColor] : styles.ccsBodyCurrencyItemText}>{item.pricingCurName}</Text>
                 </View>
