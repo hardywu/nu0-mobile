@@ -9,9 +9,10 @@ import Constant from '../public/constant';
 import Toast from 'react-native-root-toast';
 
 let utils = {
-    domain: 'http://auth.wb.local/api',
-    domain2: 'http://api.wb.local/api',
-    // domain: '132.232.221.240/api',
+    // domain: 'http://auth.wb.local/api',
+    // domain2: 'http://api.wb.local/api',
+    domain: 'http://auth.test.nu0.one/api',
+    domain2: 'http://api.test.nu0.one/api',
 
     //请求错误信息
     requestCodeMessage: {

@@ -59,11 +59,14 @@ export default class CurCoupleSelect extends Component {
         const {
             data,
             onWrapRelease,
-            onPricingCurRelease
+            onPricingCurRelease,
+            onTradeCoupleRelease
         } = this.props;
         let { position } = this.state;
         //计价币种列DOM
         let pricingCurDOM = [];
+        //交易币对DOM
+        let tradeCoupleDOM = [];
         data.currencyCoupleSelect.data.forEach((item, index) => {
             pricingCurDOM.push(
                 <View
@@ -74,7 +77,23 @@ export default class CurCoupleSelect extends Component {
                 >
                     <Text style={item.pricingCurId === data.currencyCoupleSelect.value.pricingCurId ? [styles.ccsBodyCurrencyItemText, mStyles.mBlueColor] : styles.ccsBodyCurrencyItemText}>{item.pricingCurName}</Text>
                 </View>
-            )
+            );
+            if(item.pricingCurId === data.currencyCoupleSelect.value.pricingCurId) {
+                item.couples.forEach((item2, index2) => {
+                    tradeCoupleDOM.push(
+                        <View
+                            style={styles.ccsBodyDataItem}
+                            key={index}
+                            onStartShouldSetResponder={() => true}
+                            onResponderRelease={evt => onTradeCoupleRelease(evt, item2)}
+                        >
+                            <Text style={item2.id === data.currencyCoupleSelect.value.couplesId ?   [styles.ccsBodyDataItemText, styles.ccsBodyDataCoupleText, mStyles.mBlueColor] :  [styles.ccsBodyDataItemText, styles.ccsBodyDataCoupleText]}>{item2.name}/{data.currencyCoupleSelect.value.pricingCurId}</Text>
+                            <Text style={[styles.ccsBodyDataItemText, styles.ccsBodyDataPriceText]}>{item2.price}</Text>
+                            <Text style={[styles.ccsBodyDataItemText, styles.ccsBodyDataRangeText]}>{item2.change}</Text>
+                        </View>
+                    );
+                });
+            }
         });
         return (
             <Modal
@@ -146,11 +165,12 @@ export default class CurCoupleSelect extends Component {
                             style={styles.ccsBodyData}
                             showsVerticalScrollIndicator={false}
                         >
-                            <View style={styles.ccsBodyDataItem}>
+                            {tradeCoupleDOM}
+                            {/* <View style={styles.ccsBodyDataItem}>
                                 <Text style={[styles.ccsBodyDataItemText, styles.ccsBodyDataCoupleText]}>BTC/USDT</Text>
                                 <Text style={[styles.ccsBodyDataItemText, styles.ccsBodyDataPriceText]}>66668.3212</Text>
                                 <Text style={[styles.ccsBodyDataItemText, styles.ccsBodyDataRangeText]}>-0.12%</Text>
-                            </View>
+                            </View> */}
                         </ScrollView>
                     </View>
                     {/* 主体内容结束 */}

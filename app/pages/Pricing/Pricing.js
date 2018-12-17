@@ -45,7 +45,7 @@ export default class Pricing extends Component {
                 currencyCoupleSelect: {
                     isShow: false,
                     value: {
-                        pricingCurId: 'eth',
+                        pricingCurId: '',
                         couplesId: ''
                     },
                     data: [
@@ -54,7 +54,10 @@ export default class Pricing extends Component {
                         //     pricingCurName: 'dsa',
                         //     couples: [
                         //         {
-    
+                        //             id: '',
+                        //             name: '',
+                        //             price: '',
+                        //             change: ''
                         //         }
                         //     ]
                         // }
@@ -223,10 +226,11 @@ export default class Pricing extends Component {
             res.forEach((item, index) => {
                 bb.currencyCoupleSelect.data.push({
                     pricingCurId: item.id,
-                    pricingCurName: item.id
+                    pricingCurName: item.id,
+                    couples: []
                 })
             });
-            this.setState({});
+            this.setState({ bb: bb });
         }).catch(err => {
             utils.toast.show(err.msg);
             console.log(`err: ${err.msg}`);
@@ -336,13 +340,42 @@ export default class Pricing extends Component {
 
     //处理 bb交易币对计价币种 释放事件
     handleBbCoupleSelectPricingCurRelease = (evt, pricingCur) => {
+        let { bb } = this.state;
+        let { currencyCoupleSelect } = bb;
+        currencyCoupleSelect.value.pricingCurId = pricingCur.pricingCurId;
         api.getV2CurrencyTrades({
             currency: pricingCur.pricingCurId
         }).then(res => {
-            console.log(res)
+            let tmpArr = [];
+            res.forEach((item, index) => {
+                for(let i in item) {
+                    tmpArr.push({
+                        id: i,
+                        name: i,
+                        price: item[i].price,
+                        change: item[i].change
+                    });
+                }
+            });
+            for(let i = 0; i < currencyCoupleSelect.data.length; i++) {
+                if(currencyCoupleSelect.data[i].pricingCurId === currencyCoupleSelect.value.pricingCurId) {
+                    currencyCoupleSelect.data[i].couples = tmpArr;
+                    break;
+                }
+            }
+            this.setState({ bb: bb });
         }).catch(err => {
             console.log(err.msg)
         })
+    }
+
+    //处理 bb交易币对交易币对 释放事件
+    handleBbCoupleSelectTradeCoupleRelease = (evt, tradeCouple) => {
+        let { bb } = this.state;
+        let { currencyCoupleSelect } = bb;
+        currencyCoupleSelect.value.couplesId = tradeCouple.id;
+        currencyCoupleSelect.isShow = false;
+        this.setState({ bb: bb });
     }
 
     //处理 杠杆交易币对结果栏 释放事件
@@ -494,6 +527,7 @@ export default class Pricing extends Component {
                             setData={this.setBb}
                             onWrapRelease={this.handleBbCoupleSelectWrapRelease}
                             onPricingCurRelease={this.handleBbCoupleSelectPricingCurRelease}
+                            onTradeCoupleRelease={this.handleBbCoupleSelectTradeCoupleRelease}
                         />
                         {/* 交易币对下拉框结束 */}
                     </View>
