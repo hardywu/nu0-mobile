@@ -4,7 +4,7 @@ export default api = {
     //创建一个新的sessions
     postV1Sessions: params => {
         return new Promise((resolve, reject) => {
-            utils.disRequest(`${utils.domain}/v1/sessions`, {
+            utils.disRequest(`${utils.domain}/v2/identity/sessions`, {
                 method: 'POST',
                 body: utils.jsonToUrlencoded(params)
             }).then(res => {
@@ -26,7 +26,7 @@ export default api = {
     getV1AccountsMe: params => {
         return utils.storage.get('token').then(token => {
             return new Promise((resolve, reject) => {
-                utils.disRequest(`${utils.domain}/v1/accounts/me`, {
+                utils.disRequest(`${utils.domain}/v2/resource/users/me`, {
                     method: 'GET',
                     headers: {
                         Authorization: `Bearer ${token}`
@@ -52,7 +52,7 @@ export default api = {
     getV1ProfilesMe: params => {
         return utils.storage.get('token').then(token => {
             return new Promise((resolve, reject) => {
-                utils.disRequest(`${utils.domain}/v1/profiles/me`, {
+                utils.disRequest(`${utils.domain}/v2/resource/profiles/me`, {
                     method: 'GET',
                     headers: {
                         Authorization: `Bearer ${token}`
@@ -78,7 +78,7 @@ export default api = {
     getV2Currencies: params => {
         return utils.storage.get('token').then(token => {
             return new Promise((resolve, reject) => {
-                utils.disRequest(`${utils.domain2}/v2/currencies`, {
+                utils.disRequest(`${utils.domain2}/v2/public/markets`, {
                     method: 'GET',
                     headers: {
                         Authorization: `Bearer ${token}`
@@ -104,7 +104,7 @@ export default api = {
     getV2CurrencyTrades: params => {
         return utils.storage.get('token').then(token => {
             return new Promise((resolve, reject) => {
-                utils.disRequest(`${utils.domain2}/v2/currency/trades?${utils.jsonToUrlencoded(params || {})}`, {
+                utils.disRequest(`${utils.domain2}/v2/public/markets/tickers?${utils.jsonToUrlencoded(params || {})}`, {
                     method: 'GET',
                     headers: {
                         Authorization: `Bearer ${token}`

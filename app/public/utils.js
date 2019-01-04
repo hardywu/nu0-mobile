@@ -11,8 +11,8 @@ import Toast from 'react-native-root-toast';
 let utils = {
     // domain: 'http://auth.wb.local/api',
     // domain2: 'http://api.wb.local/api',
-    domain: 'http://auth.test.nu0.one/api',
-    domain2: 'http://api.test.nu0.one/api',
+    domain: 'https://api.test.nu0.one/barong',
+    domain2: 'https://api.test.nu0.one/peatio',
 
     //请求错误信息
     requestCodeMessage: {
