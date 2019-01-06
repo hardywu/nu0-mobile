@@ -9,15 +9,19 @@ import {
     ScrollView,
     Image
 } from 'react-native';
+//组件
 import SelfSelectionist from './Components/Self_Selection_List/Self_Selection_List';
 import ContractList from './Components/Contract_List/Contract_List';
 import CurrencyList from './Components/Currency_List/Currency_List';
 import GlobalCurrencyList from './Components/Global_Currency_List/Global_Currency_List';
 import EmptyTopBar from '../../components/Empty_Top_Bar/Empty_Top_Bar';
 import EmptyBottomBar from '../../components/Empty_Bottom_Bar/Empty_Bottom_Bar';
-
+//样式
 import mStyles from '../../public/common_style';
 import styles from './Quotation_Style';
+//其他
+import utils from '../../public/utils';
+import api from '../../public/api';
 
 export default class Quotation extends Component {
     constructor(props) {
@@ -33,27 +37,13 @@ export default class Quotation extends Component {
                     items: [
                         {
                             type: 0, //type 0:自选 1:合约 2:币种 3: 全球币种
+                            id: '', //id
                             name: '自选', //名字
                             isActive: true //是否为激活状态
                         }, {
                             type: 1,
+                            id: '',
                             name: '合约',
-                            isActive: false
-                        }, {
-                            type: 2,
-                            name: '选项33',
-                            isActive: false
-                        }, {
-                            type: 2,
-                            name: '选项4',
-                            isActive: false
-                        }, {
-                            type: 2,
-                            name: '选项5',
-                            isActive: false
-                        }, {
-                            type: 2,
-                            name: '选项6',
                             isActive: false
                         }
                     ]
@@ -90,6 +80,27 @@ export default class Quotation extends Component {
                 }
             ],
         }
+    }
+
+    componentDidMount() {
+        let { subNav } = this.state;
+        //发起币种请求
+        api.getV2Currencies().then(res => {
+            //遍历res的数据
+            res.forEach((item, index) => {
+                //设置二级导航栏
+                subNav[0].items.push({
+                    type: 2,
+                    id: item.id,
+                    name: item.id,
+                    isActive: false
+                });
+            });
+            this.setState({ subNav: subNav });
+        }).catch(err => {
+            utils.toast.show(err.msg);
+            console.log(`err: ${err.msg}`);
+        });
     }
 
     //一级导航press事件

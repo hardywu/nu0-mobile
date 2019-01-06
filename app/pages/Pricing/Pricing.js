@@ -1,7 +1,6 @@
 /**
  *币币页
  */
-//组件
 import React, { Component } from 'react';
 import {
     Text,
@@ -14,6 +13,7 @@ import {
     FlatList,
     LayoutAnimation
 } from 'react-native';
+//组件
 import SideMenu from './Components/Side_Menu/Side_Menu'; //侧边菜单栏组件
 import Form from './Components/Form/Form'; //左边表单组件
 import List from './Components/List/List'; //右边列表组件
@@ -41,12 +41,21 @@ export default class Pricing extends Component {
             bb: {
                 //交易类型 0:买入; 1:卖出
                 tradeType: 0,
+                topPrice: '-',
+                topChange: '-',
+                //
+                currencyCoupleDisplay: {
+                    pricingCurId: '-',
+                    couplesId: '-',
+                    price: '-',
+                    change: '-'
+                },
                 //交易币对下拉框数据
                 currencyCoupleSelect: {
                     isShow: false,
                     value: {
-                        pricingCurId: '',
-                        couplesId: ''
+                        pricingCurId: '-',
+                        couplesId: '-'
                     },
                     data: [
                         // {
@@ -65,7 +74,51 @@ export default class Pricing extends Component {
                 },
                 //买入
                 buy: {
-                    name: 'BTC', //
+                    //
+                    name: 'BTC',
+                    //估值
+                    valuation: '',
+                    //下拉框
+                    select: {
+                        isShow: false,
+                        value: {
+                            code: 0,
+                            name: '限价单'
+                        },
+                        options: [
+                            {
+                                code: 0,
+                                name: '限价单'
+                            }, {
+                                code: 1,
+                                name: '市价单'
+                            }
+                        ]
+                    },
+                    //价格输入框数据
+                    priceInput: {
+                        placeholder: '价格',
+                        value: 0
+                    },
+                    //数量输入框数据
+                    numberInput: {
+                        placeholder: '数量',
+                        value: 0
+                    },
+                    //可用
+                    couldUsable: {
+                        value: '-'
+                    },
+                    //可买
+                    couldBuy: {
+                        value: '-'
+                    }
+                },
+                //卖出
+                sell: {
+                    name: 'USDT',
+                    //估值
+                    valuation: '',
                     select: {
                         isShow: false,
                         value: {
@@ -90,45 +143,47 @@ export default class Pricing extends Component {
                         placeholder: '数量',
                         value: 0
                     },
-                },
-                //卖出
-                sell: {
-                    name: 'USDT', //卖出的对象
-                    select: {
-                        isShow: false,
-                        value: {
-                            code: 0,
-                            name: 'bb卖出选项1'
-                        },
-                        options: [
-                            {
-                                code: 0,
-                                name: 'bb卖出选项1'
-                            }, {
-                                code: 1,
-                                name: 'bb卖出选项2'
-                            }, {
-                                code: 2,
-                                name: 'bb卖出选项3'
-                            }
-                        ]
-                    }, //下拉框
-                    priceInput: {
-                        placeholder: '价格',
-                        value: 0
+                    //可用
+                    couldUsable: {
+                        value: '-'
                     },
-                    numberInput: {
-                        placeholder: '数量',
-                        value: 0
-                    },
+                    //可卖
+                    couldSell: {
+                        value: '-'
+                    }
                 }
             },
             //杠杆的数据
             lever: {
                 tradeType: 0, //交易类型 0:买入; 1:卖出
+                topPrice: '-',
+                topChange: '-',
+                currencyCoupleDisplay: {
+                    pricingCurId: '-',
+                    couplesId: '-'
+                },
+                //交易币对下拉框数据
                 currencyCoupleSelect: {
-                    isShow: false
-                }, //交易币对下拉框数据
+                    isShow: false,
+                    value: {
+                        pricingCurId: '',
+                        couplesId: ''
+                    },
+                    data: [
+                        // {
+                        //     pricingCurId: 'eth',
+                        //     pricingCurName: 'dsa',
+                        //     couples: [
+                        //         {
+                        //             id: '',
+                        //             name: '',
+                        //             price: '',
+                        //             change: ''
+                        //         }
+                        //     ]
+                        // }
+                    ]
+                },
                 buy: {
                     name: '杠杆BTC', //买入的对象
                     select: {
@@ -158,6 +213,14 @@ export default class Pricing extends Component {
                         placeholder: '数量',
                         value: 0
                     },
+                    //可用
+                    couldUsable: {
+                        value: '-'
+                    },
+                    //可买
+                    couldBuy: {
+                        value: '-'
+                    }
                 }, //买入
                 sell: {
                     name: '杠杆USDT', //卖出的对象
@@ -188,6 +251,14 @@ export default class Pricing extends Component {
                         placeholder: '数量',
                         value: 0
                     },
+                    //可用
+                    couldUsable: {
+                        value: '-'
+                    },
+                    //可卖
+                    couldSell: {
+                        value: '-'
+                    }
                 } //卖出
             },
             //右侧列表栏
@@ -365,16 +436,66 @@ export default class Pricing extends Component {
             }
             this.setState({ bb: bb });
         }).catch(err => {
-            console.log(err.msg)
-        })
+            console.log(err.msg);
+        });
     }
 
     //处理 bb交易币对交易币对 释放事件
     handleBbCoupleSelectTradeCoupleRelease = (evt, tradeCouple) => {
+        const that = this;
         let { bb } = this.state;
-        let { currencyCoupleSelect } = bb;
+        let {
+            currencyCoupleSelect,
+            currencyCoupleDisplay
+        } = bb;
         currencyCoupleSelect.value.couplesId = tradeCouple.id;
+        currencyCoupleDisplay.pricingCurId = currencyCoupleSelect.value.pricingCurId;
+        currencyCoupleDisplay.couplesId = tradeCouple.id;
         currencyCoupleSelect.isShow = false;
+        //设置最顶部的price和change
+        for(let i = 0; i < currencyCoupleSelect.data.length; i++) {
+            let currencyCoupleSelectData = currencyCoupleSelect.data;
+            if(currencyCoupleSelectData[i].pricingCurId === currencyCoupleDisplay.pricingCurId) {
+                let tmpData = currencyCoupleSelectData[i];
+                let couples = tmpData.couples;
+                for(let j = 0; j < couples.length; j++) {
+                    if(couples[j].id === currencyCoupleDisplay.couplesId) {
+                        bb.topPrice = couples[j].price;
+                        bb.topChange = couples[j].change;
+                    }
+                }
+            }
+        }
+        //获取估值
+        let getV2TickersMarketParams = currencyCoupleSelect.value.pricingCurId + currencyCoupleSelect.value.couplesId;
+        api.getV2TickersMarket(getV2TickersMarketParams).then(res => {
+            //设置估值
+            bb.buy.valuation = res.ticker.last;
+            bb.sell.valuation = res.ticker.last;
+            that.setState({ bb: bb });
+        }).catch(err => {
+            console.log(err.msg);
+        })
+        //获取account
+        api.getV2AccountsCurrency(currencyCoupleSelect.value.pricingCurId).then(res => {
+            //设置bb买入可用
+            bb.buy.couldUsable.value = Number(res.balance).toFixed(2);
+            //设置bb买入可买
+            bb.buy.couldBuy.value = (Number(res.balance) / 2).toFixed(6);
+            that.setState({ bb: bb });
+        }).catch(err => {
+            console.log(err.msg);
+        });
+        //获取account
+        api.getV2AccountsCurrency(currencyCoupleSelect.value.couplesId).then(res => {
+            //设置bb卖出可用
+            bb.sell.couldUsable.value = Number(res.balance).toFixed(6);
+            //设置bb卖出可卖
+            bb.sell.couldSell.value = (Number(res.balance) / 2).toFixed(2);
+            that.setState({ bb: bb });
+        }).catch(err => {
+            console.log(err.msg);
+        });
         this.setState({ bb: bb });
     }
 
@@ -480,16 +601,16 @@ export default class Pricing extends Component {
                                         onStartShouldSetResponder={() => true}
                                         onResponderRelease={evt => this.handleBbCoupleValRelease(evt)}
                                     >
-                                        <Text style={styles.tradeHeadTitle}>BTC/USDT</Text>
+                                        <Text style={styles.tradeHeadTitle}>{bb.currencyCoupleDisplay.couplesId}/{bb.currencyCoupleDisplay.pricingCurId}</Text>
                                         <Image style={styles.tradeHeadTitleArrow} source={arrowIcon}></Image>
                                     </View>
                                     <View style={[styles.tradeHeadItem, {justifyContent: 'flex-end'}]}>
                                         <View style={styles.tradeHeadNumWrap}>
-                                            <Text style={[styles.tradeHeadNumBig, mStyles.mGreenColor]}>54357385.234</Text>
-                                            <Text style={styles.tradeHeadNumSmall}>$7385.234</Text>
+                                            <Text style={[styles.tradeHeadNumBig, mStyles.mGreenColor]}>{bb.topPrice}</Text>
+                                            {/* <Text style={styles.tradeHeadNumSmall}>$7385.234</Text> */}
                                         </View>
                                         <View style={[styles.tradeHeadQuoWrap,, mStyles.mGreenBg]}>
-                                            <Text style={styles.tradeHeadQuoText}>+0.53%</Text>
+                                            <Text style={styles.tradeHeadQuoText}>{bb.topChange}</Text>
                                         </View>
                                     </View>
                                 </View>

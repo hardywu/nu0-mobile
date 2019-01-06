@@ -68,6 +68,7 @@ class Router extends Component {
 
     componentWillMount() {
         utils.storage.get('token').then(data => {
+            console.log(`token: ${data}`)
             if(data) {
                 this.setState({ token: data });       
             } else {

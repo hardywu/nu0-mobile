@@ -125,4 +125,83 @@ export default api = {
             });
         });
     },
+
+    //Get ticker of specific market.
+    getV2TickersMarket: params => {
+        return utils.storage.get('token').then(token => {
+            return new Promise((resolve, reject) => {
+                utils.disRequest(`${utils.domain2}/v2/tickers/${params || ''}`, {
+                    method: 'GET',
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                }).then(res => {
+                    if (utils.checkRequestSuccess(res)) {
+                        //成功回调
+                        res.json().then(data => resolve(data));
+                    } else {
+                        //失败回调
+                        reject(utils.checkErrorType(res));
+                    }
+                }).catch(err => {
+                    console.log(err)
+                    //失败回调
+                    reject(utils.errCodeMessage[5000]);
+                });
+            });
+        });
+    },
+
+    //Get user account by currency
+    getV2AccountsCurrency: params => {
+        return utils.storage.get('token').then(token => {
+            return new Promise((resolve, reject) => {
+                utils.disRequest(`${utils.domain2}/v2/accounts/${params || ''}`, {
+                    method: 'GET',
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                }).then(res => {
+                    if (utils.checkRequestSuccess(res)) {
+                        //成功回调
+                        res.json().then(data => resolve(data));
+                    } else {
+                        //失败回调
+                        reject(utils.checkErrorType(res));
+                    }
+                }).catch(err => {
+                    console.log(err)
+                    //失败回调
+                    reject(utils.errCodeMessage[5000]);
+                });
+            });
+        });
+    },
+
+    //Create a Sell/Buy order.
+    postV2Orders: params => {
+        return utils.storage.get('token').then(token => {
+            return new Promise((resolve, reject) => {
+                utils.disRequest(`${utils.domain2}/v2/orders`, {
+                    method: 'POST',
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    },
+                    body: utils.jsonToUrlencoded(params)
+                }).then(res => {
+                    if (utils.checkRequestSuccess(res)) {
+                        //成功回调
+                        res.json().then(data => resolve(data));
+                    } else {
+                        //失败回调
+                        reject(utils.checkErrorType(res));
+                    }
+                }).catch(err => {
+                    console.log(err)
+                    //失败回调
+                    reject(utils.errCodeMessage[5000]);
+                });
+            });
+        });
+    }
 }

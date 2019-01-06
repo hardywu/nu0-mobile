@@ -236,7 +236,10 @@ export default class Form extends Component {
         let priceInput = this.getTradeType().priceInput;
         let numberInput = this.getTradeType().numberInput;
         let tradeType = data.tradeType;
-        let price = priceInput.value * numberInput.value; //买入/卖出金额
+        //估值金额
+        let valuation = this.getTradeType().valuation;
+        //买入/卖出金额
+        let price = priceInput.value * numberInput.value;
 
         let selectOptionsDOM = select.options.map((item, index) => {
             return (
@@ -258,7 +261,7 @@ export default class Form extends Component {
             let tmp = {};
             //如果是买入
             if(tradeType === 0) {
-                tmp.text = `买入${data.buy.name}`;
+                tmp.text = `买入${data.currencyCoupleDisplay.couplesId}`;
                 if(price > 0) {
                     tmp.color = '#fff';
                     tmp.backgroundColor = Contract.GREEN_COLOR;
@@ -268,7 +271,7 @@ export default class Form extends Component {
                 }
             } else {
                 //如果是卖出
-                tmp.text = `卖出${data.buy.name}`;
+                tmp.text = `卖出${data.currencyCoupleDisplay.couplesId}`;
                 if(price > 0) {
                     tmp.color = '#fff';
                     tmp.backgroundColor = Contract.RED_COLOR;
@@ -346,7 +349,7 @@ export default class Form extends Component {
                 {/* 输入框1结束 */}
                 {/* 估值开始 */}
                 <View style={[styles.formValuation, styles.mt12]}>
-                    <Text style={styles.formValuationText}>估值 {`$${priceInput.value.toFixed(2)}`}</Text>
+                    <Text style={styles.formValuationText}>估值 {`$${valuation}`}</Text>
                 </View>
                 {/* 估值结束 */}
                 {/* 输入框2开始 */}
@@ -388,8 +391,7 @@ export default class Form extends Component {
                     <View style={styles.formAbleWrap}>
                         <Text style={styles.formAbleName}>可用</Text>
                         <Text style={styles.formAbleVal}>
-                            {tradeType === 0 ? `0.00${data.sell.name}` : `0.00000000${data.buy.name}`}
-                        
+                            {tradeType === 0 ? `${data.buy.couldUsable.value}${data.currencyCoupleDisplay.pricingCurId}` : `${data.sell.couldUsable.value}${data.currencyCoupleDisplay.couplesId}`}
                         </Text>
                     </View>
                 </View>
@@ -403,7 +405,7 @@ export default class Form extends Component {
                 ]}>
                     <View style={styles.formAbleWrap}>
                         <Text style={styles.formAbleName}>{tradeType === 0 ? '可买' : '可卖'}</Text>
-                        <Text style={styles.formAbleVal}>{tradeType === 1 ? `0.00${data.sell.name}` : `0.00000000${data.buy.name}`}</Text>
+                        <Text style={styles.formAbleVal}>{tradeType === 0 ? `${data.buy.couldBuy.value}${data.currencyCoupleDisplay.couplesId}` : `${data.sell.couldSell.value}${data.currencyCoupleDisplay.pricingCurId}`}</Text>
                     </View>
                 </View>
                 {/* 可买/卖结束 */}
