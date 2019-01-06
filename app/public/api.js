@@ -4,13 +4,14 @@ export default api = {
     //创建一个新的sessions
     postV1Sessions: params => {
         return new Promise((resolve, reject) => {
-            utils.disRequest(`${utils.domain}/v2/identity/sessions`, {
+            utils.disRequest(`${utils.domain}/identity/sessions`, {
                 method: 'POST',
                 body: utils.jsonToUrlencoded(params)
             }).then(res => {
                 if (utils.checkRequestSuccess(res)) {
                     //成功回调
-                    res.json().then(data => resolve(data));
+                    resolve(res)
+                    // res.json().then(data => resolve(data));
                 } else {
                     //失败回调
                     reject(utils.checkErrorType(res));
@@ -26,10 +27,10 @@ export default api = {
     getV1AccountsMe: params => {
         return utils.storage.get('token').then(token => {
             return new Promise((resolve, reject) => {
-                utils.disRequest(`${utils.domain}/v2/resource/users/me`, {
+                utils.disRequest(`${utils.domain}/resource/users/me`, {
                     method: 'GET',
                     headers: {
-                        Authorization: `Bearer ${token}`
+                        JWT: `Bearer ${token}`
                     },
                     body: utils.jsonToUrlencoded(params || {})
                 }).then(res => {
@@ -52,10 +53,10 @@ export default api = {
     getV1ProfilesMe: params => {
         return utils.storage.get('token').then(token => {
             return new Promise((resolve, reject) => {
-                utils.disRequest(`${utils.domain}/v2/resource/profiles/me`, {
+                utils.disRequest(`${utils.domain}/resource/profiles/me`, {
                     method: 'GET',
                     headers: {
-                        Authorization: `Bearer ${token}`
+                        JWT: `Bearer ${token}`
                     },
                     body: utils.jsonToUrlencoded(params || {})
                 }).then(res => {
@@ -78,10 +79,10 @@ export default api = {
     getV2Currencies: params => {
         return utils.storage.get('token').then(token => {
             return new Promise((resolve, reject) => {
-                utils.disRequest(`${utils.domain2}/v2/public/markets`, {
+                utils.disRequest(`${utils.domain2}/public/markets`, {
                     method: 'GET',
                     headers: {
-                        Authorization: `Bearer ${token}`
+                        JWT: `Bearer ${token}`
                     },
                     body: utils.jsonToUrlencoded(params || {})
                 }).then(res => {
@@ -104,10 +105,10 @@ export default api = {
     getV2CurrencyTrades: params => {
         return utils.storage.get('token').then(token => {
             return new Promise((resolve, reject) => {
-                utils.disRequest(`${utils.domain2}/v2/public/markets/tickers?${utils.jsonToUrlencoded(params || {})}`, {
+                utils.disRequest(`${utils.domain2}/public/markets/tickers?${utils.jsonToUrlencoded(params || {})}`, {
                     method: 'GET',
                     headers: {
-                        Authorization: `Bearer ${token}`
+                        JWT: `Bearer ${token}`
                     }
                 }).then(res => {
                     if (utils.checkRequestSuccess(res)) {
@@ -130,10 +131,10 @@ export default api = {
     getV2TickersMarket: params => {
         return utils.storage.get('token').then(token => {
             return new Promise((resolve, reject) => {
-                utils.disRequest(`${utils.domain2}/v2/tickers/${params || ''}`, {
+                utils.disRequest(`${utils.domain2}/tickers/${params || ''}`, {
                     method: 'GET',
                     headers: {
-                        Authorization: `Bearer ${token}`
+                        JWT: `Bearer ${token}`
                     }
                 }).then(res => {
                     if (utils.checkRequestSuccess(res)) {
@@ -156,10 +157,10 @@ export default api = {
     getV2AccountsCurrency: params => {
         return utils.storage.get('token').then(token => {
             return new Promise((resolve, reject) => {
-                utils.disRequest(`${utils.domain2}/v2/accounts/${params || ''}`, {
+                utils.disRequest(`${utils.domain2}/accounts/${params || ''}`, {
                     method: 'GET',
                     headers: {
-                        Authorization: `Bearer ${token}`
+                        JWT: `Bearer ${token}`
                     }
                 }).then(res => {
                     if (utils.checkRequestSuccess(res)) {
@@ -182,10 +183,10 @@ export default api = {
     postV2Orders: params => {
         return utils.storage.get('token').then(token => {
             return new Promise((resolve, reject) => {
-                utils.disRequest(`${utils.domain2}/v2/orders`, {
+                utils.disRequest(`${utils.domain2}/orders`, {
                     method: 'POST',
                     headers: {
-                        Authorization: `Bearer ${token}`
+                        JWT: `Bearer ${token}`
                     },
                     body: utils.jsonToUrlencoded(params)
                 }).then(res => {

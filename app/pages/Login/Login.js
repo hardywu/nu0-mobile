@@ -47,8 +47,8 @@ class Login extends Component {
             ],
             //邮箱登录
             email: {
-                acc: 'philliparuais@gmail.com', //账号
-                pw: 'aikohMai7oh' //密码
+                acc: 'admin@barong.io', //账号
+                pw: '0lDHd9ufs9t@' //密码
             }
         }
     }
@@ -127,7 +127,9 @@ class Login extends Component {
                     position: Constant.TOAST_POSITION,
                 });
                 //将token存入本地
-                utils.storage.save('token', res).then(data => {
+                let cookieStr = res.headers.map['set-cookie'][0];
+                let token = utils.cookie.get(cookieStr, '_barong_session');
+                utils.storage.save('token', token).then(data => {
                     console.log('已保存token');
                     navigation.navigate('Main'); //跳转到主页
                 });

@@ -191,6 +191,24 @@ let utils = {
         hide: function () {
             Toast.hide(this.index);
         }
+    },
+
+    //cookie
+    cookie: {
+        /**
+         * 获取对应名称的cookie
+         * @param name cookie的名称
+         * @returns {null} 不存在时，返回null
+         */
+        get: function(cookieStr, name) {
+            var arr;
+            var reg = new RegExp("(^| )" + name + "=([^;]*)(;|$)");
+            if (arr = cookieStr.match(reg)) {
+                return unescape(arr[2]);
+            } else {
+                return null;
+            }
+        }
     }
 }
 
