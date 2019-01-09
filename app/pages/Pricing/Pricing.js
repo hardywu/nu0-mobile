@@ -524,7 +524,7 @@ export default class Pricing extends Component {
             sideMenu
         } = this.state;
         return (
-            <View style={mStyles.mFlex1}>
+            <View style={[mStyles.mFlex1]}>
                 <EmptyTopBar backgroundColor='#fff'/>
                 {/* 头部开始 */}
                 <View style={styles.header}>

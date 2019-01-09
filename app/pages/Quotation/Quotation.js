@@ -33,19 +33,19 @@ export default class Quotation extends Component {
             subNav: [
                 {
                     //okex
-                    parent: 'okex',
+                    parent: 'DC',
                     items: [
-                        {
-                            type: 0, //type 0:自选 1:合约 2:币种 3: 全球币种
-                            id: '', //id
-                            name: '自选', //名字
-                            isActive: true //是否为激活状态
-                        }, {
-                            type: 1,
-                            id: '',
-                            name: '合约',
-                            isActive: false
-                        }
+                        // {
+                        //     type: 0, //type 0:自选 1:合约 2:币种 3: 全球币种
+                        //     id: '', //id
+                        //     name: '自选', //名字
+                        //     isActive: false //是否为激活状态
+                        // }, {
+                        //     type: 1,
+                        //     id: '',
+                        //     name: '合约',
+                        //     isActive: false
+                        // }
                     ]
                 }, {
                     //全球
@@ -79,28 +79,42 @@ export default class Quotation extends Component {
                     ]
                 }
             ],
+            //market tikers列表
+            marketsTickers: {},
         }
     }
 
     componentDidMount() {
-        let { subNav } = this.state;
+        const that = this;
+        //请求间隔时间，单位秒
+        const reqInterval = 5;
+        let {
+            subNav,
+            marketsTickers
+        } = this.state;
         //发起币种请求
-        api.getV2Currencies().then(res => {
+        api.getPublicCurrencies().then(res => {
+            subNav[0].items = [];
             //遍历res的数据
             res.forEach((item, index) => {
                 //设置二级导航栏
                 subNav[0].items.push({
                     type: 2,
                     id: item.id,
-                    name: item.id,
+                    name: item.id.toUpperCase(),
                     isActive: false
                 });
             });
+            subNav[0].items[0].isActive = true;
             this.setState({ subNav: subNav });
         }).catch(err => {
             utils.toast.show(err.msg);
             console.log(`err: ${err.msg}`);
         });
+        this.getAllData();
+        setInterval(() => {
+            this.getAllData();
+        }, reqInterval * 1000);
     }
 
     //一级导航press事件
@@ -125,12 +139,59 @@ export default class Quotation extends Component {
         this.setState({ subNav: subNav });
     }
 
+    //获取页面所有数据
+    getAllData() {
+        console.log('请求开始了')
+        const that = this;
+        let {
+            subNav,
+            marketsTickers
+        } = this.state;
+        //请求计数
+        let reqCount = {
+            //请求总共数量
+            target: 1,
+            //当前完成请求数量
+            current: 0
+        }
+        return new Promise((resolve, reject) => {
+            //发起币种请求
+            // api.getV2Currencies().then(res => {
+            //     //遍历res的数据
+            //     res.forEach((item, index) => {
+            //         //设置二级导航栏
+            //         subNav[0].items.push({
+            //             type: 2,
+            //             id: item.id,
+            //             name: item.name,
+            //             isActive: false
+            //         });
+            //     });
+            //     this.setState({ subNav: subNav });
+            // }).catch(err => {
+            //     utils.toast.show(err.msg);
+            //     console.log(`err: ${err.msg}`);
+            // });
+            //发起market tikers列表请求
+            api.getPublicMarketsTickers().then(res => {
+                reqCount.current++;
+                this.setState({ marketsTickers: res });
+                if(reqCount.current === reqCount.target) {
+                    resolve()
+                }
+            }).catch(err => {
+                utils.toast.show(err.msg);
+                console.log(`err: ${err.msg}`);
+            });
+        })
+    }
+
     render() {
         let {
             activeMainNavIndex,
-            subNav
+            subNav,
+            marketsTickers
         } = this.state;
-
         //渲染二级导航
         let subNavArr = [];
         subNavArr = subNav[activeMainNavIndex].items.map((item, index) => {
@@ -154,47 +215,54 @@ export default class Quotation extends Component {
                 </View>
             );
         });
-
         //根据type选择对应的list组件
         let listComponent = [];
-        // for (let i = 0; i < subNav[activeMainNavIndex].items.length; i++) {
-        //     if (subNav[activeMainNavIndex].items[i].isActive === true) {
-        //         let type = subNav[activeMainNavIndex].items[i].type;
-        //         if (type === 0) {
-        //             listComponent = <SelfSelectionist />;
-        //         } else if (type === 1) {
-        //             listComponent = <ContractList />;
-        //         } else if (type === 2) {
-        //             listComponent = <CurrencyList />;
-        //         } else if (type === 3) {
-        //             listComponent = <GlobalCurrencyList />
-        //         }
-        //     }
-        // }
-
+        //list中当前处于激活状态的item
+        let listActiveItem = null;
+        //遍历subNav.items
         for (let i = 0; i < subNav[activeMainNavIndex].items.length; i++) {
-            let type = subNav[activeMainNavIndex].items[i].type;
-            let tmp = null;
-            if (type === 0) {
-                tmp = <SelfSelectionist />;
-            } else if (type === 1) {
-                tmp = <ContractList />;
-            } else if (type === 2) {
-                tmp = <CurrencyList />;
-            } else if (type === 3) {
-                tmp = <GlobalCurrencyList />
+            //如果item处于active状态则渲染对应组件
+            if (subNav[activeMainNavIndex].items[i].isActive === true) {
+                listActiveItem = subNav[activeMainNavIndex].items[i];
+                let type = subNav[activeMainNavIndex].items[i].type;
+                if (type === 0) {
+                    listComponent = <SelfSelectionist />;
+                } else if (type === 1) {
+                    listComponent = <ContractList />;
+                } else if (type === 2) {
+                    listComponent = <CurrencyList
+                                        currentItem={listActiveItem}
+                                        list={marketsTickers}
+                                    />;
+                } else if (type === 3) {
+                    listComponent = <GlobalCurrencyList />
+                }
             }
-            listComponent.push(
-                <View
-                    style={[mStyles.mFlex1, {
-                        display: subNav[activeMainNavIndex].items[i].isActive === true ? 'flex' : 'none'
-                    }]}
-                    key={i}
-                >
-                    {tmp}
-                </View>
-            );
         }
+
+        // for (let i = 0; i < subNav[activeMainNavIndex].items.length; i++) {
+        //     let type = subNav[activeMainNavIndex].items[i].type;
+        //     let tmp = null;
+        //     if (type === 0) {
+        //         tmp = <SelfSelectionist />;
+        //     } else if (type === 1) {
+        //         tmp = <ContractList />;
+        //     } else if (type === 2) {
+        //         tmp = <CurrencyList />;
+        //     } else if (type === 3) {
+        //         tmp = <GlobalCurrencyList />
+        //     }
+        //     listComponent.push(
+        //         <View
+        //             style={[mStyles.mFlex1, {
+        //                 display: subNav[activeMainNavIndex].items[i].isActive === true ? 'flex' : 'none'
+        //             }]}
+        //             key={i}
+        //         >
+        //             {tmp}
+        //         </View>
+        //     );
+        // }
 
         return (
             <View style={[mStyles.mFlex1]}>
@@ -215,7 +283,7 @@ export default class Quotation extends Component {
                                     ]}
                                     onPress={event => this.mainNavItemPress(event, 0)}
                                 >
-                                    OKEx
+                                    DC
                                 </Text>
                             </View>
                             <View style={[
@@ -230,7 +298,7 @@ export default class Quotation extends Component {
                                     ]}
                                     onPress={event => this.mainNavItemPress(event, 1)}
                                 >
-                                    全球
+                                    自定义
                                 </Text>
                             </View>
                         </View>

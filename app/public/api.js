@@ -204,5 +204,85 @@ export default api = {
                 });
             });
         });
-    }
+    },
+
+    //Get ticker of all markets.
+    getPublicMarketsTickers: params => {
+        return utils.storage.get('token').then(token => {
+            return new Promise((resolve, reject) => {
+                utils.disRequest(`${utils.domain2}/public/markets/tickers`, {
+                    method: 'GET',
+                    headers: {
+                        JWT: `Bearer ${token}`
+                    },
+                    body: utils.jsonToUrlencoded(params)
+                }).then(res => {
+                    if (utils.checkRequestSuccess(res)) {
+                        //成功回调
+                        res.json().then(data => resolve(data));
+                    } else {
+                        //失败回调
+                        reject(utils.checkErrorType(res));
+                    }
+                }).catch(err => {
+                    console.log(err)
+                    //失败回调
+                    reject(utils.errCodeMessage[5000]);
+                });
+            });
+        });
+    },
+
+    //Get ticker of specific market
+    getPublicMarketsMarketTickers: params => {
+        return utils.storage.get('token').then(token => {
+            return new Promise((resolve, reject) => {
+                utils.disRequest(`${utils.domain2}/public/markets/${params || ''}/tickers`, {
+                    method: 'GET',
+                    headers: {
+                        JWT: `Bearer ${token}`
+                    },
+                    body: utils.jsonToUrlencoded(params)
+                }).then(res => {
+                    if (utils.checkRequestSuccess(res)) {
+                        //成功回调
+                        res.json().then(data => resolve(data));
+                    } else {
+                        //失败回调
+                        reject(utils.checkErrorType(res));
+                    }
+                }).catch(err => {
+                    console.log(err)
+                    //失败回调
+                    reject(utils.errCodeMessage[5000]);
+                });
+            });
+        });
+    },
+
+    getPublicCurrencies: params => {
+        return utils.storage.get('token').then(token => {
+            return new Promise((resolve, reject) => {
+                utils.disRequest(`${utils.domain2}/public/currencies`, {
+                    method: 'GET',
+                    headers: {
+                        JWT: `Bearer ${token}`
+                    },
+                    body: utils.jsonToUrlencoded(params)
+                }).then(res => {
+                    if (utils.checkRequestSuccess(res)) {
+                        //成功回调
+                        res.json().then(data => resolve(data));
+                    } else {
+                        //失败回调
+                        reject(utils.checkErrorType(res));
+                    }
+                }).catch(err => {
+                    console.log(err)
+                    //失败回调
+                    reject(utils.errCodeMessage[5000]);
+                });
+            });
+        });
+    },
 }

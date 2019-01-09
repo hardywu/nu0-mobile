@@ -14,6 +14,42 @@ import styles from './Currency_List_Style';
 
 export default class CurrencyList extends Component {
     render() {
+        const {
+            list,
+            currentItem
+        } = this.props;
+        //列表元素DOM
+        let listItemDOM = [];
+        let reg = new RegExp(`${currentItem.id}$`, 'i')
+        //匹配list中对应的ticker
+        for(let key in list) {
+            if(reg.test(key)) {
+                let tmpData = list[key];
+                listItemDOM.push(
+                    <View style={styles.item} key={key}>
+                        <View style={styles.itemLeft}>
+                            <View style={styles.itemName}>
+                                <Text style={styles.itemMainName}>{key.split(currentItem.id)[0].toUpperCase()}</Text>
+                                <Text style={styles.itemNameBreak}>/</Text>
+                                <Text style={styles.itemSubName}>{currentItem.name}</Text>
+                            </View>
+                            <View style={styles.itemDeal}>
+                                <Text style={styles.itemDealNum}>成交量 {tmpData.ticker.vol}</Text>
+                            </View>
+                        </View>
+                        <View style={styles.itemRight}>
+                            <View style={styles.itemValue}>
+                                <Text style={[styles.itemMainValue, mStyles.mBlackColor]}>{tmpData.ticker.last}</Text>
+                                {/* <Text style={styles.itemSubValue}>Y233.22</Text> */}
+                            </View>
+                            <View style={styles.itemTrend}>
+                                <Text style={[styles.itemTrendNum, mStyles.mRedBg]}>-0.92%</Text>
+                            </View>
+                        </View>
+                    </View>
+                )
+            }
+        }
         return (
             <View style={[styles.mFlex1, {height: '100%'}]}>
                 {/* 排序栏开始 */}
@@ -50,12 +86,13 @@ export default class CurrencyList extends Component {
                     showsVerticalScrollIndicator={false}
                 >
                     {/* 循环项目item开始 */}
-                    <View style={styles.item}>
+                    {listItemDOM}
+                    {/* <View style={styles.item}>
                         <View style={styles.itemLeft}>
                             <View style={styles.itemName}>
                                 <Text style={styles.itemMainName}>BTC</Text>
                                 <Text style={styles.itemNameBreak}>/</Text>
-                                <Text style={styles.itemSubName}>USDT</Text>
+                                <Text style={styles.itemSubName}>{currentItem.name}</Text>
                             </View>
                             <View style={styles.itemDeal}>
                                 <Text style={styles.itemDealNum}>成交量 12300</Text>
@@ -70,237 +107,8 @@ export default class CurrencyList extends Component {
                                 <Text style={[styles.itemTrendNum, mStyles.mRedBg]}>-0.92%</Text>
                             </View>
                         </View>
-                    </View>
+                    </View> */}
                     {/* 循环项目item结束 */}
-                    <View style={styles.item}>
-                        <View style={styles.itemLeft}>
-                            <View style={styles.itemName}>
-                                <Text style={styles.itemMainName}>BTC次周</Text>
-                            </View>
-                            <View style={styles.itemDeal}>
-                                <Text style={styles.itemDealNum}>成交量 12300</Text>
-                            </View>
-                        </View>
-                        <View style={styles.itemRight}>
-                            <View style={styles.itemValue}>
-                                <Text style={[styles.itemMainValue, mStyles.mRedColor]}>$2312123.22</Text>
-                                <Text style={styles.itemSubValue}>Y233.22</Text>
-                            </View>
-                            <View style={styles.itemTrend}>
-                                <Text style={[styles.itemTrendNum, mStyles.mGreenBg]}>-0.92%</Text>
-                            </View>
-                        </View>
-                    </View>
-                    <View style={styles.item}>
-                        <View style={styles.itemLeft}>
-                            <View style={styles.itemName}>
-                                <Text style={styles.itemMainName}>BTC</Text>
-                                <Text style={styles.itemNameBreak}>/</Text>
-                                <Text style={styles.itemSubName}>USDT</Text>
-                            </View>
-                            <View style={styles.itemDeal}>
-                                <Text style={styles.itemDealNum}>成交量 12300</Text>
-                            </View>
-                        </View>
-                        <View style={styles.itemRight}>
-                            <View style={styles.itemValue}>
-                                <Text style={[styles.itemMainValue, mStyles.mGreenColor]}>$2312123.22</Text>
-                                <Text style={styles.itemSubValue}>Y233.22</Text>
-                            </View>
-                            <View style={styles.itemTrend}>
-                                <Text style={[styles.itemTrendNum, mStyles.mRedBg]}>-0.92%</Text>
-                            </View>
-                        </View>
-                    </View>
-                    <View style={styles.item}>
-                        <View style={styles.itemLeft}>
-                            <View style={styles.itemName}>
-                                <Text style={styles.itemMainName}>BTC</Text>
-                                <Text style={styles.itemNameBreak}>/</Text>
-                                <Text style={styles.itemSubName}>USDT</Text>
-                            </View>
-                            <View style={styles.itemDeal}>
-                                <Text style={styles.itemDealNum}>成交量 12300</Text>
-                            </View>
-                        </View>
-                        <View style={styles.itemRight}>
-                            <View style={styles.itemValue}>
-                                <Text style={[styles.itemMainValue, mStyles.mGreenColor]}>$2312123.22</Text>
-                                <Text style={styles.itemSubValue}>Y233.22</Text>
-                            </View>
-                            <View style={styles.itemTrend}>
-                                <Text style={[styles.itemTrendNum, mStyles.mRedBg]}>-0.92%</Text>
-                            </View>
-                        </View>
-                    </View>
-                    <View style={styles.item}>
-                        <View style={styles.itemLeft}>
-                            <View style={styles.itemName}>
-                                <Text style={styles.itemMainName}>BTC</Text>
-                                <Text style={styles.itemNameBreak}>/</Text>
-                                <Text style={styles.itemSubName}>USDT</Text>
-                            </View>
-                            <View style={styles.itemDeal}>
-                                <Text style={styles.itemDealNum}>成交量 12300</Text>
-                            </View>
-                        </View>
-                        <View style={styles.itemRight}>
-                            <View style={styles.itemValue}>
-                                <Text style={[styles.itemMainValue, mStyles.mGreenColor]}>$2312123.22</Text>
-                                <Text style={styles.itemSubValue}>Y233.22</Text>
-                            </View>
-                            <View style={styles.itemTrend}>
-                                <Text style={[styles.itemTrendNum, mStyles.mRedBg]}>-0.92%</Text>
-                            </View>
-                        </View>
-                    </View>
-                    <View style={styles.item}>
-                        <View style={styles.itemLeft}>
-                            <View style={styles.itemName}>
-                                <Text style={styles.itemMainName}>BTC</Text>
-                                <Text style={styles.itemNameBreak}>/</Text>
-                                <Text style={styles.itemSubName}>USDT</Text>
-                            </View>
-                            <View style={styles.itemDeal}>
-                                <Text style={styles.itemDealNum}>成交量 12300</Text>
-                            </View>
-                        </View>
-                        <View style={styles.itemRight}>
-                            <View style={styles.itemValue}>
-                                <Text style={[styles.itemMainValue, mStyles.mGreenColor]}>$2312123.22</Text>
-                                <Text style={styles.itemSubValue}>Y233.22</Text>
-                            </View>
-                            <View style={styles.itemTrend}>
-                                <Text style={[styles.itemTrendNum, mStyles.mRedBg]}>-0.92%</Text>
-                            </View>
-                        </View>
-                    </View>
-                    <View style={styles.item}>
-                        <View style={styles.itemLeft}>
-                            <View style={styles.itemName}>
-                                <Text style={styles.itemMainName}>BTC</Text>
-                                <Text style={styles.itemNameBreak}>/</Text>
-                                <Text style={styles.itemSubName}>USDT</Text>
-                            </View>
-                            <View style={styles.itemDeal}>
-                                <Text style={styles.itemDealNum}>成交量 12300</Text>
-                            </View>
-                        </View>
-                        <View style={styles.itemRight}>
-                            <View style={styles.itemValue}>
-                                <Text style={[styles.itemMainValue, mStyles.mGreenColor]}>$2312123.22</Text>
-                                <Text style={styles.itemSubValue}>Y233.22</Text>
-                            </View>
-                            <View style={styles.itemTrend}>
-                                <Text style={[styles.itemTrendNum, mStyles.mRedBg]}>-0.92%</Text>
-                            </View>
-                        </View>
-                    </View>
-                    <View style={styles.item}>
-                        <View style={styles.itemLeft}>
-                            <View style={styles.itemName}>
-                                <Text style={styles.itemMainName}>BTC</Text>
-                                <Text style={styles.itemNameBreak}>/</Text>
-                                <Text style={styles.itemSubName}>USDT</Text>
-                            </View>
-                            <View style={styles.itemDeal}>
-                                <Text style={styles.itemDealNum}>成交量 12300</Text>
-                            </View>
-                        </View>
-                        <View style={styles.itemRight}>
-                            <View style={styles.itemValue}>
-                                <Text style={[styles.itemMainValue, mStyles.mGreenColor]}>$2312123.22</Text>
-                                <Text style={styles.itemSubValue}>Y233.22</Text>
-                            </View>
-                            <View style={styles.itemTrend}>
-                                <Text style={[styles.itemTrendNum, mStyles.mRedBg]}>-0.92%</Text>
-                            </View>
-                        </View>
-                    </View>
-                    <View style={styles.item}>
-                        <View style={styles.itemLeft}>
-                            <View style={styles.itemName}>
-                                <Text style={styles.itemMainName}>BTC</Text>
-                                <Text style={styles.itemNameBreak}>/</Text>
-                                <Text style={styles.itemSubName}>USDT</Text>
-                            </View>
-                            <View style={styles.itemDeal}>
-                                <Text style={styles.itemDealNum}>成交量 12300</Text>
-                            </View>
-                        </View>
-                        <View style={styles.itemRight}>
-                            <View style={styles.itemValue}>
-                                <Text style={[styles.itemMainValue, mStyles.mGreenColor]}>$2312123.22</Text>
-                                <Text style={styles.itemSubValue}>Y233.22</Text>
-                            </View>
-                            <View style={styles.itemTrend}>
-                                <Text style={[styles.itemTrendNum, mStyles.mRedBg]}>-0.92%</Text>
-                            </View>
-                        </View>
-                    </View>
-                    <View style={styles.item}>
-                        <View style={styles.itemLeft}>
-                            <View style={styles.itemName}>
-                                <Text style={styles.itemMainName}>BTC</Text>
-                                <Text style={styles.itemNameBreak}>/</Text>
-                                <Text style={styles.itemSubName}>USDT</Text>
-                            </View>
-                            <View style={styles.itemDeal}>
-                                <Text style={styles.itemDealNum}>成交量 12300</Text>
-                            </View>
-                        </View>
-                        <View style={styles.itemRight}>
-                            <View style={styles.itemValue}>
-                                <Text style={[styles.itemMainValue, mStyles.mGreenColor]}>$2312123.22</Text>
-                                <Text style={styles.itemSubValue}>Y233.22</Text>
-                            </View>
-                            <View style={styles.itemTrend}>
-                                <Text style={[styles.itemTrendNum, mStyles.mRedBg]}>-0.92%</Text>
-                            </View>
-                        </View>
-                    </View>
-                    <View style={styles.item}>
-                        <View style={styles.itemLeft}>
-                            <View style={styles.itemName}>
-                                <Text style={styles.itemMainName}>BTC</Text>
-                                <Text style={styles.itemNameBreak}>/</Text>
-                                <Text style={styles.itemSubName}>USDT</Text>
-                            </View>
-                            <View style={styles.itemDeal}>
-                                <Text style={styles.itemDealNum}>成交量 12300</Text>
-                            </View>
-                        </View>
-                        <View style={styles.itemRight}>
-                            <View style={styles.itemValue}>
-                                <Text style={[styles.itemMainValue, mStyles.mGreenColor]}>$2312123.22</Text>
-                                <Text style={styles.itemSubValue}>Y233.22</Text>
-                            </View>
-                            <View style={styles.itemTrend}>
-                                <Text style={[styles.itemTrendNum, mStyles.mRedBg]}>-0.92%</Text>
-                            </View>
-                        </View>
-                    </View>
-                    <View style={styles.item}>
-                        <View style={styles.itemLeft}>
-                            <View style={styles.itemName}>
-                                <Text style={styles.itemMainName}>BTC</Text>
-                                <Text style={styles.itemNameBreak}>/</Text>
-                                <Text style={styles.itemSubName}>USDT</Text>
-                            </View>
-                            <View style={styles.itemDeal}>
-                                <Text style={styles.itemDealNum}>成交量 12300</Text>
-                            </View>
-                        </View>
-                        <View style={styles.itemRight}>
-                            <View style={styles.itemValue}>
-                                <Text style={[styles.itemMainValue, mStyles.mGreenColor]}>$2312123.22</Text>
-                                <Text style={styles.itemSubValue}>Y233.22</Text>
-                            </View>
-                            <View style={styles.itemTrend}>
-                                <Text style={[styles.itemTrendNum, mStyles.mRedBg]}>-0.92%</Text>
-                            </View>
-                        </View>
-                    </View>
                 </ScrollView>
             </View>
         );
