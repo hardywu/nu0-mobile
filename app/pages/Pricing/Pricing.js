@@ -45,8 +45,7 @@ export default class Pricing extends Component {
                 topChange: '-',
                 //
                 currencyCoupleDisplay: {
-                    pricingCurId: '-',
-                    couplesId: '-',
+                    name: '-',
                     price: '-',
                     change: '-'
                 },
@@ -70,7 +69,9 @@ export default class Pricing extends Component {
                         //         }
                         //     ]
                         // }
-                    ]
+                    ],
+                    //market tikers列表
+                    marketsTickers: {},
                 },
                 //买入
                 buy: {
@@ -159,8 +160,7 @@ export default class Pricing extends Component {
                 topPrice: '-',
                 topChange: '-',
                 currencyCoupleDisplay: {
-                    pricingCurId: '-',
-                    couplesId: '-'
+                    name: '-'
                 },
                 //交易币对下拉框数据
                 currencyCoupleSelect: {
@@ -292,20 +292,46 @@ export default class Pricing extends Component {
 
     componentDidMount() {
         let { bb } = this.state;
-        //发起bb-计价币种列表请求
-        api.getV2Currencies().then(res => {
+        let {
+            currencyCoupleSelect,
+            currencyCoupleDisplay
+        } = this.state.bb;
+        //发起币种请求
+        api.getPublicCurrencies().then(res => {
             res.forEach((item, index) => {
-                bb.currencyCoupleSelect.data.push({
+                currencyCoupleSelect.data.push({
                     pricingCurId: item.id,
-                    pricingCurName: item.id,
+                    pricingCurName: item.id.toUpperCase(),
                     couples: []
-                })
+                });
             });
+            currencyCoupleSelect.isShow = true;
+            //设置bb currencyCoupleSelect左侧高亮的默认值
+            currencyCoupleSelect.value.pricingCurId = currencyCoupleSelect.data[0].pricingCurId;
             this.setState({ bb: bb });
         }).catch(err => {
             utils.toast.show(err.msg);
             console.log(`err: ${err.msg}`);
-        })
+        });
+        //发起market tikers列表请求
+        api.getPublicMarketsTickers().then(res => {
+            currencyCoupleSelect.marketsTickers = res;
+            //匹配list中对应的ticker
+            let reg = new RegExp(`${currencyCoupleSelect.value.pricingCurId}$`, 'i');
+            for(let key in currencyCoupleSelect.marketsTickers) {
+                if(reg.test(key)) {
+                    let list = currencyCoupleSelect.marketsTickers;
+                    let tmpData = list[key];
+                    currencyCoupleSelect.value.couplesId = key;
+                    currencyCoupleDisplay.name = `${key.split(currencyCoupleSelect.value.pricingCurId)[0].toUpperCase()}/${currencyCoupleSelect.value.pricingCurId.toUpperCase()}`
+                    break;
+                }
+            }
+            this.setState({ bb: bb });
+        }).catch(err => {
+            utils.toast.show(err.msg);
+            console.log(`err: ${err.msg}`);
+        });
     }
 
     //一级导航press事件
@@ -412,90 +438,23 @@ export default class Pricing extends Component {
     //处理 bb交易币对计价币种 释放事件
     handleBbCoupleSelectPricingCurRelease = (evt, pricingCur) => {
         let { bb } = this.state;
-        let { currencyCoupleSelect } = bb;
+        let { currencyCoupleSelect } = this.state.bb;
+        //高亮对应选项
         currencyCoupleSelect.value.pricingCurId = pricingCur.pricingCurId;
-        api.getV2CurrencyTrades({
-            currency: pricingCur.pricingCurId
-        }).then(res => {
-            let tmpArr = [];
-            res.forEach((item, index) => {
-                for(let i in item) {
-                    tmpArr.push({
-                        id: i,
-                        name: i,
-                        price: item[i].price,
-                        change: item[i].change
-                    });
-                }
-            });
-            for(let i = 0; i < currencyCoupleSelect.data.length; i++) {
-                if(currencyCoupleSelect.data[i].pricingCurId === currencyCoupleSelect.value.pricingCurId) {
-                    currencyCoupleSelect.data[i].couples = tmpArr;
-                    break;
-                }
-            }
-            this.setState({ bb: bb });
-        }).catch(err => {
-            console.log(err.msg);
-        });
+        this.setState({ bb: bb });
     }
 
     //处理 bb交易币对交易币对 释放事件
     handleBbCoupleSelectTradeCoupleRelease = (evt, tradeCouple) => {
-        const that = this;
         let { bb } = this.state;
         let {
-            currencyCoupleSelect,
-            currencyCoupleDisplay
-        } = bb;
+            currencyCoupleDisplay,
+            currencyCoupleSelect
+        } = this.state.bb;
+        //高亮对应选项
         currencyCoupleSelect.value.couplesId = tradeCouple.id;
-        currencyCoupleDisplay.pricingCurId = currencyCoupleSelect.value.pricingCurId;
-        currencyCoupleDisplay.couplesId = tradeCouple.id;
         currencyCoupleSelect.isShow = false;
-        //设置最顶部的price和change
-        for(let i = 0; i < currencyCoupleSelect.data.length; i++) {
-            let currencyCoupleSelectData = currencyCoupleSelect.data;
-            if(currencyCoupleSelectData[i].pricingCurId === currencyCoupleDisplay.pricingCurId) {
-                let tmpData = currencyCoupleSelectData[i];
-                let couples = tmpData.couples;
-                for(let j = 0; j < couples.length; j++) {
-                    if(couples[j].id === currencyCoupleDisplay.couplesId) {
-                        bb.topPrice = couples[j].price;
-                        bb.topChange = couples[j].change;
-                    }
-                }
-            }
-        }
-        //获取估值
-        let getV2TickersMarketParams = currencyCoupleSelect.value.pricingCurId + currencyCoupleSelect.value.couplesId;
-        api.getV2TickersMarket(getV2TickersMarketParams).then(res => {
-            //设置估值
-            bb.buy.valuation = res.ticker.last;
-            bb.sell.valuation = res.ticker.last;
-            that.setState({ bb: bb });
-        }).catch(err => {
-            console.log(err.msg);
-        })
-        //获取account
-        api.getV2AccountsCurrency(currencyCoupleSelect.value.pricingCurId).then(res => {
-            //设置bb买入可用
-            bb.buy.couldUsable.value = Number(res.balance).toFixed(2);
-            //设置bb买入可买
-            bb.buy.couldBuy.value = (Number(res.balance) / 2).toFixed(6);
-            that.setState({ bb: bb });
-        }).catch(err => {
-            console.log(err.msg);
-        });
-        //获取account
-        api.getV2AccountsCurrency(currencyCoupleSelect.value.couplesId).then(res => {
-            //设置bb卖出可用
-            bb.sell.couldUsable.value = Number(res.balance).toFixed(6);
-            //设置bb卖出可卖
-            bb.sell.couldSell.value = (Number(res.balance) / 2).toFixed(2);
-            that.setState({ bb: bb });
-        }).catch(err => {
-            console.log(err.msg);
-        });
+        currencyCoupleDisplay.name = tradeCouple.name;
         this.setState({ bb: bb });
     }
 
@@ -601,7 +560,7 @@ export default class Pricing extends Component {
                                         onStartShouldSetResponder={() => true}
                                         onResponderRelease={evt => this.handleBbCoupleValRelease(evt)}
                                     >
-                                        <Text style={styles.tradeHeadTitle}>{bb.currencyCoupleDisplay.couplesId}/{bb.currencyCoupleDisplay.pricingCurId}</Text>
+                                        <Text style={styles.tradeHeadTitle}>{bb.currencyCoupleDisplay.name}</Text>
                                         <Image style={styles.tradeHeadTitleArrow} source={arrowIcon}></Image>
                                     </View>
                                     <View style={[styles.tradeHeadItem, {justifyContent: 'flex-end'}]}>

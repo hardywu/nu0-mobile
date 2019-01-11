@@ -141,7 +141,6 @@ export default class Quotation extends Component {
 
     //获取页面所有数据
     getAllData() {
-        console.log('请求开始了')
         const that = this;
         let {
             subNav,

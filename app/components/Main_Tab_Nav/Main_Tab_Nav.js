@@ -101,7 +101,7 @@ export const MainTabNav = createMaterialTopTabNavigator({
         }), 
     },
 }, {
-    initialRouteName: 'Quotation',
+    initialRouteName: 'Pricing',
     swipeEnabled: false,
     tabBarPosition: 'bottom',
     tabBarOptions: {

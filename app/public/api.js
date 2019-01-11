@@ -119,7 +119,6 @@ export default api = {
                         reject(utils.checkErrorType(res));
                     }
                 }).catch(err => {
-                    console.log(err)
                     //失败回调
                     reject(utils.errCodeMessage[5000]);
                 });
@@ -145,7 +144,6 @@ export default api = {
                         reject(utils.checkErrorType(res));
                     }
                 }).catch(err => {
-                    console.log(err)
                     //失败回调
                     reject(utils.errCodeMessage[5000]);
                 });
@@ -171,7 +169,6 @@ export default api = {
                         reject(utils.checkErrorType(res));
                     }
                 }).catch(err => {
-                    console.log(err)
                     //失败回调
                     reject(utils.errCodeMessage[5000]);
                 });
@@ -198,7 +195,6 @@ export default api = {
                         reject(utils.checkErrorType(res));
                     }
                 }).catch(err => {
-                    console.log(err)
                     //失败回调
                     reject(utils.errCodeMessage[5000]);
                 });
@@ -225,7 +221,6 @@ export default api = {
                         reject(utils.checkErrorType(res));
                     }
                 }).catch(err => {
-                    console.log(err)
                     //失败回调
                     reject(utils.errCodeMessage[5000]);
                 });
@@ -252,7 +247,6 @@ export default api = {
                         reject(utils.checkErrorType(res));
                     }
                 }).catch(err => {
-                    console.log(err)
                     //失败回调
                     reject(utils.errCodeMessage[5000]);
                 });
@@ -278,7 +272,6 @@ export default api = {
                         reject(utils.checkErrorType(res));
                     }
                 }).catch(err => {
-                    console.log(err)
                     //失败回调
                     reject(utils.errCodeMessage[5000]);
                 });

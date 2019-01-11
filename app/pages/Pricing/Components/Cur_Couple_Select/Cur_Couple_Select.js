@@ -62,39 +62,52 @@ export default class CurCoupleSelect extends Component {
             onPricingCurRelease,
             onTradeCoupleRelease
         } = this.props;
+        const { currencyCoupleSelect } = this.props.data;
         let { position } = this.state;
         //计价币种列DOM
         let pricingCurDOM = [];
         //交易币对DOM
         let tradeCoupleDOM = [];
-        data.currencyCoupleSelect.data.forEach((item, index) => {
+        currencyCoupleSelect.data.forEach((item, index) => {
             pricingCurDOM.push(
                 <View
-                    style={item.pricingCurId === data.currencyCoupleSelect.value.pricingCurId ? [styles.ccsBodyCurrencyItem, styles.ccsBodyCurrencyItemActive] : styles.ccsBodyCurrencyItem}
+                    style={item.pricingCurId === currencyCoupleSelect.value.pricingCurId ? [styles.ccsBodyCurrencyItem, styles.ccsBodyCurrencyItemActive] : styles.ccsBodyCurrencyItem}
                     key={index}
                     onStartShouldSetResponder={() => true}
                     onResponderRelease={evt => onPricingCurRelease(evt, item)}
                 >
-                    <Text style={item.pricingCurId === data.currencyCoupleSelect.value.pricingCurId ? [styles.ccsBodyCurrencyItemText, mStyles.mBlueColor] : styles.ccsBodyCurrencyItemText}>{item.pricingCurName}</Text>
+                    <Text style={item.pricingCurId === currencyCoupleSelect.value.pricingCurId ? [styles.ccsBodyCurrencyItemText, mStyles.mBlueColor] : styles.ccsBodyCurrencyItemText}>{item.pricingCurName}</Text>
                 </View>
             );
-            if(item.pricingCurId === data.currencyCoupleSelect.value.pricingCurId) {
-                item.couples.forEach((item2, index2) => {
-                    tradeCoupleDOM.push(
-                        <View
-                            style={styles.ccsBodyDataItem}
-                            key={index}
-                            onStartShouldSetResponder={() => true}
-                            onResponderRelease={evt => onTradeCoupleRelease(evt, item2)}
-                        >
-                            <Text style={item2.id === data.currencyCoupleSelect.value.couplesId ?   [styles.ccsBodyDataItemText, styles.ccsBodyDataCoupleText, mStyles.mBlueColor] :  [styles.ccsBodyDataItemText, styles.ccsBodyDataCoupleText]}>{item2.name}/{data.currencyCoupleSelect.value.pricingCurId}</Text>
-                            <Text style={[styles.ccsBodyDataItemText, styles.ccsBodyDataPriceText]}>{item2.price}</Text>
-                            <Text style={[styles.ccsBodyDataItemText, styles.ccsBodyDataRangeText]}>{item2.change}</Text>
-                        </View>
-                    );
-                });
-            }
         });
+        //匹配list中对应的ticker
+        let reg = new RegExp(`${currencyCoupleSelect.value.pricingCurId}$`, 'i')
+        for(let key in currencyCoupleSelect.marketsTickers) {
+            if(reg.test(key)) {
+                let list = currencyCoupleSelect.marketsTickers;
+                let tmpData = list[key];
+                tradeCoupleDOM.push(
+                    <View
+                        style={styles.ccsBodyDataItem}
+                        key={key}
+                        onStartShouldSetResponder={() => true}
+                        onResponderRelease={evt => onTradeCoupleRelease(evt, {
+                            id: key,
+                            name: `${key.split(currencyCoupleSelect.value.pricingCurId)[0].toUpperCase()}/${currencyCoupleSelect.value.pricingCurId.toUpperCase()}`,
+                            data: tmpData
+                        })}
+                    >
+                        <Text style={key=== currencyCoupleSelect.value.couplesId ?   [styles.ccsBodyDataItemText, styles.ccsBodyDataCoupleText, mStyles.mBlueColor] :  [styles.ccsBodyDataItemText, styles.ccsBodyDataCoupleText]}>
+                            {`${key.split(currencyCoupleSelect.value.pricingCurId)[0].toUpperCase()}/${currencyCoupleSelect.value.pricingCurId.toUpperCase()}`}
+                        </Text>
+                        <Text style={[styles.ccsBodyDataItemText, styles.ccsBodyDataPriceText]}>
+                            {tmpData.ticker.last}
+                        </Text>
+                        <Text style={[styles.ccsBodyDataItemText, styles.ccsBodyDataRangeText]}>{tmpData.ticker.change ? tmpData.ticker.change : '-'}</Text>
+                    </View>
+                )
+            }
+        }
         return (
             <Modal
                 visible={data.currencyCoupleSelect.isShow}
@@ -146,20 +159,20 @@ export default class CurCoupleSelect extends Component {
                             style={styles.ccsBodyCurrency}
                             showsVerticalScrollIndicator={false}
                         >
-                            <View style={styles.ccsBodyCurrencyItem}>
+                            {/* <View style={styles.ccsBodyCurrencyItem}>
                                 <Text style={styles.ccsBodyCurrencyItemText}>自选</Text>
-                            </View>
+                            </View> */}
                             {pricingCurDOM}
                             {/* <View style={[styles.ccsBodyCurrencyItem, styles.ccsBodyCurrencyItemActive]}>
                                 <Text style={[styles.ccsBodyCurrencyItemText, mStyles.mBlueColor]}>USDT</Text>
                             </View> */}
-                            <View
+                            {/* <View
                                 style={styles.ccsBodyCurrencyItem}
                                 onStartShouldSetResponder={() => true}
                                 onResponderRelease={evt => this.handleSearchRelease(evt)}
                             >
                                 <Image style={styles.ccsBodyCurrencyItemIcon} source={searchIcon}/>
-                            </View>
+                            </View> */}
                         </ScrollView>
                         <ScrollView
                             style={styles.ccsBodyData}

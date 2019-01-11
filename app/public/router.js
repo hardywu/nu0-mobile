@@ -394,7 +394,7 @@ class Router extends Component {
     render() {
         let { StackNavigator } = this;
         if(StackNavigator) {
-            return <StackNavigator />
+            return <StackNavigator/>
         } else {
             return <View/>
         }
