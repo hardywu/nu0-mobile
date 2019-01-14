@@ -152,29 +152,29 @@ export default api = {
     },
 
     //Get user account by currency
-    getV2AccountsCurrency: params => {
-        return utils.storage.get('token').then(token => {
-            return new Promise((resolve, reject) => {
-                utils.disRequest(`${utils.domain2}/accounts/${params || ''}`, {
-                    method: 'GET',
-                    headers: {
-                        JWT: `Bearer ${token}`
-                    }
-                }).then(res => {
-                    if (utils.checkRequestSuccess(res)) {
-                        //成功回调
-                        res.json().then(data => resolve(data));
-                    } else {
-                        //失败回调
-                        reject(utils.checkErrorType(res));
-                    }
-                }).catch(err => {
-                    //失败回调
-                    reject(utils.errCodeMessage[5000]);
-                });
-            });
-        });
-    },
+    // getV2AccountsCurrency: params => {
+    //     return utils.storage.get('token').then(token => {
+    //         return new Promise((resolve, reject) => {
+    //             utils.disRequest(`${utils.domain2}/accounts/${params || ''}`, {
+    //                 method: 'GET',
+    //                 headers: {
+    //                     JWT: `Bearer ${token}`
+    //                 }
+    //             }).then(res => {
+    //                 if (utils.checkRequestSuccess(res)) {
+    //                     //成功回调
+    //                     res.json().then(data => resolve(data));
+    //                 } else {
+    //                     //失败回调
+    //                     reject(utils.checkErrorType(res));
+    //                 }
+    //             }).catch(err => {
+    //                 //失败回调
+    //                 reject(utils.errCodeMessage[5000]);
+    //             });
+    //         });
+    //     });
+    // },
 
     //Create a Sell/Buy order.
     postV2Orders: params => {
@@ -263,6 +263,56 @@ export default api = {
                         JWT: `Bearer ${token}`
                     },
                     body: utils.jsonToUrlencoded(params)
+                }).then(res => {
+                    if (utils.checkRequestSuccess(res)) {
+                        //成功回调
+                        res.json().then(data => resolve(data));
+                    } else {
+                        //失败回调
+                        reject(utils.checkErrorType(res));
+                    }
+                }).catch(err => {
+                    //失败回调
+                    reject(utils.errCodeMessage[5000]);
+                });
+            });
+        });
+    },
+
+    //Get ticker of specific market.
+    getPublicMarketsMarketTickers: params => {
+        return utils.storage.get('token').then(token => {
+            return new Promise((resolve, reject) => {
+                utils.disRequest(`${utils.domain2}/public/markets/${params}/tickers`, {
+                    method: 'GET',
+                    headers: {
+                        JWT: `Bearer ${token}`
+                    },
+                }).then(res => {
+                    if (utils.checkRequestSuccess(res)) {
+                        //成功回调
+                        res.json().then(data => resolve(data));
+                    } else {
+                        //失败回调
+                        reject(utils.checkErrorType(res));
+                    }
+                }).catch(err => {
+                    //失败回调
+                    reject(utils.errCodeMessage[5000]);
+                });
+            });
+        });
+    },
+
+    //Get user account by currency
+    getAccountBalancesCurrency: params => {
+        return utils.storage.get('token').then(token => {
+            return new Promise((resolve, reject) => {
+                utils.disRequest(`${utils.domain2}/account/balances/${params || ''}`, {
+                    method: 'GET',
+                    headers: {
+                        JWT: `Bearer ${token}`
+                    }
                 }).then(res => {
                     if (utils.checkRequestSuccess(res)) {
                         //成功回调

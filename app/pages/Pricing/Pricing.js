@@ -305,7 +305,6 @@ export default class Pricing extends Component {
                     couples: []
                 });
             });
-            currencyCoupleSelect.isShow = true;
             //设置bb currencyCoupleSelect左侧高亮的默认值
             currencyCoupleSelect.value.pricingCurId = currencyCoupleSelect.data[0].pricingCurId;
             this.setState({ bb: bb });
@@ -314,9 +313,8 @@ export default class Pricing extends Component {
             console.log(`err: ${err.msg}`);
         });
         //发起market tikers列表请求
-        api.getPublicMarketsTickers().then(res => {
-            currencyCoupleSelect.marketsTickers = res;
-            //匹配list中对应的ticker
+        this.getMarketsTickers().then(res => {
+            //设置默认高亮的选项
             let reg = new RegExp(`${currencyCoupleSelect.value.pricingCurId}$`, 'i');
             for(let key in currencyCoupleSelect.marketsTickers) {
                 if(reg.test(key)) {
@@ -327,11 +325,22 @@ export default class Pricing extends Component {
                     break;
                 }
             }
-            this.setState({ bb: bb });
-        }).catch(err => {
-            utils.toast.show(err.msg);
-            console.log(`err: ${err.msg}`);
+            return {
+                marketId: currencyCoupleSelect.value.couplesId,
+                currencyId: currencyCoupleSelect.value.pricingCurId
+            }
+        }).then(obj => {
+            this.setBbTopPriceTopChange(obj.marketId);
+            api.getAccountBalancesCurrency(obj.currencyId).then(res => {
+                console.log(res)
+                bb.buy.couldUsable.value = res.balance;
+                this.setState({ bb: bb });
+            })
         });
+        setInterval(() => {
+            this.getMarketsTickers();
+            this.setBbTopPriceTopChange(bb.currencyCoupleSelect.value.couplesId);
+        }, 15 * 1000);
     }
 
     //一级导航press事件
@@ -455,6 +464,7 @@ export default class Pricing extends Component {
         currencyCoupleSelect.value.couplesId = tradeCouple.id;
         currencyCoupleSelect.isShow = false;
         currencyCoupleDisplay.name = tradeCouple.name;
+        this.setBbTopPriceTopChange(tradeCouple.id);
         this.setState({ bb: bb });
     }
 
@@ -470,6 +480,35 @@ export default class Pricing extends Component {
         let { lever } = this.state;
         lever.currencyCoupleSelect.isShow = false;
         this.setState({ lever: lever });
+    }
+
+    //发起market tikers列表请求
+    getMarketsTickers = () => {
+        let { bb } = this.state;
+        let {
+            currencyCoupleSelect,
+            currencyCoupleDisplay
+        } = this.state.bb;
+        return api.getPublicMarketsTickers().then(res => {
+            currencyCoupleSelect.marketsTickers = res;
+            this.setState({ bb: bb });
+            return res;
+        }).catch(err => {
+            utils.toast.show(err.msg);
+            console.log(`err: ${err.msg}`);
+        });
+    }
+
+    //设置bb的topPrice和topChange
+    setBbTopPriceTopChange = (marketId) => {
+        let { bb } = this.state;
+        api.getPublicMarketsMarketTickers(marketId).then(res => {
+            bb.topPrice = res.ticker.last;
+            bb.topChange = res.ticker.change || '-';
+            this.setState({ bb: bb });
+        }).catch(err => {
+            utils.toast.show(err.msg);
+        });
     }
 
     render() {

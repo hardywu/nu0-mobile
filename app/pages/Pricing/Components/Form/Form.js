@@ -240,7 +240,6 @@ export default class Form extends Component {
         let valuation = this.getTradeType().valuation;
         //买入/卖出金额
         let price = priceInput.value * numberInput.value;
-
         let selectOptionsDOM = select.options.map((item, index) => {
             return (
                 <Text
@@ -256,12 +255,20 @@ export default class Form extends Component {
                 </Text>
             );
         });
-
+        //可买中可用文案单位
+        let couldBuyAbleUnit = `${data.currencyCoupleSelect.value.pricingCurId.toUpperCase()}`;
+        //可卖中可用文案单位
+        let couldSellAbleUnit = `${data.currencyCoupleSelect.value.couplesId.split(data.currencyCoupleSelect.value.pricingCurId).length > 0 ? data.currencyCoupleSelect.value.couplesId.split(data.currencyCoupleSelect.value.pricingCurId)[0].toUpperCase() : '-'}`;
+        //可买文案单位
+        let couldBuyUnit = `${data.currencyCoupleSelect.value.couplesId.split(data.currencyCoupleSelect.value.pricingCurId).length > 0 ? data.currencyCoupleSelect.value.couplesId.split(data.currencyCoupleSelect.value.pricingCurId)[0].toUpperCase() : '-'}`;
+        //可卖文案单位
+        let couldSellUnit = `${data.currencyCoupleSelect.value.pricingCurId.toUpperCase()}`;
+        //提交按钮的样式和文案
         let submitBtnStyle = (() => {
             let tmp = {};
             //如果是买入
             if(tradeType === 0) {
-                tmp.text = `买入${data.currencyCoupleDisplay.couplesId}`;
+                tmp.text = `买入${couldBuyUnit}`;
                 if(price > 0) {
                     tmp.color = '#fff';
                     tmp.backgroundColor = Contract.GREEN_COLOR;
@@ -271,7 +278,7 @@ export default class Form extends Component {
                 }
             } else {
                 //如果是卖出
-                tmp.text = `卖出${data.currencyCoupleDisplay.couplesId}`;
+                tmp.text = `卖出${couldBuyUnit}`;
                 if(price > 0) {
                     tmp.color = '#fff';
                     tmp.backgroundColor = Contract.RED_COLOR;
@@ -281,7 +288,7 @@ export default class Form extends Component {
                 }
             }
             return tmp;
-        })()
+        })();
         
         return (
             <View style={styles.form}>
@@ -391,7 +398,7 @@ export default class Form extends Component {
                     <View style={styles.formAbleWrap}>
                         <Text style={styles.formAbleName}>可用</Text>
                         <Text style={styles.formAbleVal}>
-                            {tradeType === 0 ? `${data.buy.couldUsable.value}${data.currencyCoupleDisplay.pricingCurId}` : `${data.sell.couldUsable.value}${data.currencyCoupleDisplay.couplesId}`}
+                            {tradeType === 0 ? `${data.buy.couldUsable.value} ${couldBuyAbleUnit}` : `${data.sell.couldUsable.value} ${couldSellAbleUnit}`}
                         </Text>
                     </View>
                 </View>
@@ -405,7 +412,7 @@ export default class Form extends Component {
                 ]}>
                     <View style={styles.formAbleWrap}>
                         <Text style={styles.formAbleName}>{tradeType === 0 ? '可买' : '可卖'}</Text>
-                        <Text style={styles.formAbleVal}>{tradeType === 0 ? `${data.buy.couldBuy.value}${data.currencyCoupleDisplay.couplesId}` : `${data.sell.couldSell.value}${data.currencyCoupleDisplay.pricingCurId}`}</Text>
+                        <Text style={styles.formAbleVal}>{tradeType === 0 ? `${data.buy.couldBuy.value} ${couldBuyUnit}` : `${data.sell.couldSell.value} ${couldSellUnit}`}</Text>
                     </View>
                 </View>
                 {/* 可买/卖结束 */}
