@@ -89,17 +89,17 @@ export default class Pricing extends Component {
                         options: [
                             {
                                 code: 0,
-                                name: '限价单'
+                                name: '限价买入'
                             }, {
                                 code: 1,
-                                name: '市价单'
+                                name: '市价快速买入'
                             }
                         ]
                     },
                     //价格输入框数据
                     priceInput: {
                         placeholder: '价格',
-                        value: 0
+                        value: 1
                     },
                     //数量输入框数据
                     numberInput: {
@@ -152,7 +152,14 @@ export default class Pricing extends Component {
                     couldSell: {
                         value: '-'
                     }
-                }
+                },
+                //右侧列表栏
+                list: {
+                    data: {
+                        asks: [],
+                        bids: []
+                    }
+                },
             },
             //杠杆的数据
             lever: {
@@ -259,29 +266,14 @@ export default class Pricing extends Component {
                     couldSell: {
                         value: '-'
                     }
-                } //卖出
-            },
-            //右侧列表栏
-            list: {
-                select: {
-                    isShow: false,
-                    value: {
-                        code: 0,
-                        name: '4位小数'
-                    },
-                    options: [
-                        {
-                            code: 0,
-                            name: '4位小数'
-                        }, {
-                            code: 1,
-                            name: '1位小数'
-                        }, {
-                            code: 2,
-                            name: '百位小数'
-                        }
-                    ]
-                } //下拉框
+                }, //卖出
+                //右侧列表栏
+                list: {
+                    data: {
+                        asks: [],
+                        bids: []
+                    }
+                },
             },
             //侧边菜单栏
             sideMenu: {
@@ -291,7 +283,9 @@ export default class Pricing extends Component {
     }
 
     componentDidMount() {
-        let { bb } = this.state;
+        let {
+            bb
+        } = this.state;
         let {
             currencyCoupleSelect,
             currencyCoupleDisplay
@@ -332,15 +326,17 @@ export default class Pricing extends Component {
         }).then(obj => {
             this.setBbTopPriceTopChange(obj.marketId);
             api.getAccountBalancesCurrency(obj.currencyId).then(res => {
-                console.log(res)
                 bb.buy.couldUsable.value = res.balance;
+                bb.buy.couldBuy.value = res.balance / bb.buy.priceInput.value;
                 this.setState({ bb: bb });
             })
+            this.setBbTradeDepth(obj.marketId);
         });
         setInterval(() => {
             this.getMarketsTickers();
             this.setBbTopPriceTopChange(bb.currencyCoupleSelect.value.couplesId);
-        }, 15 * 1000);
+            this.setBbTradeDepth(bb.currencyCoupleSelect.value.couplesId);
+        }, 30 * 1000);
     }
 
     //一级导航press事件
@@ -396,8 +392,23 @@ export default class Pricing extends Component {
     }
 
     //设置list的值
-    setList = (list, callback) => {
-        this.setState({ list: list }, () => {
+    setBbTradeDepthState = (data, callback) => {
+        let { bb } = this.state;
+        bb.list.data = data;
+        this.setState({ bb: bb }, () => {
+            if(callback) {
+                callback();
+            } else {
+                return false;
+            }
+        });
+    }
+
+     //设置list的值
+     setLeverTradeDepthState = (data, callback) => {
+        let { lever } = this.state;
+        lever.list.data = data;
+        this.setState({ lever: lever }, () => {
             if(callback) {
                 callback();
             } else {
@@ -464,6 +475,7 @@ export default class Pricing extends Component {
         currencyCoupleSelect.value.couplesId = tradeCouple.id;
         currencyCoupleSelect.isShow = false;
         currencyCoupleDisplay.name = tradeCouple.name;
+        this.setBbTradeDepth(tradeCouple.id);
         this.setBbTopPriceTopChange(tradeCouple.id);
         this.setState({ bb: bb });
     }
@@ -511,6 +523,17 @@ export default class Pricing extends Component {
         });
     }
 
+    //设置bb右侧list的值
+    setBbTradeDepth = (marketId) => {
+        let { bb } = this.state;
+        //发起交易深度请求
+        api.getPublicMarketsMarketDepth(marketId).then(res => {
+            bb.list.data.asks = res.asks;
+            bb.list.data.bids = res.bids;
+            this.setState({ bb: bb });
+        });
+    }
+
     render() {
         const { navigate } = this.props.navigation;
         const { navigation } = this.props;
@@ -518,7 +541,6 @@ export default class Pricing extends Component {
             activeMainNavIndex,
             bb,
             lever,
-            list,
             sideMenu
         } = this.state;
         return (
@@ -621,8 +643,8 @@ export default class Pricing extends Component {
                                     </View>
                                     <View style={styles.tradeBodyQuo}>
                                         <List
-                                            data={list}
-                                            setData={this.setList}
+                                            data={bb.list.data}
+                                            setData={this.setBbTradeDepthState}
                                         />
                                     </View>
                                 </View>
@@ -685,8 +707,8 @@ export default class Pricing extends Component {
                                     </View>
                                     <View style={styles.tradeBodyQuo}>
                                         <List
-                                            data={list}
-                                            setData={this.setList}
+                                            data={lever.list.data}
+                                            setData={this.setLeverTradeDepthState}
                                         />
                                     </View>
                                 </View>

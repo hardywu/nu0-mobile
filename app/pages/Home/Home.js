@@ -121,8 +121,8 @@ class Home extends Component {
                     <View style={[mStyles.mCenterContent]}>
                         {userInfo !== null ? <Card2 navigation={navigation}/> : <Card />}
                         {/* <Card2 navigation={navigation}/> */}
-                        <Notice />
-                        <Banner />
+                        {/* <Notice /> */}
+                        {/* <Banner /> */}
                         <View style={styles.quoTitleBox}>
                             <Image 
                                 style={{
@@ -135,7 +135,7 @@ class Home extends Component {
                             <Text style={styles.quoTitle}>指数</Text>
                         </View>
                         <Quotation />
-                        <Text style={[styles.bottomCont, mStyles.mGrayColor]}>OKEx获得上亿投资</Text>
+                        {/* <Text style={[styles.bottomCont, mStyles.mGrayColor]}>OKEx获得上亿投资</Text> */}
                     </View>
                 </ScrollView>
             </View>

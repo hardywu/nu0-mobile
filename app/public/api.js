@@ -328,4 +328,29 @@ export default api = {
             });
         });
     },
+
+    //获取交易深度
+    getPublicMarketsMarketDepth: params => {
+        return utils.storage.get('token').then(token => {
+            return new Promise((resolve, reject) => {
+                utils.disRequest(`${utils.domain2}/public/markets/${params}/depth`, {
+                    method: 'GET',
+                    headers: {
+                        JWT: `Bearer ${token}`
+                    }
+                }).then(res => {
+                    if (utils.checkRequestSuccess(res)) {
+                        //成功回调
+                        res.json().then(data => resolve(data));
+                    } else {
+                        //失败回调
+                        reject(utils.checkErrorType(res));
+                    }
+                }).catch(err => {
+                    //失败回调
+                    reject(utils.errCodeMessage[5000]);
+                });
+            });
+        });
+    },
 }
