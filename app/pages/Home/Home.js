@@ -33,12 +33,23 @@ class Home extends Component {
         this.state = {
             user: {
                 email: ''
-            }
+            },
+            //指数数据
+            tickerList: [
+                // {
+                //     id: '',
+                //     name: '',
+                //     ticker: ''
+                // }
+            ]
         }
     }
 
     componentDidMount() {
-        let { user } = this.state;
+        let {
+            user,
+            tickerList
+        } = this.state;
         //请求用户信息接口
         api.getV1AccountsMe().then(res => {
             //设置用昵称为邮箱
@@ -47,6 +58,17 @@ class Home extends Component {
         }).catch(err => {
             utils.toast.show(err.msg);
             console.log(err)
+        });
+        //发起获取指数数据请求
+        api.getPublicMarketsTickers().then(res => {
+            for(let key in res) {
+                tickerList.push({
+                    id: key,
+                    name: key.toUpperCase(),
+                    ticker: res[key].ticker
+                });
+            }
+            this.setState({ tickerList: tickerList });
         });
     }
 
@@ -63,7 +85,8 @@ class Home extends Component {
 
     render() {
         let {
-            user
+            user,
+            tickerList
         } = this.state;
         const {
             navigation,
@@ -134,7 +157,7 @@ class Home extends Component {
                             />
                             <Text style={styles.quoTitle}>指数</Text>
                         </View>
-                        <Quotation />
+                        <Quotation data={tickerList}/>
                         {/* <Text style={[styles.bottomCont, mStyles.mGrayColor]}>OKEx获得上亿投资</Text> */}
                     </View>
                 </ScrollView>
