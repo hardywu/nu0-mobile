@@ -4,6 +4,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import RootNav from './public/router';
 import { Provider } from 'react-redux';
 import createStore from './store/store';
+import './i18n';
 
 const store = createStore();
 

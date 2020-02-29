@@ -1,9 +1,9 @@
-/**
- *首页
- */
 import React, { Component } from 'react';
 import { Text, View, SafeAreaView, ScrollView, Image } from 'react-native';
 import { connect } from 'react-redux';
+import { withTranslation } from 'react-i18next';
+import EvilIcons from 'react-native-vector-icons/EvilIcons';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import utils from '../../public/utils';
 import api from '../../public/api';
 import Card from './Components/Card/Card';
@@ -11,8 +11,6 @@ import Card2 from './Components/Card2/Card2';
 import Notice from './Components/Notice/Notice';
 import Banner from './Components/Banner/Banner';
 import Quotation from './Components/Quotation/Quotation';
-import EmptyTopBar from '../../components/Empty_Top_Bar/Empty_Top_Bar';
-import EmptyBottomBar from '../../components/Empty_Bottom_Bar/Empty_Bottom_Bar';
 import Toast from 'react-native-root-toast';
 import * as loginAction from '../../actions/login';
 import * as userInfoAction from '../../actions/user_info';
@@ -78,50 +76,21 @@ class Home extends Component {
 
   render() {
     let { user, tickerList } = this.state;
-    const { navigation, userInfo } = this.props;
+    const { navigation, userInfo, t } = this.props;
 
     return (
       <SafeAreaView style={mStyles.mFlex1}>
-        <EmptyTopBar backgroundColor="#fff" />
         <View style={styles.userContainer}>
-          {/* 登录的状态开始 */}
-          <View
-            style={[
-              mStyles.mCenterContent,
-              styles.userContainerCenter,
-              userInfo !== null ? mStyles.mFlex : mStyles.mHide,
-            ]}>
-            <Image
-              style={styles.userImg}
-              source={require('../../static/imgs/user_default.png')}
-              onStartShouldSetResponder={() => true}
-              onResponderRelease={evt => this.handleUserIconRelease(evt)}
+          <View style={styles.loginRBox}>
+            <Text style={styles.login} onPress={this.handleLoginPress}>
+              {t('Sign In/Up')}
+            </Text>
+            <EvilIcons
+              name="user"
+              size={32}
+              onPress={this.handleUserIconRelease}
             />
-            <Text style={styles.userName}>{user.email}</Text>
           </View>
-          {/* 登录的状态结束 */}
-          {/* 未登录的状态开始 */}
-          <View
-            style={[
-              mStyles.mCenterContent,
-              styles.loginContainerCenter,
-              userInfo === null ? mStyles.mFlex : mStyles.mHide,
-            ]}>
-            <Image
-              style={styles.logoImg}
-              source={require('../../static/imgs/logo.png')}
-            />
-            <View style={styles.loginRBox}>
-              <Text style={styles.login} onPress={this.handleLoginPress}>
-                登录/注册
-              </Text>
-              <Image
-                style={styles.settingImg}
-                source={require('../../static/imgs/setting.png')}
-              />
-            </View>
-          </View>
-          {/* 未登录的状态结束 */}
         </View>
         <ScrollView
           style={styles.mainContainer}
@@ -151,4 +120,4 @@ class Home extends Component {
   }
 }
 
-export default connect()(Home);
+export default connect()(withTranslation()(Home));
